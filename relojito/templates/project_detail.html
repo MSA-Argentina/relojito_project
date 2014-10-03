@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Project detail{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>{{project.name}}</h4>
+          </div>
+        <div class="panel-body">
+          <p>{{project.description}}</p>
+          <hr>
+          <p>{% trans 'Client' %}: {{project.client}}</p>
+          <p>{% trans 'Owner' %}: {{project.owner}}</p>
+          <p>{% trans 'External url' %}: {{project.external_url|urlize}}</p>
+          <p>{% trans 'Color' %}: <span class="label" style="background-color: {{project.color}};color: #444">{{project.color}}</span></p>
+        </div>
+      </div>
+      <h4>{% trans 'Tasks' %}</h4>
+            <ul class="list-group">
+                {% for task in tasks %}
+                <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} - {{task.description}}</a></li>
+                {% endfor %}
+            </ul>
+                    <a class="btn btn-default"
+                       href="{% url 'edit_project' pk=project.id %}">
+                        {% trans 'Edit project' %}
+                    </a>
+    </div>
+</div>
+{% endblock %}

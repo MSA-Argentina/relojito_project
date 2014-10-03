@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Relojito{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <h3>{% trans 'Projects (Owner)' %}</h3>
+            <ul class="list-group">
+              {% if owned_projects %}
+                {% for p in owned_projects %}
+                <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}} - {{p.description}}</a></li>
+                {% endfor %}
+                {% else %}
+                <h4>{% trans 'No projects' %}</h4>
+                {% endif %}
+                <hr/>
+            <h3>{% trans 'Projects (Collaborator)' %}</h3>
+            <ul class="list-group">
+              {% if collab_projects %}
+                {% for p in collab_projects %}
+                <li class="list-group-item"><a href="{% url 'project_detail' pk=p.project.id %}">{{p.project.name}} - {{p.project.description}}</a></li>
+                {% endfor %}
+                {% else %}
+                <h4>{% trans 'No projects' %}</h4>
+                {% endif %}
+            </ul>
+            {% if user.is_superuser %}
+                    <a class="btn btn-default"
+                       href="{% url 'create_project' %}">
+                        {% trans 'Add project' %}
+                    </a>
+                    {% endif %}
+        </div>
+
+        <div class="col-md-4">
+            <h3>{% trans 'Latest Tasks' %}</h3>
+            <ul class="list-group">
+                {% for task in tasks %}
+                <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} </a><span class="label label-default">{{task.total_hours}} hours</span>
+          <span class="label" style="background-color: {{task.project.color}};color: #444">{{task.project.name}}</span></li>
+                {% endfor %}
+            </ul>
+                    <a class="btn btn-default"
+                       href="{% url 'create_task' %}">
+                        {% trans 'Add task' %}
+                    </a>
+        </div>
+
+        <div class="col-md-4">
+            <h3>{% trans 'Calendar' %}</h3>
+            <div id='calendar'></div>
+        </div>
+    </div>
+
+    {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static "js/lib/moment.min.js" %}"></script>
+    <link href="{% static "css/spectrum.css" %}" rel="stylesheet">
+    <script src="{% static "js/lib/bootstrap-datetimepicker.min.js" %}"></script>
+    <link href="{% static "css/bootstrap-datetimepicker.min.css" %}" rel="stylesheet">
+    <script src="{% static "js/lib/spectrum.min.js" %}"></script>
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        {% crispy form %}
+
+    </div>
+
+{% endblock %}

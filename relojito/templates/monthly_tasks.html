@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul>
+    {% for task in object_list %}
+        <li>{{ task.date }}: {{ task.name }}</li>
+    {% endfor %}
+</ul>
+
+<p>
+    {% if previous_month %}
+        Previous Month: {{ previous_month|date:"F Y" }}
+    {% endif %}
+    {% if next_month %}
+        Next Month: {{ next_month|date:"F Y" }}
+    {% endif %}
+</p>
+{% endblock %}
