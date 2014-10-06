@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db.models import Q
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Fieldset, Layout, Reset, Submit
@@ -19,7 +20,7 @@ class CreateProjectForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 _('Create a project'),
-                Field('name', required=True),
+                Field('name', required=True, autofocus=True),
                 Field('description', required=True),
                 Field('client'),
                 Field('color', css_class='color_field'),
@@ -68,7 +69,12 @@ class EditProjectForm(ModelForm):
 
 class CreateTaskForm(ModelForm):
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
         super(CreateTaskForm, self).__init__(*args, **kwargs)
+        user = self.request.user
+        # The user's projects only
+        self.fields['project'].queryset = Project.objects.filter(
+            Q(projectcollaborator__user=user) | Q(owner=user))
 
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
@@ -77,7 +83,7 @@ class CreateTaskForm(ModelForm):
         self.helper.layout = Layout(
             Fieldset(
                 _('Create a task'),
-                Field('name', required=True),
+                Field('name', required=True, autofocus=True),
                 Field('description'),
                 Field('project', required=True),
                 Field('start', css_class='dtpicker datetime',

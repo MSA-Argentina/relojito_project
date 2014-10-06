@@ -39,8 +39,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(IndexView, self).get_context_data(**kwargs)
         user = self.request.user
-        owned_projects = list(Project.objects.filter(owner=user))
-        collaborator_in = user.projectcollaborator_set.all()
+        owned_projects = Project.objects.filter(owner=user)
+        collaborator_in = Project.objects.filter(projectcollaborator__user=user)
 
         # Returns latest 5 tasks
         ctx['tasks'] = Task.objects.filter(owner=user)[:5]
@@ -197,7 +197,10 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super(ProjectDetail, self).get_context_data(**kwargs)
         user = self.request.user
-        ctx['tasks'] = Task.objects.filter(owner=user, project=self.object)
+        if user.is_superuser:
+            ctx['tasks'] = Task.objects.filter(project=self.object)
+        else:
+            ctx['tasks'] = Task.objects.filter(owner=user, project=self.object)
         return ctx
 
 
@@ -207,6 +210,11 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
     template_name = 'generic_form.html'
     success_url = reverse_lazy('root')
     static_context = {'title': _('Create a task')}
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(CreateTask, self).get_form_kwargs(**kwargs)
+        kwargs['request'] = self.request
+        return kwargs
 
     def form_valid(self, form):
         task = Task()

@@ -1,9 +1,12 @@
-from django.core.validators import RegexValidator, MinValueValidator
+from __future__ import unicode_literals
+
+from django.utils.encoding import python_2_unicode_compatible
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 
+@python_2_unicode_compatible
 class Client(models.Model):
     name = models.CharField(max_length=200)
     contact_name = models.CharField(max_length=200)
@@ -18,6 +21,7 @@ class Client(models.Model):
         return "{}".format(self.name)
 
 
+@python_2_unicode_compatible
 class Project(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField(null=True, blank=True)
@@ -37,6 +41,7 @@ class Project(models.Model):
         return "{}".format(self.name)
 
 
+@python_2_unicode_compatible
 class ProjectCollaborator(models.Model):
 
     """
@@ -53,6 +58,7 @@ class ProjectCollaborator(models.Model):
         return "{} - {}".format(self.project.name, self.user.username)
 
 
+@python_2_unicode_compatible
 class TaskType(models.Model):
     name = models.CharField(max_length=200)
 
@@ -64,6 +70,7 @@ class TaskType(models.Model):
         return "{}".format(self.name)
 
 
+@python_2_unicode_compatible
 class ResolutionType(models.Model):
     name = models.CharField(max_length=200)
     is_finished = models.BooleanField(default=False)
@@ -76,13 +83,14 @@ class ResolutionType(models.Model):
         return "{}".format(self.name)
 
 
+@python_2_unicode_compatible
 class Task(models.Model):
     name = models.CharField(max_length=200)
     project = models.ForeignKey(Project)
     task_type = models.ForeignKey(TaskType)
     description = models.TextField(max_length=200, null=True, blank=True)
-    start = models.DateTimeField(null=True, blank=True)
-    end = models.DateTimeField(null=True, blank=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
     resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True)
     external_url = models.URLField(null=True, blank=True)
 

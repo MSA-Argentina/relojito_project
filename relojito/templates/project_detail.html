@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load staticfiles %}
+
+{% block extrahead %}
+        <link rel="stylesheet" href="{% static "css/jquery.dataTables.min.css" %}">
+        <script src="{% static "js/lib/jquery.dataTables.min.js" %}"></script>
+{% endblock %}
 
 {% block title %}Project detail{% endblock %}
 
@@ -19,12 +25,43 @@
           <p>{% trans 'Color' %}: <span class="label" style="background-color: {{project.color}};color: #444">{{project.color}}</span></p>
         </div>
       </div>
+
+      {% if user.is_superuser %}
       <h4>{% trans 'Tasks' %}</h4>
+      {% else %}
+      <h4>{% trans 'My Tasks' %}</h4>
+      {% endif %}
+
+      {% if user.is_superuser %}
+      <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>{% trans 'Task' %}</th>
+          <th>{% trans 'Owner' %}</th>
+          <th>{% trans 'Type' %}</th>
+          <th>{% trans 'Resolved as' %}</th>
+          <th>{% trans 'Total hours' %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in tasks %}
+        <tr>
+          <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}} - {{t.description}}</a></td>
+          <td>{{ t.owner }}</td>
+          <td>{{ t.task_type }}</td>
+          <td>{{ t.resolved_as }}</td>
+          <td>{{ t.total_hours }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
             <ul class="list-group">
                 {% for task in tasks %}
                 <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} - {{task.description}}</a></li>
                 {% endfor %}
             </ul>
+            {% endif %}
                     <a class="btn btn-default"
                        href="{% url 'edit_project' pk=project.id %}">
                         {% trans 'Edit project' %}
