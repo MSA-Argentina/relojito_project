@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
-from django.views.generic import (CreateView, DetailView, ListView,
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 from django.views.generic.dates import MonthArchiveView
 
@@ -93,6 +93,12 @@ class TaskAjaxDetail(JSONResponseMixin, DetailView):
         }
 
         return self.render_json_response(context_dict)
+
+
+class TaskDelete(LoginRequiredMixin, DeleteView):
+    model = Task
+    success_url = reverse_lazy('root')
+    template_name = 'task_confirm_delete.html'
 
 
 class TaskMonthlyView(MonthArchiveView):

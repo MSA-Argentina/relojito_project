@@ -1,6 +1,6 @@
 from app.views import (CreateProject, CreateTask, EditProject, EditTask,
                        IndexView, login_user, logout_user, ProjectDetail,
-                       TaskAjaxDetail, TaskAjaxList, TaskDetail,
+                       TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
                        TaskMonthlyView, total_tasks)
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
@@ -31,6 +31,10 @@ urlpatterns = patterns('',
                        url(r'^task/(?P<pk>\d+)/$',
                            TaskDetail.as_view(),
                            name="task_detail"),
+
+                       url(r'^task/delete/(?P<pk>\d+)/$',
+                           TaskDelete.as_view(),
+                           name="task_delete"),
 
                        url(r'^(?P<year>\d{4})/(?P<month>\d+)/$',
                            TaskMonthlyView.as_view(month_format='%m'),

@@ -25,5 +25,8 @@
                        href="{% url 'edit_task' pk=task.id %}">
                         {% trans 'Edit task' %}
                     </a>
+                        <a class="btn btn-danger"
+                           href="{% url 'task_delete' pk=task.id %}">
+                            {% trans 'Delete task' %}</a>
     </div>
 {% endblock %}
