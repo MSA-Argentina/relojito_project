@@ -11,6 +11,7 @@ $(document).ready(function() {
             '/total_tasks'
         ]
     });
+  $('.table').dataTable();
 });
 
 $(function() {
