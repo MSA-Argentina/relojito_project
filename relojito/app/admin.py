@@ -25,8 +25,7 @@ class ResolutionTypeAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'project', 'date', 'owner', 'task_type',
-                    'total_hours')
+    list_display = ('name', 'project', 'start', 'end', 'owner', 'task_type')
     list_filter = ('project', 'task_type')
 
 admin.site.register(Client, ClientAdmin)

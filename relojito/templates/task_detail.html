@@ -8,16 +8,21 @@
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4>{{task.name}}</h4>
+          <h4>{% trans 'Task: ' %}{{task.name}}</h4>
           </div>
         <div class="panel-body">
           <p>{{task.description}}</p>
           <hr>
           <p>{% trans 'Project' %}: <a href="{% url 'project_detail' pk=task.project.id %}">{{task.project.name}}</a></p>
-          <p>{% trans 'Date' %}: {{task.date}}</p>
+          <p>{% trans 'Start' %}: {{task.start}}</p>
+          <p>{% trans 'End' %}: {{task.end}}</p>
           <p>{% trans 'Total hours' %}: {{task.total_hours}}</p>
+          {% if task.resolved_as %}
           <p>{% trans 'Resolved as' %}: {{task.resolved_as}}</p>
+          {% endif %}
+          {% if task.external_url %}
           <p>{% trans 'External url' %}: {{task.external_url|urlize}}</p>
+          {% endif %}
           <p>{% trans 'Owner' %}: {{task.owner}}</p>
         </div>
       </div>

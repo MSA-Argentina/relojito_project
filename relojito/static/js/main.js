@@ -1,10 +1,10 @@
 $(document).ready(function() {
     $('#calendar').fullCalendar({
-        defaultView: 'basicWeek',
+        defaultView: 'agendaDay',
         header: {
             left: 'prev, next today',
             center: 'title',
-            right: 'month, basicWeek, basicDay'
+            right: 'month, basicWeek, agendaDay'
         },
         eventSources: [
             '/tasks/json/',
@@ -17,6 +17,10 @@ $(function() {
     // time fields
     $('.dtpicker.date').datetimepicker({
         pickTime: false
+    });
+    $('.dtpicker.datetime').datetimepicker({
+      minuteStepping: 30,
+      sideBySide: true
     });
 
     $('.color_field').spectrum({

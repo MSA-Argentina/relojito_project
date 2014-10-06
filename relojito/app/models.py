@@ -1,5 +1,3 @@
-import datetime
-
 from django.core.validators import RegexValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.db import models
@@ -83,12 +81,8 @@ class Task(models.Model):
     project = models.ForeignKey(Project)
     task_type = models.ForeignKey(TaskType)
     description = models.TextField(max_length=200, null=True, blank=True)
-    date = models.DateField(default=datetime.date.today())
-    total_hours = models.FloatField(validators=[
-        MinValueValidator(0.5),
-        RegexValidator(r'^(\d(\.[05])?)$',
-                       'Only .5 numbers'),
-    ])
+    start = models.DateTimeField(null=True, blank=True)
+    end = models.DateTimeField(null=True, blank=True)
     resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True)
     external_url = models.URLField(null=True, blank=True)
 
@@ -106,13 +100,20 @@ class Task(models.Model):
     def get_absolute_url(self):
         return "/task/%i/" % self.pk
 
+    @property
+    def total_hours(self):
+        diff = self.end - self.start
+
+        return float(diff.seconds / 3600.0)
+
     def to_dict(self):
         d = {
             "id": self.pk,
             "title": self.name,
-            "start": self.date,
+            "start": self.start,
+            "end": self.end,
             "url": self.get_absolute_url(),
-            "allDay": True,
+            "allDay": False,
             "color": self.project.color,
             "textColor": "black"
         }

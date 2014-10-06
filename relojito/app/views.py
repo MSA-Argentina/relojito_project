@@ -3,7 +3,6 @@ from braces.views import (JSONResponseMixin, LoginRequiredMixin,
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -20,15 +19,16 @@ from .models import Project, Task
 @login_required
 def total_tasks(request):
     user = request.user
-    taskset = set([t.date for t in Task.objects.filter(owner=user)])
+    taskset = set([t.start.date() for t in Task.objects.filter(owner=user)])
     total = []
     for t in taskset:
         d = {}
         d['allDay'] = True
         d['start'] = t
-        tx = Task.objects.filter(date=t, owner=user).aggregate(
-            Sum('total_hours'))
-        d['title'] = str(tx['total_hours__sum']) + ' hs'
+        totals = sum([t.total_hours for t in Task.objects.filter(
+            start__contains=t,
+            owner=user)])
+        d['title'] = str(totals) + ' hs'
         total.append(d)
     return JsonResponse(total, safe=False)
 
@@ -88,7 +88,8 @@ class TaskAjaxDetail(JSONResponseMixin, DetailView):
         context_dict = {
             u"id": self.object.id,
             u"title": self.object.name,
-            u"start": self.object.date,
+            u"start": self.object.start,
+            u"end": self.object.end,
             u"allDay": False
         }
 
@@ -163,6 +164,7 @@ class CreateProject(LoginRequiredMixin,
         project.description = form.cleaned_data['description']
         project.client = form.cleaned_data['client']
         project.external_url = form.cleaned_data['external_url']
+        project.color = form.cleaned_data['color']
         project.owner = self.request.user
 
         project.save()
@@ -210,10 +212,10 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
         task = Task()
         task.name = form.cleaned_data['name']
         task.description = form.cleaned_data['description']
-        task.date = form.cleaned_data['date']
         task.project = form.cleaned_data['project']
         task.task_type = form.cleaned_data['task_type']
-        task.total_hours = form.cleaned_data['total_hours']
+        task.start = form.cleaned_data['start']
+        task.end = form.cleaned_data['end']
         task.resolved_as = form.cleaned_data['resolved_as']
         task.external_url = form.cleaned_data['external_url']
         task.owner = self.request.user
