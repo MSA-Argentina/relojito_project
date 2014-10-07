@@ -20,11 +20,11 @@ COMPILEMESSAGES := compilemessages --settings=$(LOCAL_SETTINGS)
 
 run:
 		@echo 'Corriendo server...'
-		@python manage.py $(LOCALSERVER) 0.0.0.0:8000
+		@python manage.py $(LOCALSERVER) 0.0.0.0:8090
 
 run_plus:
 		@echo 'Corriendo server_plus...'
-		@python manage.py $(LOCALSERVER_PLUS) 0.0.0.0:8000
+		@python manage.py $(LOCALSERVER_PLUS) 0.0.0.0:8090
 
 syncdb:
 		@echo 'Creando tablas y migraciones en la DB...'
