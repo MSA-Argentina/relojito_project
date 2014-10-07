@@ -21,7 +21,7 @@ class CreateProjectForm(ModelForm):
             Fieldset(
                 _('Create a project'),
                 Field('name', required=True, autofocus=True),
-                Field('description', required=True),
+                Field('description'),
                 Field('client'),
                 Field('color', css_class='color_field'),
                 Field('external_url')),
