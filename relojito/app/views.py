@@ -165,7 +165,6 @@ class CreateProject(LoginRequiredMixin,
         project.client = form.cleaned_data['client']
         project.external_url = form.cleaned_data['external_url']
         project.color = form.cleaned_data['color']
-        project.is_active = form.cleaned_data['is_active']
         project.owner = self.request.user
 
         project.save()
