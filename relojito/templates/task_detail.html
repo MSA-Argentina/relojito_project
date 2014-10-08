@@ -14,8 +14,7 @@
           <p>{{task.description}}</p>
           <hr>
           <p>{% trans 'Project' %}: <a href="{% url 'project_detail' pk=task.project.id %}">{{task.project.name}}</a></p>
-          <p>{% trans 'Start' %}: {{task.start}}</p>
-          <p>{% trans 'End' %}: {{task.end}}</p>
+          <p>{% trans 'Date' %}: {{task.date}}</p>
           <p>{% trans 'Total hours' %}: {{task.total_hours}}</p>
           {% if task.resolved_as %}
           <p>{% trans 'Resolved as' %}: {{task.resolved_as}}</p>

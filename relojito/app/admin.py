@@ -10,8 +10,8 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'client')
-    list_filter = ('client',)
+    list_display = ('name', 'client', 'color', 'is_active')
+    list_filter = ('client', 'is_active')
 
 
 class ProjectCollaboratorAdmin(admin.ModelAdmin):
@@ -25,7 +25,8 @@ class ResolutionTypeAdmin(admin.ModelAdmin):
 
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('name', 'project', 'start', 'end', 'owner', 'task_type')
+    list_display = ('name', 'project', 'date', 'owner', 'task_type',
+                    'total_hours')
     list_filter = ('project', 'task_type')
 
 admin.site.register(Client, ClientAdmin)

@@ -3,6 +3,7 @@ from braces.views import (JSONResponseMixin, LoginRequiredMixin,
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -19,16 +20,15 @@ from .models import Project, Task
 @login_required
 def total_tasks(request):
     user = request.user
-    taskset = set([t.start.date() for t in Task.objects.filter(owner=user)])
+    taskset = set([t.date for t in Task.objects.filter(owner=user)])
     total = []
     for t in taskset:
         d = {}
         d['allDay'] = True
         d['start'] = t
-        totals = sum([t.total_hours for t in Task.objects.filter(
-            start__contains=t,
-            owner=user)])
-        d['title'] = str(totals) + ' hs'
+        tx = Task.objects.filter(date=t, owner=user).aggregate(
+            Sum('total_hours'))
+        d['title'] = str(tx['total_hours__sum']) + ' hs'
         total.append(d)
     return JsonResponse(total, safe=False)
 
@@ -39,8 +39,9 @@ class IndexView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(IndexView, self).get_context_data(**kwargs)
         user = self.request.user
-        owned_projects = Project.objects.filter(owner=user)
-        collaborator_in = Project.objects.filter(projectcollaborator__user=user)
+        owned_projects = Project.objects.filter(owner=user, is_active=True)
+        collaborator_in = Project.objects.filter(projectcollaborator__user=user,
+                                                 is_active=True)
 
         # Returns latest 5 tasks
         ctx['tasks'] = Task.objects.filter(owner=user)[:5]
@@ -88,8 +89,7 @@ class TaskAjaxDetail(JSONResponseMixin, DetailView):
         context_dict = {
             u"id": self.object.id,
             u"title": self.object.name,
-            u"start": self.object.start,
-            u"end": self.object.end,
+            u"start": self.object.date,
             u"allDay": False
         }
 
@@ -165,6 +165,7 @@ class CreateProject(LoginRequiredMixin,
         project.client = form.cleaned_data['client']
         project.external_url = form.cleaned_data['external_url']
         project.color = form.cleaned_data['color']
+        project.is_active = form.cleaned_data['is_active']
         project.owner = self.request.user
 
         project.save()
@@ -220,10 +221,10 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
         task = Task()
         task.name = form.cleaned_data['name']
         task.description = form.cleaned_data['description']
+        task.date = form.cleaned_data['date']
         task.project = form.cleaned_data['project']
         task.task_type = form.cleaned_data['task_type']
-        task.start = form.cleaned_data['start']
-        task.end = form.cleaned_data['end']
+        task.total_hours = form.cleaned_data['total_hours']
         task.resolved_as = form.cleaned_data['resolved_as']
         task.external_url = form.cleaned_data['external_url']
         task.owner = self.request.user

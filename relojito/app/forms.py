@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Q
-from crispy_forms.bootstrap import FormActions
+from crispy_forms.bootstrap import FormActions, PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Fieldset, Layout, Reset, Submit
 from django.forms import ModelForm
@@ -57,6 +57,8 @@ class EditProjectForm(ModelForm):
                 'client',
                 Field('color', css_class='color_field'),
                 'external_url',
+                # Field('is_active', css_class='col-md-offset-4'),
+                PrependedText('is_active', ''),
                 'owner'
             ),
             FormActions(
@@ -74,7 +76,8 @@ class CreateTaskForm(ModelForm):
         user = self.request.user
         # The user's projects only
         self.fields['project'].queryset = Project.objects.filter(
-            Q(projectcollaborator__user=user) | Q(owner=user))
+            Q(projectcollaborator__user=user) | Q(owner=user),
+            is_active=True)
 
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
@@ -86,10 +89,9 @@ class CreateTaskForm(ModelForm):
                 Field('name', required=True, autofocus=True),
                 Field('description'),
                 Field('project', required=True),
-                Field('start', css_class='dtpicker datetime',
-                      data_date_format="YYYY-MM-DD HH:mm"),
-                Field('end', css_class='dtpicker datetime',
-                      data_date_format="YYYY-MM-DD HH:mm"),
+                Field('date', css_class='dtpicker date',
+                      data_date_format="YYYY-MM-DD"),
+                Field('total_hours'),
                 Field('task_type'),
                 Field('resolved_as'),
                 Field('external_url')),
@@ -105,8 +107,8 @@ class CreateTaskForm(ModelForm):
                   'description',
                   'project',
                   'task_type',
-                  'start',
-                  'end',
+                  'date',
+                  'total_hours',
                   'resolved_as',
                   'external_url'
         ]
@@ -126,12 +128,11 @@ class EditTaskForm(ModelForm):
                 _('Edit Task'),
                 'name',
                 'project',
-                Field('start', css_class='dtpicker datetime',
-                      data_date_format="YYYY-MM-DD HH:mm"),
-                Field('end', css_class='dtpicker datetime',
-                      data_date_format="YYYY-MM-DD HH:mm"),
                 'task_type',
                 'description',
+                Field('date', css_class='dtpicker date',
+                      data_date_format="YYYY-MM-DD"),
+                'total_hours',
                 'resolved_as',
                 'external_url',
                 'owner'

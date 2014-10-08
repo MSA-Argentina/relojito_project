@@ -1,10 +1,10 @@
 $(document).ready(function() {
     $('#calendar').fullCalendar({
-        defaultView: 'agendaDay',
+        defaultView: 'basicWeek',
         header: {
             left: 'prev, next today',
             center: 'title',
-            right: 'month, basicWeek, agendaDay'
+            right: 'month, basicWeek, basicDay'
         },
         eventSources: [
             '/tasks/json/',

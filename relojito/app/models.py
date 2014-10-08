@@ -1,8 +1,11 @@
 from __future__ import unicode_literals
 
-from django.utils.encoding import python_2_unicode_compatible
+import datetime
+
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -29,6 +32,7 @@ class Project(models.Model):
     color = models.CharField(max_length=10, null=True, blank=True)
     external_url = models.URLField(null=True, blank=True)
 
+    is_active = models.BooleanField(default=True)
     owner = models.ForeignKey(User, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
@@ -89,8 +93,12 @@ class Task(models.Model):
     project = models.ForeignKey(Project)
     task_type = models.ForeignKey(TaskType)
     description = models.TextField(max_length=200, null=True, blank=True)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    date = models.DateField(default=datetime.date.today())
+    total_hours = models.FloatField(validators=[
+        MinValueValidator(0.5),
+        RegexValidator(r'^(\d(\.[05])?)$',
+                       'Only .5 numbers'),
+    ])
     resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True)
     external_url = models.URLField(null=True, blank=True)
 
@@ -108,20 +116,13 @@ class Task(models.Model):
     def get_absolute_url(self):
         return "/task/%i/" % self.pk
 
-    @property
-    def total_hours(self):
-        diff = self.end - self.start
-
-        return float(diff.seconds / 3600.0)
-
     def to_dict(self):
         d = {
             "id": self.pk,
             "title": self.name,
-            "start": self.start,
-            "end": self.end,
+            "start": self.date,
             "url": self.get_absolute_url(),
-            "allDay": False,
+            "allDay": True,
             "color": self.project.color,
             "textColor": "black"
         }
