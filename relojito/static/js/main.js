@@ -11,6 +11,18 @@ $(document).ready(function() {
             '/total_tasks'
         ]
     });
+    $('#calendar-new-task').fullCalendar({
+        defaultView: 'basicDay',
+        header: {
+            left: 'prev, next today',
+            center: 'title',
+            right: 'month, basicWeek, basicDay'
+        },
+        eventSources: [
+            '/tasks/json/',
+            '/total_tasks'
+        ]
+    });
   $('.table').dataTable();
 });
 
