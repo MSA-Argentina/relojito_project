@@ -87,7 +87,7 @@ class CreateTaskForm(ModelForm):
             Fieldset(
                 _('Create a task'),
                 Field('name', required=True, autofocus=True),
-                Field('description'),
+                Field('description', rows=2),
                 Field('project', required=True),
                 Field('date', css_class='dtpicker date',
                       data_date_format="YYYY-MM-DD"),
