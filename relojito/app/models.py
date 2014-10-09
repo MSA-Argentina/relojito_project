@@ -116,10 +116,14 @@ class Task(models.Model):
     def get_absolute_url(self):
         return "/task/%i/" % self.pk
 
+    @property
+    def task_title(self):
+        return self.name + ' (' + str(self.total_hours) + ' hs)'
+
     def to_dict(self):
         d = {
             "id": self.pk,
-            "title": self.name,
+            "title": self.task_title,
             "start": self.date,
             "url": self.get_absolute_url(),
             "allDay": True,

@@ -88,7 +88,7 @@ class TaskAjaxDetail(JSONResponseMixin, DetailView):
         self.object = self.get_object()
         context_dict = {
             u"id": self.object.id,
-            u"title": self.object.name,
+            u"title": self.object.name + str(self.total_hours),
             u"start": self.object.date,
             u"allDay": False
         }
