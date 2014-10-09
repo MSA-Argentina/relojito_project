@@ -5,6 +5,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
+from django.db.models import Sum
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
@@ -43,6 +44,16 @@ class Project(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
+
+    @property
+    def total_hours(self):
+        hours = Task.objects.filter(project=self).aggregate(Sum('total_hours'))
+        return hours['total_hours__sum']
+
+    @property
+    def total_tasks(self):
+        total = Task.objects.filter(project=self).count()
+        return total
 
 
 @python_2_unicode_compatible
