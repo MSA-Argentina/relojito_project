@@ -77,7 +77,7 @@ class CreateTaskForm(ModelForm):
         # The user's projects only
         self.fields['project'].queryset = Project.objects.filter(
             Q(projectcollaborator__user=user) | Q(owner=user),
-            is_active=True)
+            is_active=True).distinct()
 
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
