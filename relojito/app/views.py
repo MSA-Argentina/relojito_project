@@ -44,7 +44,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
                                                  is_active=True)
 
         # Returns latest 5 tasks
-        ctx['tasks'] = Task.objects.filter(owner=user)[:5]
+        ctx['tasks'] = Task.objects.filter(
+            owner=user).order_by('-created_at')[:5]
         # only projects where user is collaborator or owner
         ctx['owned_projects'] = owned_projects
         ctx['collab_projects'] = collaborator_in
