@@ -16,7 +16,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 {% if user.is_superuser %}
-                                <a href="/admin" class="navbar-link">Admin</a>
+                                <a href="/admin">Admin</a>
                                 {% endif %}
                             </li>
                             <li>
@@ -24,7 +24,7 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="{% url 'logout' %}" class="navbar-link">Logout</a>
+                                <a href="{% url 'logout' %}">Logout</a>
                             </li>
                         </ul>
 
