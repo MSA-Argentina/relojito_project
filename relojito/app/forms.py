@@ -91,7 +91,7 @@ class CreateTaskForm(ModelForm):
                 Field('project', required=True),
                 Field('date', css_class='dtpicker date',
                       data_date_format="YYYY-MM-DD"),
-                Field('total_hours'),
+                Field('total_hours', min='0', step='0.5'),
                 Field('task_type'),
                 Field('resolved_as'),
                 Field('external_url')),
@@ -132,7 +132,7 @@ class EditTaskForm(ModelForm):
                 'description',
                 Field('date', css_class='dtpicker date',
                       data_date_format="YYYY-MM-DD"),
-                'total_hours',
+                Field('total_hours', min='0', step='0.5'),
                 'resolved_as',
                 'external_url',
                 'owner'
