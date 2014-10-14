@@ -208,7 +208,7 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
 class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
     form_class = CreateTaskForm
     model = Task
-    template_name = 'new_task_form.html'
+    template_name = 'task_form.html'
     success_url = reverse_lazy('root')
     static_context = {'title': _('Create a task')}
 
@@ -236,7 +236,7 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
 
 
 class EditTask(LoginRequiredMixin, StaticContextMixin, UpdateView):
-    template_name = 'generic_form.html'
+    template_name = 'task_form.html'
     success_url = reverse_lazy('root')
     form_class = EditTaskForm
     static_context = {'title': _('Edit task')}
