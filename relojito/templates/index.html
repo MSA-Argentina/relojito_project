@@ -32,6 +32,7 @@
                    <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></li>
                 {% endif %}
                 {% endfor %}
+                {% else %}
                 <h4>{% trans 'No projects' %}</h4>
                 {% endif %}
             </ul>
