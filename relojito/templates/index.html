@@ -12,7 +12,11 @@
             <ul class="list-group">
               {% if owned_projects %}
                 {% for p in owned_projects %}
-                <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}} - {{p.description}}</a></li>
+                  {% if p.description %}
+                   <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}} - {{p.description}}</a></li>
+                {% else %}
+                   <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></li>
+                {% endif %}
                 {% endfor %}
                 {% else %}
                 <h4>{% trans 'No projects' %}</h4>
@@ -22,9 +26,12 @@
             <ul class="list-group">
               {% if collab_projects %}
                 {% for p in collab_projects %}
-                <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}} - {{p.description}}</a></li>
-                {% endfor %}
+                  {% if p.description %}
+                   <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}} - {{p.description}}</a></li>
                 {% else %}
+                   <li class="list-group-item"><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></li>
+                {% endif %}
+                {% endfor %}
                 <h4>{% trans 'No projects' %}</h4>
                 {% endif %}
             </ul>
