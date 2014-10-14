@@ -104,7 +104,7 @@ class Task(models.Model):
     project = models.ForeignKey(Project)
     task_type = models.ForeignKey(TaskType)
     description = models.TextField(max_length=200, null=True, blank=True)
-    date = models.DateField(default=datetime.date.today())
+    date = models.DateField(default=datetime.date.today)
     total_hours = models.FloatField(validators=[
         MinValueValidator(0.5),
         RegexValidator(r'^(\d(\.[05])?)$',
