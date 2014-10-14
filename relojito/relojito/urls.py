@@ -13,6 +13,12 @@ urlpatterns = patterns('',
                        url(r'^logout/$',
                            logout_user, name='logout'),
 
+                       url(r'^change_password/$',
+                           'django.contrib.auth.views.password_change',
+                           {'post_change_redirect': '/',
+                            'template_name': 'password_change.html'},
+                           name="password_change"),
+
                        url(r'^project/(?P<pk>\d+)/$',
                            ProjectDetail.as_view(),
                            name="project_detail"),

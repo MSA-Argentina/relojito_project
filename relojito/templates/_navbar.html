@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="/">Relojito</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <p class="navbar-text navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Signed in as' %} {{user}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                {% if user.is_superuser %}
+                                <a href="/admin" class="navbar-link">Admin</a>
+                                {% endif %}
+                            </li>
+                            <li>
+                                <a href="{% url 'password_change' %}">{% trans 'Change password' %}</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{% url 'logout' %}" class="navbar-link">Logout</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                </p>
+
+                </li>
+        </div>
+        <!--/.navbar-collapse -->
+    </div>
+</div>
