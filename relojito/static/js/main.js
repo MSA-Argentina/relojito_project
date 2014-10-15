@@ -1,4 +1,8 @@
 $(document).ready(function() {
+    Mousetrap.bind('a',
+        function() {
+            window.location.href = '/task/new/';
+        }, 'keyup');
     $('#calendar').fullCalendar({
         defaultView: 'basicWeek',
         header: {
@@ -23,7 +27,7 @@ $(document).ready(function() {
             '/total_tasks'
         ]
     });
-  $('.table').dataTable();
+    $('.table').dataTable();
 });
 
 $(function() {
@@ -32,8 +36,8 @@ $(function() {
         pickTime: false
     });
     $('.dtpicker.datetime').datetimepicker({
-      minuteStepping: 30,
-      sideBySide: true
+        minuteStepping: 30,
+        sideBySide: true
     });
 
     $('.color_field').spectrum({
