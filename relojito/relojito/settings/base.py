@@ -56,12 +56,16 @@ DATABASES = {
         'HOST': ''
     }
 }
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+LANGUAGE_CODE = 'es_AR'
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 
 LOGIN_URL = '/login'
 LOGOUT_URL = '/logout'
