@@ -5,6 +5,6 @@ enum34==0.9.22
 ipaddress==1.0.6
 ipdb==0.8
 ipython==2.2.0
-isort==3.9.03.9.0
+isort==3.9.0
 pip-tools==0.3.4
 sqlparse==0.1.10
