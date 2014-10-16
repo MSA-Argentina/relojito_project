@@ -19,6 +19,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'crispy_forms',
     'django_extensions',
+    'axes',
     'rules.apps.AutodiscoverRulesConfig',
 
     'app'
@@ -29,6 +30,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.FailedLoginMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',

@@ -2,6 +2,7 @@ from app.views import (CreateProject, CreateTask, EditProject, EditTask,
                        IndexView, login_user, logout_user, ProjectDetail,
                        TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
                        TaskMonthlyView, total_tasks)
+from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
 
@@ -9,7 +10,7 @@ urlpatterns = patterns('',
                        url(r'^$', IndexView.as_view(), name='root'),
 
                        url(r'^login/$',
-                           login_user, name='login'),
+                           watch_login(login_user), name='login'),
                        url(r'^logout/$',
                            logout_user, name='logout'),
 
