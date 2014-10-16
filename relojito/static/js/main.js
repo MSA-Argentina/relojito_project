@@ -5,6 +5,7 @@ $(document).ready(function() {
         }, 'keyup');
     $('#calendar').fullCalendar({
         defaultView: 'basicWeek',
+        lang: 'es',
         header: {
             left: 'prev, next today',
             center: 'title',
@@ -17,6 +18,7 @@ $(document).ready(function() {
     });
     $('#calendar-new-task').fullCalendar({
         defaultView: 'basicDay',
+        lang: 'es',
         header: {
             left: 'prev, next today',
             center: 'title',
