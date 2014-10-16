@@ -1,7 +1,8 @@
 from app.views import (CreateProject, CreateTask, EditProject, EditTask,
-                       IndexView, login_user, logout_user, ProjectDetail,
-                       TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
-                       TaskMonthlyView, total_tasks)
+                       GetToken, IndexView, login_user, logout_user,
+                       ProjectDetail, TaskAjaxDetail, TaskAjaxList,
+                       TaskDelete, TaskDetail, TaskMonthlyView,
+                       total_tasks)
 from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
@@ -64,4 +65,8 @@ urlpatterns = patterns('',
                            name="create_task"),
 
                        url(r'^admin/', include(admin.site.urls)),
+
+                       url(r'^get_token/$',
+                           GetToken.as_view(),
+                           name="get_token"),
                        )

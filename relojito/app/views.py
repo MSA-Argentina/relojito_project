@@ -11,6 +11,7 @@ from django.utils.translation import ugettext as _
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 from django.views.generic.dates import MonthArchiveView
+from rest_framework.authtoken.models import Token
 
 from .forms import (CreateProjectForm, CreateTaskForm, EditProjectForm,
                     EditTaskForm)
@@ -250,3 +251,11 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'task_detail.html'
     context_object_name = 'task'
+
+class GetToken(LoginRequiredMixin, TemplateView):
+    template_name = 'get_token.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(GetToken, self).get_context_data(**kwargs)
+        ctx['token'], _ = Token.objects.get_or_create(user=self.request.user)
+        return ctx
