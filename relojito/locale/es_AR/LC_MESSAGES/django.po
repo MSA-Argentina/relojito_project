@@ -1,0 +1,244 @@
+# Relojito Project es_AR translation strings
+# Copyright (C) 2014 Grupo MSA S.A.
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Relojito Project\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-16 13:11+0000\n"
+"PO-Revision-Date: 2014-10-16 10:23-0300\n"
+"Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
+"Language-Team: Grupo MSA <li@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
+"Language: Spanish\n"
+
+#: app/forms.py:22 app/views.py:157
+msgid "Create a project"
+msgstr "Crear un proyecto"
+
+#: app/forms.py:29 app/forms.py:99
+msgid "Create"
+msgstr "Crear"
+
+#: app/forms.py:30 app/forms.py:100
+msgid "Clean"
+msgstr "Limpiar"
+
+#: app/forms.py:54
+msgid "Edit Project"
+msgstr "Editar proyecto"
+
+#: app/forms.py:65 app/forms.py:141
+msgid "Update"
+msgstr "Actualizar"
+
+#: app/forms.py:88 app/views.py:213
+msgid "Create a task"
+msgstr "Crear una tarea"
+
+#: app/forms.py:128
+msgid "Edit Task"
+msgstr "Editar tarea"
+
+#: app/models.py:21 templates/project_detail.html:17
+msgid "Client"
+msgstr "Cliente"
+
+#: app/models.py:22
+msgid "Clients"
+msgstr "Clientes"
+
+#: app/models.py:42 templates/task_detail.html:16
+msgid "Project"
+msgstr "Proyecto"
+
+#: app/models.py:43
+msgid "Projects"
+msgstr "Proyectos"
+
+#: app/models.py:69
+msgid "Project collaborator"
+msgstr "Colaborador de proyecto"
+
+#: app/models.py:70
+msgid "Project collaborators"
+msgstr "Colaboradores de proyecto"
+
+#: app/models.py:81
+msgid "Type of task"
+msgstr "Tipo de tarea"
+
+#: app/models.py:82
+msgid "Types of tasks"
+msgstr "Tipos de tareas"
+
+#: app/models.py:94
+msgid "Type of resolution"
+msgstr "Tipo de resolución"
+
+#: app/models.py:95
+msgid "Types of resolutions"
+msgstr "Tipos de resoluciones"
+
+#: app/models.py:121 templates/project_detail.html:37
+msgid "Task"
+msgstr "Tarea"
+
+#: app/models.py:122 templates/project_detail.html:28
+msgid "Tasks"
+msgstr "Tareas"
+
+#: app/views.py:128
+msgid "Disabled user"
+msgstr "Usuario desactivado"
+
+#: app/views.py:130
+msgid "Incorrect data"
+msgstr "Datos incorrectos"
+
+#: app/views.py:137
+msgid "Login"
+msgstr "Login"
+
+#: app/views.py:183 templates/project_detail.html:65
+msgid "Edit project"
+msgstr "Editar proyecto"
+
+#: app/views.py:242 templates/task_detail.html:30
+msgid "Edit task"
+msgstr "Editar tarea"
+
+#: templates/_navbar.html:15
+msgid "Signed in as"
+msgstr "Logueado como"
+
+#: templates/_navbar.html:23
+msgid "Change password"
+msgstr "Cambiar contraseña"
+
+#: templates/index.html:11
+msgid "Projects (Owner)"
+msgstr "Proyectos (Dueño)"
+
+#: templates/index.html:22 templates/index.html.py:36
+msgid "No projects"
+msgstr "Sin proyectos"
+
+#: templates/index.html:25
+msgid "Projects (Collaborator)"
+msgstr "Proyectos (Colaborador)"
+
+#: templates/index.html:42
+msgid "Add project"
+msgstr "Agregar proyecto"
+
+#: templates/index.html:48
+msgid "Latest Tasks"
+msgstr "Últimas tareas"
+
+#: templates/index.html:57
+msgid "Add task"
+msgstr "Agregar tarea"
+
+#: templates/index.html:62
+msgid "Calendar"
+msgstr "Calendario"
+
+#: templates/login.html:29 templates/login.html.py:43
+msgid "Enter"
+msgstr "Ingresar"
+
+#: templates/login.html:34
+msgid "Username"
+msgstr "Nombre de usuario"
+
+#: templates/login.html:36 templates/login.html.py:40
+msgid "Please complete this field"
+msgstr "Por favor complete este campo"
+
+#: templates/login.html:38
+msgid "Password"
+msgstr "Contraseña"
+
+#: templates/password_change.html:15
+msgid "Please correct the error below."
+msgstr "Por favor corrija el error"
+
+#: templates/password_change.html:15
+msgid "Please correct the errors below."
+msgstr "Por favor corrija los errores"
+
+#: templates/password_change.html:24
+msgid "Change your password"
+msgstr "Cambie su contraseña"
+
+#: templates/password_change.html:46
+msgid "Change my password"
+msgstr "Cambiar mi contraseña"
+
+#: templates/project_detail.html:18 templates/project_detail.html.py:38
+#: templates/task_detail.html:25
+msgid "Owner"
+msgstr "Dueño"
+
+#: templates/project_detail.html:19
+msgid "Total tasks"
+msgstr "Tareas totales"
+
+#: templates/project_detail.html:20 templates/project_detail.html.py:41
+#: templates/task_detail.html:18
+msgid "Total hours"
+msgstr "Horas totales"
+
+#: templates/project_detail.html:21
+msgid "Is active?"
+msgstr "Activo?"
+
+#: templates/project_detail.html:22 templates/task_detail.html:23
+msgid "External url"
+msgstr "URL externo"
+
+#: templates/project_detail.html:23
+msgid "Color"
+msgstr "Color"
+
+#: templates/project_detail.html:30
+msgid "My Tasks"
+msgstr "Mis tareas"
+
+#: templates/project_detail.html:39
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/project_detail.html:40 templates/task_detail.html:20
+msgid "Resolved as"
+msgstr "Resuelto como"
+
+#: templates/task_confirm_delete.html:7
+msgid "Are you sure you want to delete"
+msgstr "Seguro que desea eliminar"
+
+#: templates/task_confirm_delete.html:8
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: templates/task_detail.html:4
+msgid "Task Detail"
+msgstr "Detalle de tarea"
+
+#: templates/task_detail.html:11
+msgid "Task: "
+msgstr "Tarea:"
+
+#: templates/task_detail.html:17
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/task_detail.html:34
+msgid "Delete task"
+msgstr "Eliminar tarea"
