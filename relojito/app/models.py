@@ -12,10 +12,10 @@ from django.utils.translation import ugettext_lazy as _
 
 @python_2_unicode_compatible
 class Client(models.Model):
-    name = models.CharField(max_length=200)
-    contact_name = models.CharField(max_length=200, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    phone = models.CharField(max_length=200, null=True, blank=True)
+    name = models.CharField(_('name'), max_length=200)
+    contact_name = models.CharField(_('contact_name'),max_length=200, null=True, blank=True)
+    email = models.EmailField(_('email'), null=True, blank=True)
+    phone = models.CharField(_('phone'), max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = _('Client')
@@ -27,14 +27,14 @@ class Client(models.Model):
 
 @python_2_unicode_compatible
 class Project(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField(null=True, blank=True)
-    client = models.ForeignKey(Client)
-    color = models.CharField(max_length=10, null=True, blank=True)
-    external_url = models.URLField(null=True, blank=True)
+    name = models.CharField(_('name'), max_length=200)
+    description = models.TextField(_('description'), null=True, blank=True)
+    client = models.ForeignKey(Client, verbose_name=_('client'))
+    color = models.CharField(_('color'), max_length=10, null=True, blank=True)
+    external_url = models.URLField(_('external_url'), null=True, blank=True)
 
-    is_active = models.BooleanField(default=True)
-    owner = models.ForeignKey(User, null=True)
+    is_active = models.BooleanField(_('is_active'), default=True)
+    owner = models.ForeignKey(User, null=True, verbose_name=_('owner'))
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
@@ -62,8 +62,8 @@ class ProjectCollaborator(models.Model):
     """
     Defines which users can add tasks to the project
     """
-    project = models.ForeignKey(Project)
-    user = models.ForeignKey(User)
+    project = models.ForeignKey(Project, verbose_name=_('project'))
+    user = models.ForeignKey(User, verbose_name=_('user'))
 
     class Meta:
         verbose_name = _('Project collaborator')
@@ -75,7 +75,7 @@ class ProjectCollaborator(models.Model):
 
 @python_2_unicode_compatible
 class TaskType(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(_('task_type'), max_length=200)
 
     class Meta:
         verbose_name = _('Type of task')
@@ -87,8 +87,8 @@ class TaskType(models.Model):
 
 @python_2_unicode_compatible
 class ResolutionType(models.Model):
-    name = models.CharField(max_length=200)
-    is_finished = models.BooleanField(default=False)
+    name = models.CharField(_('name'), max_length=200)
+    is_finished = models.BooleanField(_('is_finished'), default=False)
 
     class Meta:
         verbose_name = _('Type of resolution')
@@ -100,20 +100,22 @@ class ResolutionType(models.Model):
 
 @python_2_unicode_compatible
 class Task(models.Model):
-    name = models.CharField(max_length=200)
-    project = models.ForeignKey(Project)
-    task_type = models.ForeignKey(TaskType)
-    description = models.TextField(max_length=200, null=True, blank=True)
-    date = models.DateField(default=datetime.date.today)
-    total_hours = models.FloatField(validators=[
+    name = models.CharField(_('name'), max_length=200)
+    project = models.ForeignKey(Project, verbose_name=_('project'))
+    task_type = models.ForeignKey(TaskType, verbose_name=_('task_type'))
+    description = models.TextField(_('description'), max_length=200,
+                                   null=True, blank=True)
+    date = models.DateField(_('date'), default=datetime.date.today)
+    total_hours = models.FloatField(_('total_hours'), validators=[
         MinValueValidator(0.5),
         RegexValidator(r'^(\d(\.[05])?)$',
                        'Only .5 numbers'),
     ])
-    resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True)
-    external_url = models.URLField(null=True, blank=True)
+    resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True,
+                                    verbose_name=_('resolved_as'))
+    external_url = models.URLField(_('external_url'), null=True, blank=True)
 
-    owner = models.ForeignKey(User, null=True)
+    owner = models.ForeignKey(User, null=True, verbose_name=_('owner'))
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
