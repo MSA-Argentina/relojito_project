@@ -29,7 +29,11 @@ $(document).ready(function() {
             '/total_tasks'
         ]
     });
-    $('.table').dataTable();
+    $('.table').dataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/a5734b29083/i18n/Spanish.json"
+        }
+    });
 });
 
 $(function() {

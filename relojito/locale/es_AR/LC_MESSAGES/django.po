@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-16 13:11+0000\n"
-"PO-Revision-Date: 2014-10-16 10:23-0300\n"
+"POT-Creation-Date: 2014-10-16 12:14-0300\n"
+"PO-Revision-Date: 2014-10-16 12:10-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
+"Language: Spanish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: Spanish\n"
 
 #: app/forms.py:22 app/views.py:157
 msgid "Create a project"
@@ -45,6 +45,22 @@ msgstr "Crear una tarea"
 msgid "Edit Task"
 msgstr "Editar tarea"
 
+#: app/models.py:15 app/models.py:30 app/models.py:90 app/models.py:103
+msgid "name"
+msgstr "nombre"
+
+#: app/models.py:16
+msgid "contact_name"
+msgstr "nombre de contacto"
+
+#: app/models.py:17
+msgid "email"
+msgstr "email"
+
+#: app/models.py:18
+msgid "phone"
+msgstr "teléfono"
+
 #: app/models.py:21 templates/project_detail.html:17
 msgid "Client"
 msgstr "Cliente"
@@ -52,6 +68,30 @@ msgstr "Cliente"
 #: app/models.py:22
 msgid "Clients"
 msgstr "Clientes"
+
+#: app/models.py:31 app/models.py:106
+msgid "description"
+msgstr "descripción"
+
+#: app/models.py:32
+msgid "client"
+msgstr "cliente"
+
+#: app/models.py:33
+msgid "color"
+msgstr "color"
+
+#: app/models.py:34 app/models.py:116
+msgid "external_url"
+msgstr "url externo"
+
+#: app/models.py:36
+msgid "is_active"
+msgstr "activo?"
+
+#: app/models.py:37 app/models.py:118
+msgid "owner"
+msgstr "dueño"
 
 #: app/models.py:42 templates/task_detail.html:16
 msgid "Project"
@@ -61,6 +101,14 @@ msgstr "Proyecto"
 msgid "Projects"
 msgstr "Proyectos"
 
+#: app/models.py:65 app/models.py:104
+msgid "project"
+msgstr "proyecto"
+
+#: app/models.py:66
+msgid "user"
+msgstr "usuario"
+
 #: app/models.py:69
 msgid "Project collaborator"
 msgstr "Colaborador de proyecto"
@@ -68,6 +116,10 @@ msgstr "Colaborador de proyecto"
 #: app/models.py:70
 msgid "Project collaborators"
 msgstr "Colaboradores de proyecto"
+
+#: app/models.py:78 app/models.py:105
+msgid "task_type"
+msgstr "tipo de tarea"
 
 #: app/models.py:81
 msgid "Type of task"
@@ -77,6 +129,10 @@ msgstr "Tipo de tarea"
 msgid "Types of tasks"
 msgstr "Tipos de tareas"
 
+#: app/models.py:91
+msgid "is_finished"
+msgstr "finalizada"
+
 #: app/models.py:94
 msgid "Type of resolution"
 msgstr "Tipo de resolución"
@@ -85,11 +141,23 @@ msgstr "Tipo de resolución"
 msgid "Types of resolutions"
 msgstr "Tipos de resoluciones"
 
-#: app/models.py:121 templates/project_detail.html:37
+#: app/models.py:108
+msgid "date"
+msgstr "fecha"
+
+#: app/models.py:109
+msgid "total_hours"
+msgstr "horas totales"
+
+#: app/models.py:115
+msgid "resolved_as"
+msgstr "resuelto como"
+
+#: app/models.py:123 templates/project_detail.html:37
 msgid "Task"
 msgstr "Tarea"
 
-#: app/models.py:122 templates/project_detail.html:28
+#: app/models.py:124 templates/project_detail.html:28
 msgid "Tasks"
 msgstr "Tareas"
 
@@ -242,3 +310,6 @@ msgstr "Fecha"
 #: templates/task_detail.html:34
 msgid "Delete task"
 msgstr "Eliminar tarea"
+
+#~ msgid "Name"
+#~ msgstr "Nombre"
