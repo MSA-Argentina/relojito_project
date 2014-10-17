@@ -3,9 +3,14 @@ from app.views import (CreateProject, CreateTask, EditProject, EditTask,
                        ProjectDetail, TaskAjaxDetail, TaskAjaxList,
                        TaskDelete, TaskDetail, TaskMonthlyView,
                        total_tasks)
+from app.api_views import TaskViewSet
 from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'tasks', TaskViewSet)
 
 urlpatterns = patterns('',
                        url(r'^$', IndexView.as_view(), name='root'),
@@ -69,4 +74,6 @@ urlpatterns = patterns('',
                        url(r'^get_token/$',
                            GetToken.as_view(),
                            name="get_token"),
+
+                       url(r'^api/', include(router.urls)),
                        )

@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
     'rest_framework.authtoken',
     'bootstrap3',
     'crispy_forms',
@@ -95,4 +96,13 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 BOOTSTRAP3 = {
     # The Bootstrap base URL
     'base_url': 'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/'
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'PAGINATE_BY': None,
 }
