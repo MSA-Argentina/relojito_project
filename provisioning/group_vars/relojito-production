@@ -1,11 +1,11 @@
 ---
-remote_user: ubuntu
+remote_user: operador
 remote_vm: true
 recreate_db: false
 postgresql_locale: 'en_US.UTF-8'
 
 relojito_db_host: localhost
-relojito_db_port: 6432
+relojito_db_port: 5432
 relojito_dbname: relojito
 relojito_dbpassword: relojito
 relojito_dbuser: relojito
