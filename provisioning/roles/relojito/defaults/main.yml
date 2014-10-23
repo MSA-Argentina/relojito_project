@@ -1,0 +1,24 @@
+---
+relojito_allowed_hosts: "*"
+relojito_db_host: localhost
+relojito_db_post: 5432
+relojito_dbname: relojito
+relojito_dbpassword: relojito
+relojito_dbuser: relojito
+relojito_default_group: relojito
+relojito_default_user: relojito
+relojito_django_debug: true
+relojito_django_development: true
+relojito_environment: development
+relojito_log_dir: /var/log/relojito_project
+relojito_log_file: "{{relojito_log_dir}}/django/relojito.log"
+relojito_log_level: DEBUG
+relojito_main_dir: /opt/relojito_project
+relojito_media_dir: "{{relojito_main_dir}}/relojito/media"
+relojito_recreate_db: false
+relojito_requirements: "{{relojito_main_dir}}/relojito/relojito/requirements/base.txt"
+relojito_requirements_dev: "{{relojito_main_dir}}/relojito/relojito/requirements/development.txt"
+relojito_secret_key: "jp*@x3bm-mbot(^ybl2mmsorr@7-lq_x@kwrc&t*xc296^x0a$"
+relojito_settings_file: "{{relojito_environment}}.py"
+relojito_virtualenv_dir: "/opt/{{relojito_virtualenv_name}}"
+relojito_virtualenv_name: env_relojito

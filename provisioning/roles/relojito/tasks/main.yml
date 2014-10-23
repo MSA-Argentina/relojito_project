@@ -1,0 +1,190 @@
+---
+  - name: relojito | Creating default group
+    group:
+      name={{relojito_default_group}}
+      state=present
+
+  - name: relojito | Creating default user
+    user:
+      name={{relojito_default_user}}
+      groups={{relojito_default_group}}
+      state=present
+      createhome=no
+
+  - name: relojito | Copying env vars
+    template:
+      src=relojito_vars.sh.j2
+      dest=/etc/profile.d/relojito_vars.sh
+      backup=no
+
+  - name: relojito | Adding remote user to default group
+    user:
+      name={{remote_user}}
+      groups={{relojito_default_group}}
+      append=yes
+
+  - name: relojito | Adding nginx user to default group
+    user:
+      name=www-data
+      groups={{relojito_default_group}}
+      append=yes
+
+  - name: relojito | Adding additional dirs
+    file:
+      path={{item}}
+      state=directory
+      mode=770
+      owner={{relojito_default_user}}
+      group={{relojito_default_group}}
+    with_items:
+      - "{{relojito_virtualenv_dir}}"
+      - "{{relojito_log_dir}}"
+      - "{{relojito_log_dir}}/django"
+      - "{{relojito_log_dir}}/uwsgi"
+
+  - name: relojito | Creating main directory
+    file:
+      path={{relojito_main_dir}}
+      state=directory
+      mode=770
+      owner={{remote_user}}
+      group={{relojito_default_group}}
+    when: remote_vm
+
+  - name: relojito | Cloning and updating repository
+    git:
+      accept_hostkey=yes
+      repo={{git_repo}}
+      dest={{relojito_main_dir}}
+      version={{git_update}}
+    when: remote_vm
+    sudo: no
+    tags:
+      - deploy
+
+  - name: relojito | Creating Django log file
+    file:
+      path={{relojito_log_file}}
+      state=touch
+      owner={{relojito_default_user}}
+      group={{relojito_default_group}}
+      mode=664
+
+  - name: relojito | Adding venv symlink to home
+    file:
+      dest=/home/{{remote_user}}/Envs/{{relojito_virtualenv_name}}
+      src={{relojito_virtualenv_dir}}
+      state=link
+
+  - name: relojito | Installing apt packages
+    apt:
+      name=libjpeg-dev
+      state=present
+
+  - name: relojito | Installing base requirements
+    pip:
+      requirements={{relojito_requirements}}
+      virtualenv={{relojito_virtualenv_dir}}
+    tags:
+      - requirements
+
+  - name: relojito | Installing development requirements
+    pip:
+      requirements={{relojito_requirements_dev}}
+      virtualenv={{relojito_virtualenv_dir}}
+    when: relojito_environment == 'development'
+    tags:
+      - requirements
+
+  - name: relojito | Copying development configuration template
+    template:
+      src=settings_development.j2
+      dest={{relojito_main_dir}}/relojito/relojito/settings/development.py
+      backup=no
+    when: relojito_environment == 'development'
+    tags:
+      - deploy
+
+  - name: relojito | Copying staging configuration template
+    template:
+      src=settings_staging.j2
+      dest={{relojito_main_dir}}/relojito/relojito/settings/staging.py
+      backup=no
+    when: relojito_environment == 'staging'
+    tags:
+      - deploy
+
+  - name: relojito | Copying production configuration template
+    template:
+      src=settings_production.j2
+      dest={{relojito_main_dir}}/relojito/relojito/settings/production.py
+      backup=no
+    when: relojito_environment == 'production'
+    tags:
+      - deploy
+
+  - name: relojito | Restarting PostgreSQL to kill connections
+    service:
+      name=postgresql
+      state=restarted
+    when: recreate_db == 'yes' and relojito_environment == 'development'
+
+  - name: relojito | Removing existing DB
+    shell:
+      dropdb {{relojito_dbname}}
+    sudo: yes
+    sudo_user: postgres
+    when: recreate_db == 'yes' and relojito_environment == 'development'
+
+  - name: relojito | Creating DB
+    shell: createdb {{relojito_dbname}}
+    sudo: yes
+    sudo_user: postgres
+    when: recreate_db == 'yes' and relojito_environment == 'development'
+
+  - name: relojito | Copying uwsgi configuration
+    template:
+      src=relojito_uwsgi.ini.j2
+      dest=/etc/uwsgi/apps_available/relojito_uwsgi.ini
+      backup=yes
+
+  - name: relojito | Activating app in uWSGI emperor
+    file:
+      src=/etc/uwsgi/apps_available/relojito_uwsgi.ini
+      dest=/etc/uwsgi/apps_enabled/relojito_uwsgi.ini
+      state=link
+
+  - name: relojito | Restarting uWSGI
+    service:
+      name=uwsgi
+      state=restarted
+    tags:
+      - restart
+
+  - name: relojito | Copying configuration for nginx
+    template:
+      src=relojito_nginx.j2
+      dest=/etc/nginx/sites-available/relojito_nginx
+      backup=yes
+    tags:
+      - deploy
+
+  - name: relojito | Disabling default site in nginx
+    file:
+      path=/etc/nginx/sites-enabled/default
+      state=absent
+
+  - name: relojito | Activating site in nginx
+    file:
+      src=/etc/nginx/sites-available/relojito_nginx
+      dest=/etc/nginx/sites-enabled/relojito_nginx
+      state=link
+    notify:
+      - restart nginx
+
+  - name: relojito | Restarting nginx
+    service:
+      name=nginx
+      state=restarted
+    tags:
+      - restart

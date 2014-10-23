@@ -1,0 +1,10 @@
+---
+bootstrap_local_sources: true
+remote_user: vagrant
+remote_user_group: vagrant
+relojito_django_development: true
+remote_vm: false
+recreate_db: false
+bootstrap_ufw_allowed_ports:
+  - 80
+  - 8090

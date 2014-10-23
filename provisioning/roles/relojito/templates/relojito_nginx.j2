@@ -1,0 +1,33 @@
+server {
+    listen *:80 default_server;
+
+    location / {
+        uwsgi_pass unix:///var/run/relojito.sock;
+        include uwsgi_params;
+        uwsgi_read_timeout 600;
+        proxy_buffer_size 8k;
+    }
+
+    location /ws {
+        proxy_pass http://localhost:8888;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+    }
+
+    location /static/ {
+        alias   /opt/relojito_project/relojito/static/;
+        expires 30d;
+    }
+    location /media/ {
+        alias   /opt/relojito_project/relojito/media/;
+        expires 30d;
+    }
+
+    location ~ (\.php|\.aspx|\.asp|myadmin) {
+        return 444;
+     }
+}
+
+

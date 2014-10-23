@@ -52,3 +52,4 @@ docs/_build/
 target/
 *.ipynb
 /relojito/.ipynb_checkpoints/
+/relojito/relojito/settings/development.py

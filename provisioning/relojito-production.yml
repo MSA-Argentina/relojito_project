@@ -1,0 +1,10 @@
+---
+- hosts:
+    - relojito-production
+  roles:
+    - relojito
+  sudo: yes
+  gather_facts: yes
+  remote_user: ubuntu
+  vars_files:
+    - vars_local.yml

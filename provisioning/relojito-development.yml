@@ -1,0 +1,13 @@
+---
+- hosts: relojito-development
+  roles:
+    - relojito
+  sudo: yes
+  gather_facts: yes
+  remote_user: vagrant
+  vars_prompt:
+    - name: "recreate_db"
+      prompt: "Delete existing DB?"
+      default: "no"
+  vars_files:
+    - vars_local.yml

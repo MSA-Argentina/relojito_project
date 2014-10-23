@@ -1,0 +1,46 @@
+---
+bootstrap_locale: es_AR.UTF-8
+bootstrap_ufw_state: enabled
+bootstrap_upgrade_system: false
+local_home: "{{ lookup('env','HOME') }}"
+local_user: "{{ lookup('env', 'USER') }}"
+monit_poll_start_delay: 30
+monit_port: 2812
+monit_protection: true
+nginx_client_max_body_size: 3M
+postgresql_admin_user: "postgres"
+postgresql_encoding: 'UTF-8'
+postgresql_ext_install_contrib: yes
+postgresql_ext_install_dev_headers: yes
+postgresql_ext_install_postgis: yes
+postgresql_locale: 'en_US.UTF-8'
+postgresql_version: 9.3
+
+# git
+git_url: https://github.com/MSA-Argentina
+git_repo: "{{git_url}}/relojito_project.git"
+git_update: master
+
+# Databases
+postgresql_databases:
+  - name: relojito
+
+# Users
+postgresql_users:
+  - name: relojito
+    pass: relojito
+    encrypted: no
+
+  - name: "{{remote_user}}"
+    pass: "{{remote_user}}"
+    encrypted: no
+
+# Privileges
+postgresql_user_privileges:
+  - name: relojito
+    db: relojito
+    priv: "ALL"
+
+  - name: "{{remote_user}}"
+    db: relojito
+    priv: "ALL"

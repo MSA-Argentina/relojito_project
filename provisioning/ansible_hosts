@@ -1,0 +1,8 @@
+[relojito-development]
+192.168.70.10
+
+[relojito-staging]
+relojito-staging.dev
+
+[relojito-production]
+relojito-production.dev

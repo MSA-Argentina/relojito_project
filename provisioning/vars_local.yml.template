@@ -1,0 +1,6 @@
+---
+# Local vars
+# Copy this file as vars_local.yml
+# Then change some vars:
+# bootstrap_upgrade_system: true
+
