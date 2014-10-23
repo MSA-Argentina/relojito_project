@@ -3,6 +3,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 SECRET_KEY = 'knwprg@^8+y&now&s03+#0r=f%pk2ltyj)acb!4slp&ny*cqvq'
 
+DJANGO_SETTINGS_MODULE = 'relojito.settings.base'
+
 DEBUG = True
 TEMPLATE_DEBUG = True
 
