@@ -157,6 +157,10 @@ msgstr "resuelto como"
 msgid "Task"
 msgstr "Tarea"
 
+#: templates/project_detail.html:40
+msgid "Created"
+msgstr "Creada"
+
 #: app/models.py:124 templates/project_detail.html:28
 msgid "Tasks"
 msgstr "Tareas"
