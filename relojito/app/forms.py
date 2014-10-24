@@ -65,6 +65,7 @@ class EditProjectForm(ModelForm):
                 Submit('update', _('Update'), css_class='col-md-offset-2')
             ))
 
+
     class Meta:
         model = Project
 
@@ -116,7 +117,9 @@ class CreateTaskForm(ModelForm):
 
 class EditTaskForm(ModelForm):
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request")
         super(EditTaskForm, self).__init__(*args, **kwargs)
+        self.request_user = self.request.user
 
         self.helper = FormHelper(self)
 
@@ -143,3 +146,15 @@ class EditTaskForm(ModelForm):
 
     class Meta:
         model = Task
+
+    def save(self):
+        """
+        We only save a change through this form if the user
+        owns the task
+        """
+        instance = super(EditTaskForm, self).save(commit=False)
+        user = self.request_user
+        if self.instance.owner == user:
+            instance.save()
+
+        return instance

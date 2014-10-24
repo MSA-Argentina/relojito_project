@@ -244,6 +244,11 @@ class EditTask(LoginRequiredMixin, StaticContextMixin, UpdateView):
     form_class = EditTaskForm
     static_context = {'title': _('Edit task')}
 
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(EditTask, self).get_form_kwargs(**kwargs)
+        kwargs['request'] = self.request
+        return kwargs
+
     def get_object(self, queryset=None):
         obj = Task.objects.get(id=self.kwargs['pk'])
         return obj
