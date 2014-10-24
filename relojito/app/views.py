@@ -198,7 +198,7 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super(ProjectDetail, self).get_context_data(**kwargs)
         user = self.request.user
-        if user.is_superuser:
+        if user.is_superuser or self.object.owner == user:
             ctx['tasks'] = Task.objects.filter(
                 project=self.object).order_by('created_at')
         else:
