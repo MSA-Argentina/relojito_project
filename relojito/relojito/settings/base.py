@@ -20,7 +20,6 @@ INSTALLED_APPS = (
 
     'bootstrap3',
     'crispy_forms',
-    'django_extensions',
     'axes',
     'rules.apps.AutodiscoverRulesConfig',
 
