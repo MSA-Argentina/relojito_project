@@ -120,6 +120,10 @@ class EditTaskForm(ModelForm):
         self.request = kwargs.pop("request")
         super(EditTaskForm, self).__init__(*args, **kwargs)
         self.request_user = self.request.user
+        self.fields['project'].queryset = Project.objects.filter(
+            Q(projectcollaborator__user=self.request_user) | Q(
+                owner=self.request_user),
+            is_active=True).distinct()
 
         self.helper = FormHelper(self)
 
