@@ -49,7 +49,7 @@
             <ul class="list-group">
                 {% for task in tasks %}
                 <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} </a><span class="label label-default">{{task.total_hours}} hours</span>
-          <span class="label" style="background-color: {{task.project.color}};color: #444">{{task.project.name}}</span></li>
+                  <a href="{% url 'project_detail' pk=task.project.id %}"<span class="label" style="background-color: {{task.project.color}};color: #444">{{task.project.name}}</span></a></li>
                 {% endfor %}
             </ul>
                     <a class="btn btn-default"
