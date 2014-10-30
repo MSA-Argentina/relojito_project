@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Get Token' %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>{% trans 'My Token' %}</h4>
+        </div>
+        <div class="panel-body">
+          <p>{% trans 'User' %}: {{ token.user }}</p>
+          <p>{% trans 'Token' %}: {{ token.key }}</p>
+          <a class="btn btn-default" href="{% url 'reset_token' %}">{% trans 'Reset Token' %}</a>
+        </div>
+      </div>
+    </div>
+{% endblock %}
