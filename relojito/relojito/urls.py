@@ -4,7 +4,7 @@ from app.views import (CreateProject, CreateTask, EditProject, EditTask,
                        TaskDelete, TaskDetail, TaskMonthlyView,
                        total_tasks)
 from app.api_views import (TaskViewSet, ProjectViewSet,
-                           ResolutionViewSet)
+                           ResolutionViewSet, TaskTypeViewSet)
 from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
@@ -14,6 +14,7 @@ router = routers.DefaultRouter()
 router.register(r'tasks', TaskViewSet)
 router.register(r'projects', ProjectViewSet)
 router.register(r'resolutions', ResolutionViewSet)
+router.register(r'task_types', TaskTypeViewSet)
 
 urlpatterns = patterns('',
                        url(r'^$', IndexView.as_view(), name='root'),

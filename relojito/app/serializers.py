@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Task, Project, ResolutionType
+from .models import Task, Project, ResolutionType, TaskType
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -16,3 +16,8 @@ class ProjectSerializer(serializers.ModelSerializer):
 class ResolutionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResolutionType
+
+
+class TaskTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskType
