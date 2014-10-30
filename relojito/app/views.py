@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
@@ -252,6 +252,7 @@ class TaskDetail(LoginRequiredMixin, DetailView):
     template_name = 'task_detail.html'
     context_object_name = 'task'
 
+
 class GetToken(LoginRequiredMixin, TemplateView):
     template_name = 'get_token.html'
 
@@ -259,3 +260,8 @@ class GetToken(LoginRequiredMixin, TemplateView):
         ctx = super(GetToken, self).get_context_data(**kwargs)
         ctx['token'], _ = Token.objects.get_or_create(user=self.request.user)
         return ctx
+
+
+def reset_token(req):
+    Token.objects.filter(user=req.user).delete()
+    return redirect('get_token')

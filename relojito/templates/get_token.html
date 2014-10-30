@@ -13,6 +13,7 @@
         <div class="panel-body">
           <p>{% trans 'User' %}: {{ token.user }}</p>
           <p>{% trans 'Token' %}: {{ token.key }}</p>
+          <a class="btn btn-default" href="{% url 'reset_token' %}">{% trans 'Reset Token' %}</a>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 from app.views import (CreateProject, CreateTask, EditProject, EditTask,
-                       GetToken, IndexView, login_user, logout_user,
+                       GetToken, reset_token, IndexView, login_user, logout_user,
                        ProjectDetail, TaskAjaxDetail, TaskAjaxList,
                        TaskDelete, TaskDetail, TaskMonthlyView,
                        total_tasks)
@@ -78,6 +78,9 @@ urlpatterns = patterns('',
                        url(r'^get_token/$',
                            GetToken.as_view(),
                            name="get_token"),
+                       url(r'^reset_token/$',
+                           reset_token,
+                           name="reset_token"),
 
                        url(r'^api/', include(router.urls)),
                        )
