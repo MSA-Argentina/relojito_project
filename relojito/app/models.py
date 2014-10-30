@@ -35,12 +35,14 @@ class Project(models.Model):
 
     is_active = models.BooleanField(_('is_active'), default=True)
     owner = models.ForeignKey(User, null=True, verbose_name=_('owner'))
+    due_date = models.DateField(_('due_date'), null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')
+        ordering = ['due_date']
 
     def __str__(self):
         return "{}".format(self.name)
