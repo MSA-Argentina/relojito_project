@@ -142,7 +142,6 @@ class EditTaskForm(ModelForm):
                 Field('total_hours', min='0', step='0.5'),
                 'resolved_as',
                 'external_url',
-                'owner'
             ),
             FormActions(
                 Submit('update', _('Update'), css_class='col-md-offset-2')
