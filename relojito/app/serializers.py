@@ -6,6 +6,7 @@ from .models import Task, Project, ResolutionType, TaskType
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
+        exclude = ('owner',)
 
 
 class ProjectSerializer(serializers.ModelSerializer):

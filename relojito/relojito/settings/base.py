@@ -104,5 +104,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
+    #'DEFAULT_THROTTLE_CLASSES': [],
+    #'DEFAULT_THROTTLE_RATES': {},
     'PAGINATE_BY': None,
 }
