@@ -23,6 +23,8 @@ class CreateProjectForm(ModelForm):
                 Field('name', required=True, autofocus=True),
                 Field('description'),
                 Field('client'),
+                Field('due_date', css_class='dtpicker date',
+                      data_date_format="YYYY-MM-DD"),
                 Field('color', css_class='color_field'),
                 Field('external_url')),
             FormActions(
@@ -36,6 +38,7 @@ class CreateProjectForm(ModelForm):
         fields = ['name',
                   'description',
                   'client',
+                  'due_date',
                   'color',
                   'external_url']
 
@@ -55,6 +58,8 @@ class EditProjectForm(ModelForm):
                 'name',
                 'description',
                 'client',
+                Field('due_date', css_class='dtpicker date',
+                      data_date_format="YYYY-MM-DD"),
                 Field('color', css_class='color_field'),
                 'external_url',
                 # Field('is_active', css_class='col-md-offset-4'),
@@ -149,6 +154,15 @@ class EditTaskForm(ModelForm):
 
     class Meta:
         model = Task
+        fields = ['name',
+                  'project',
+                  'task_type',
+                  'description',
+                  'date',
+                  'total_hours',
+                  'resolved_as',
+                  'external_url'
+        ]
 
     def save(self):
         """

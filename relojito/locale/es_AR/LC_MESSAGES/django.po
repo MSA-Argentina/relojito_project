@@ -185,6 +185,12 @@ msgstr "Editar proyecto"
 msgid "Edit task"
 msgstr "Editar tarea"
 
+msgid "due_date"
+msgstr "Fecha de finalización"
+
+msgid "Due date"
+msgstr "Fecha de finalización"
+
 #: templates/_navbar.html:15
 msgid "Signed in as"
 msgstr "Logueado como"
