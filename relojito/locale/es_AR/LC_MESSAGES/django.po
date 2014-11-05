@@ -317,6 +317,12 @@ msgstr "Tarea:"
 msgid "Date"
 msgstr "Fecha"
 
+msgid "Project detail"
+msgstr "Detalle de proyecto"
+
+msgid "Get Token"
+msgstr "Generar token"
+
 #: templates/task_detail.html:34
 msgid "Delete task"
 msgstr "Eliminar tarea"
