@@ -13,7 +13,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         obj.owner = self.request.user
 
     def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+        return Task.objects.filter(owner=self.request.user).order_by('date')[:20]
 
 
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
