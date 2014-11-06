@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from .models import Task, Project, ResolutionType, TaskType
 from .serializers import (TaskSerializer, ProjectSerializer,
@@ -13,7 +14,18 @@ class TaskViewSet(viewsets.ModelViewSet):
         obj.owner = self.request.user
 
     def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user).order_by('date')[:20]
+        return Task.objects.filter(owner=self.request.user)
+
+    def list(self, request, *args, **kwargs):
+        instance = self.filter_queryset(self.get_queryset().order_by('date')[:20])
+        page = self.paginate_queryset(instance)
+
+        if page is not None:
+            serializer = self.get_pagination_serializer(page)
+        else:
+            serializer = self.get_serializer(instance, many=True)
+
+        return Response(serializer.data)
 
 
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
