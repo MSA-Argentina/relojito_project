@@ -17,7 +17,7 @@ class TaskViewSet(viewsets.ModelViewSet):
         return Task.objects.filter(owner=self.request.user)
 
     def list(self, request, *args, **kwargs):
-        instance = self.filter_queryset(self.get_queryset().order_by('date')[:20])
+        instance = self.filter_queryset(self.get_queryset().order_by('-created_at')[:15])
         page = self.paginate_queryset(instance)
 
         if page is not None:
