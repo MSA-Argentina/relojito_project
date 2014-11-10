@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 
-from .models import Task, Project, ResolutionType, TaskType
-from .serializers import (TaskSerializer, ProjectSerializer,
-                          ResolutionSerializer, TaskTypeSerializer)
+from .models import Project, ResolutionType, Task, TaskType
+from .serializers import (ProjectSerializer, ResolutionSerializer,
+                          TaskSerializer, TaskTypeSerializer)
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -33,7 +33,8 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     model = Project
 
     def get_queryset(self):
-        return Project.objects.filter(projectcollaborator__user=self.request.user,
+        return Project.objects.filter(
+            projectcollaborator__user=self.request.user,
                                       is_active=True)
 
 
