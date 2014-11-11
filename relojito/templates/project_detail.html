@@ -18,11 +18,15 @@
             {% endif %}
           <p>{% trans 'Client' %}: {{project.client}}</p>
           <p>{% trans 'Owner' %}: <a href="{% url 'view_profile' pk=project.owner.id %}">{{ project.owner }}</a></p>
-          <p>{% trans 'Total tasks' %}: {{project.total_tasks}}</p>
-          <p>{% trans 'Total hours' %}: {{project.total_hours}}</p>
+          <p>{% trans 'Total tasks' %}: {{project.total_tasks|default_if_none:0}}</p>
+          <p>{% trans 'Total hours' %}: {{project.total_hours|default_if_none:0}}</p>
           <p>{% trans 'Is active?' %}: {{project.is_active}}</p>
-          <p>{% trans 'Due date' %}: {{project.due_date}}</p>
+          {% if project.due_date %}
+            <p>{% trans 'Due date' %}: {{project.due_date}}</p>
+            {% endif %}
+          {% if project.external_url %}
           <p>{% trans 'External url' %}: {{project.external_url|urlize}}</p>
+          {% endif %}
         </div>
       </div>
                     <a class="btn btn-default"

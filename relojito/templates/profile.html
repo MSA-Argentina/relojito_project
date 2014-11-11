@@ -13,7 +13,7 @@
           </div>
         <div class="panel-body">
           <p>{% trans 'Username' %}: {{profile.username}}</p>
-          <p>{% trans 'Email' %}: {{profile.email}}</p>
+          <p>{% trans 'Email' %}: {{profile.email|urlize}}</p>
         </div>
       </div>
       <h4>{% trans 'Tasks' %}</h4>
