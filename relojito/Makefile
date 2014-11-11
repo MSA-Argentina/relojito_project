@@ -1,5 +1,5 @@
 BASE_SETTINGS := relojito.settings.base
-LOCAL_SETTINGS := relojito.settings.base
+LOCAL_SETTINGS := relojito.settings.development
 STAGING_SETTINGS := relojito.settings.staging
 PRODUCTION_SETTINGS := relojito.settings.production
 
