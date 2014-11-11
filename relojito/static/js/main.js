@@ -14,7 +14,12 @@ $(document).ready(function() {
         eventSources: [
             '/tasks/json/',
             '/total_tasks'
-        ]
+        ],
+      eventRender: function(event, element) {
+        var tooltip = event.title;
+        $(element).attr("data-original-title", tooltip)
+        $(element).tooltip({ container: "body"})
+      }
     });
     $('#calendar-new-task').fullCalendar({
         defaultView: 'basicDay',
