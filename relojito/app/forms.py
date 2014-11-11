@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db.models import Q
+from django.contrib.auth.models import User
 from crispy_forms.bootstrap import FormActions, PrependedText
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Field, Fieldset, Layout, Reset, Submit
@@ -175,3 +176,31 @@ class EditTaskForm(ModelForm):
             instance.save()
 
         return instance
+
+
+class ProfileForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2'
+        self.helper.field_class = 'col-md-8'
+        self.helper.layout = Layout(
+            Fieldset(
+                _('Edit profile'),
+                'username',
+                'first_name',
+                'last_name',
+                'email'),
+            FormActions(
+                Submit('update', _('Update'), css_class='col-md-offset-2')
+            ))
+
+    class Meta:
+        model = User
+        fields = ['username',
+                  'first_name',
+                  'last_name',
+                  'email']

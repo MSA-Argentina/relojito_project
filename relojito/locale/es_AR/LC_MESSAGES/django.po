@@ -105,6 +105,9 @@ msgstr "Proyectos"
 msgid "project"
 msgstr "proyecto"
 
+msgid "Edit profile"
+msgstr "Editar perfil"
+
 #: app/models.py:66
 msgid "user"
 msgstr "usuario"
