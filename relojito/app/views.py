@@ -1,21 +1,21 @@
-from braces.views import (JSONResponseMixin, LoginRequiredMixin,
-                          GroupRequiredMixin,
-                          PermissionRequiredMixin, StaticContextMixin)
+from braces.views import (GroupRequiredMixin, JSONResponseMixin,
+                          LoginRequiredMixin, PermissionRequiredMixin,
+                          StaticContextMixin, UserPassesTestMixin)
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Sum
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 from django.utils.translation import ugettext as _
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
-from django.views.generic.dates import MonthArchiveView
 from rest_framework.authtoken.models import Token
 
 from .forms import (CreateProjectForm, CreateTaskForm, EditProjectForm,
-                    EditTaskForm)
+                    EditTaskForm, ProfileForm)
 from .models import Project, Task
 
 
@@ -45,7 +45,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
         collaborator_in = Project.objects.filter(projectcollaborator__user=user,
                                                  is_active=True)
 
-        # Returns latest 5 tasks
+        # Returns latest 8 tasks
         ctx['tasks'] = Task.objects.filter(
             owner=user).order_by('-created_at')[:8]
         # only projects where user is collaborator or owner
@@ -101,19 +101,18 @@ class TaskAjaxDetail(JSONResponseMixin, DetailView):
         return self.render_json_response(context_dict)
 
 
-class TaskDelete(LoginRequiredMixin, DeleteView):
+class TaskDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Task
     success_url = reverse_lazy('root')
     template_name = 'task_confirm_delete.html'
 
-
-class TaskMonthlyView(MonthArchiveView):
-    queryset = Task.objects.all()
-    template_name = 'monthly_tasks.html'
-    date_field = "date"
-    make_object_list = True
-    week_format = "%W"
-    allow_future = True
+    def test_func(self, user):
+        """
+        Allows access if user is owner, or superuser
+        """
+        object_owner = self.get_object().owner
+        if object_owner == user or user.is_superuser:
+            return True
 
 
 def login_user(request):
@@ -179,14 +178,22 @@ class CreateProject(LoginRequiredMixin,
 
 
 class EditProject(LoginRequiredMixin,
-                  PermissionRequiredMixin,
+                  UserPassesTestMixin,
                   StaticContextMixin, UpdateView):
     template_name = 'generic_form.html'
     success_url = reverse_lazy('root')
     form_class = EditProjectForm
     static_context = {'title': _('Edit project')}
 
-    permission_required = 'app.edit_project'
+    def test_func(self, user):
+        """
+        Allows access if user is owner, or superuser or belongs to
+        audit group
+        """
+        object_owner = self.get_object().owner
+        if object_owner == user or user.is_superuser:
+            return True
+
     raise_exception = True
 
     def get_object(self, queryset=None):
@@ -258,11 +265,20 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class EditTask(LoginRequiredMixin, StaticContextMixin, UpdateView):
+class EditTask(LoginRequiredMixin, UserPassesTestMixin, StaticContextMixin,
+               UpdateView):
     template_name = 'task_form.html'
     success_url = reverse_lazy('root')
     form_class = EditTaskForm
     static_context = {'title': _('Edit task')}
+
+    def test_func(self, user):
+        """
+        Allows access if user is owner, or superuser
+        """
+        object_owner = self.get_object().owner
+        if object_owner == user or user.is_superuser:
+            return True
 
     def get_form_kwargs(self, **kwargs):
         kwargs = super(EditTask, self).get_form_kwargs(**kwargs)
@@ -274,10 +290,22 @@ class EditTask(LoginRequiredMixin, StaticContextMixin, UpdateView):
         return obj
 
 
-class TaskDetail(LoginRequiredMixin, DetailView):
+class TaskDetail(LoginRequiredMixin, UserPassesTestMixin,
+                 DetailView):
     model = Task
     template_name = 'task_detail.html'
     context_object_name = 'task'
+
+    def test_func(self, user):
+        """
+        Allows access if user is owner, or superuser or belongs to
+        audit group
+        """
+        object_owner = self.get_object().owner
+        if object_owner  == user \
+                or user.groups.filter(name='audit').exists() \
+                or user.is_superuser:
+            return True
 
 
 class GetToken(LoginRequiredMixin, TemplateView):
@@ -292,3 +320,37 @@ class GetToken(LoginRequiredMixin, TemplateView):
 def reset_token(req):
     Token.objects.filter(user=req.user).delete()
     return redirect('get_token')
+
+
+class EditProfile(LoginRequiredMixin, UpdateView):
+    template_name = 'generic_form.html'
+    success_url = reverse_lazy('root')
+    form_class = ProfileForm
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+
+class ViewProfile(LoginRequiredMixin, UserPassesTestMixin,
+                  TemplateView):
+    template_name = 'profile.html'
+
+    def test_func(self, user):
+        """
+        Allows access if user is owner, or superuser or belongs to
+        audit group
+        """
+        if User.objects.get(id=self.kwargs['pk']) == user \
+                or user.groups.filter(name='audit').exists() \
+                or user.is_superuser:
+            return True
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ViewProfile, self).get_context_data(**kwargs)
+        user = User.objects.get(id=self.kwargs['pk'])
+        ctx['profile'] = user
+        ctx['tasks'] = Task.objects.filter(
+            owner=user).order_by('-created_at')
+
+        return ctx

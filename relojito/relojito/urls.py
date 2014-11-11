@@ -1,10 +1,10 @@
-from app.views import (CreateProject, CreateTask, EditProject, EditTask,
-                       GetToken, reset_token, IndexView, login_user, logout_user,
-                       ProjectDetail, TaskAjaxDetail, TaskAjaxList, ProjectList,
-                       TaskDelete, TaskDetail, TaskMonthlyView,
-                       total_tasks)
-from app.api_views import (TaskViewSet, ProjectViewSet,
-                           ResolutionViewSet, TaskTypeViewSet)
+from app.api_views import (ProjectViewSet, ResolutionViewSet, TaskTypeViewSet,
+                           TaskViewSet)
+from app.views import (CreateProject, CreateTask, EditProfile, EditProject,
+                       EditTask, GetToken, IndexView, login_user, logout_user,
+                       ProjectDetail, ProjectList, reset_token, TaskAjaxDetail,
+                       TaskAjaxList, TaskDelete, TaskDetail, total_tasks,
+                       ViewProfile)
 from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
@@ -40,6 +40,12 @@ urlpatterns = patterns('',
                        url(r'^projects/$',
                            ProjectList.as_view(), name='project_list'),
 
+                       url(r'^profile/edit$',
+                           EditProfile.as_view(), name='edit_profile'),
+
+                       url(r'^profile/(?P<pk>\d+)/$',
+                           ViewProfile.as_view(), name='view_profile'),
+
                        url(r'^project/new/$',
                            CreateProject.as_view(),
                            name="create_project"),
@@ -55,10 +61,6 @@ urlpatterns = patterns('',
                        url(r'^task/delete/(?P<pk>\d+)/$',
                            TaskDelete.as_view(),
                            name="task_delete"),
-
-                       url(r'^(?P<year>\d{4})/(?P<month>\d+)/$',
-                           TaskMonthlyView.as_view(month_format='%m'),
-                           name="monthly_tasks"),
 
                        url(r'^task/edit/(?P<pk>\d+)/$',
                            EditTask.as_view(),

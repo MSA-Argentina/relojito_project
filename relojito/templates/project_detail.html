@@ -12,10 +12,12 @@
           <h4>{{project.name}}</h4>
           </div>
         <div class="panel-body">
-          <p>{{project.description}}</p>
-          <hr>
+          {% if project.description %}
+            <p>{{project.description}}</p>
+            <hr>
+            {% endif %}
           <p>{% trans 'Client' %}: {{project.client}}</p>
-          <p>{% trans 'Owner' %}: {{project.owner}}</p>
+          <p>{% trans 'Owner' %}: <a href="{% url 'view_profile' pk=project.owner.id %}">{{ project.owner }}</a></p>
           <p>{% trans 'Total tasks' %}: {{project.total_tasks}}</p>
           <p>{% trans 'Total hours' %}: {{project.total_hours}}</p>
           <p>{% trans 'Is active?' %}: {{project.is_active}}</p>
@@ -23,6 +25,10 @@
           <p>{% trans 'External url' %}: {{project.external_url|urlize}}</p>
         </div>
       </div>
+                    <a class="btn btn-default"
+                       href="{% url 'edit_project' pk=project.id %}">
+                        {% trans 'Edit project' %}
+                    </a>
 
       <h4>{% trans 'Tasks' %}</h4>
 
@@ -50,10 +56,6 @@
         {% endfor %}
       </tbody>
     </table>
-                    <a class="btn btn-default"
-                       href="{% url 'edit_project' pk=project.id %}">
-                        {% trans 'Edit project' %}
-                    </a>
     </div>
 </div>
 {% endblock %}
