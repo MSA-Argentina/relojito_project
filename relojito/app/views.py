@@ -1,4 +1,5 @@
 from braces.views import (JSONResponseMixin, LoginRequiredMixin,
+                          GroupRequiredMixin,
                           PermissionRequiredMixin, StaticContextMixin)
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -50,6 +51,8 @@ class IndexView(LoginRequiredMixin, TemplateView):
         # only projects where user is collaborator or owner
         ctx['owned_projects'] = owned_projects
         ctx['collab_projects'] = collaborator_in
+        if user.groups.filter(name='audit').exists():
+            ctx['user_can_audit'] = True
 
         return ctx
 
@@ -199,13 +202,29 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         ctx = super(ProjectDetail, self).get_context_data(**kwargs)
         user = self.request.user
-        if user.is_superuser or self.object.owner == user:
+        if user.is_superuser or self.object.owner == user \
+           or user.groups.filter(name='audit').exists():
             ctx['tasks'] = Task.objects.filter(
                 project=self.object).order_by('created_at')
         else:
             ctx['tasks'] = Task.objects.filter(owner=user,
                                                project=self.object).\
                 order_by('-created_at')
+        return ctx
+
+
+class ProjectList(LoginRequiredMixin, GroupRequiredMixin,
+                  ListView):
+    model = Project
+    template_name = 'project_list.html'
+    context_object_name = 'projects'
+    group_required = 'audit'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ProjectList, self).get_context_data(**kwargs)
+        user = self.request.user
+        if user.groups.filter(name='audit').exists():
+            ctx['user_can_audit'] = True
         return ctx
 
 

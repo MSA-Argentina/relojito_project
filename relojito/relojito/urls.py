@@ -1,6 +1,6 @@
 from app.views import (CreateProject, CreateTask, EditProject, EditTask,
                        GetToken, reset_token, IndexView, login_user, logout_user,
-                       ProjectDetail, TaskAjaxDetail, TaskAjaxList,
+                       ProjectDetail, TaskAjaxDetail, TaskAjaxList, ProjectList,
                        TaskDelete, TaskDetail, TaskMonthlyView,
                        total_tasks)
 from app.api_views import (TaskViewSet, ProjectViewSet,
@@ -36,6 +36,9 @@ urlpatterns = patterns('',
 
                        url(r'^total_tasks/$',
                            total_tasks, name='total_tasks'),
+
+                       url(r'^projects/$',
+                           ProjectList.as_view(), name='project_list'),
 
                        url(r'^project/new/$',
                            CreateProject.as_view(),

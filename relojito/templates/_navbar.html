@@ -21,6 +21,9 @@
                                 {% if user.is_superuser %}
                                 <a href="/admin">Admin</a>
                                 {% endif %}
+                                {% if user_can_audit %}
+                                <a href="/projects">Projects</a>
+                                {% endif %}
                             </li>
                             <li>
                                 <a href="{% url 'password_change' %}">{% trans 'Change password' %}</a>

@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% load i18n %} {% block title %}{% trans 'Project List' %}{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-8">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>{% trans 'Project' %}</th>
+                        <th>{% trans 'Client' %}</th>
+                        <th>{% trans 'Owner' %}</th>
+                        <th>{% trans 'Color' %}</th>
+                        <th>{% trans 'Is active?' %}</th>
+                        <th>{% trans 'Due date' %}</th>
+                        <th>{% trans 'Total tasks' %}</th>
+                        <th>{% trans 'Total hours' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in projects %}
+                    <tr>
+                      <td><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></td>
+                      <td>{{ p.client }}</td>
+                        <td>{{ p.owner }}</td>
+                        <td><span class="label" style="background-color: {{p.color}};color: #444">{{p.color}}</span></td>
+                        <td>{{ p.is_active }}</td>
+                        <td>{{ p.due_date|default_if_none:"-" }}</td>
+                        <td>{{ p.total_tasks|default_if_none:0 }}</td>
+                        <td>{{ p.total_hours|default_if_none:0 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% endblock %}

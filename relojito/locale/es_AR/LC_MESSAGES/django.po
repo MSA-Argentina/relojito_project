@@ -320,6 +320,12 @@ msgstr "Fecha"
 msgid "Project detail"
 msgstr "Detalle de proyecto"
 
+msgid "Project List"
+msgstr "Lista de proyectos"
+
+msgid "All projects"
+msgstr "Todos los proyectos"
+
 msgid "Get Token"
 msgstr "Generar token"
 

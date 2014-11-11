@@ -41,7 +41,17 @@
                        href="{% url 'create_project' %}">
                         {% trans 'Add project' %}
                     </a>
+                    <a class="btn btn-default"
+                       href="{% url 'project_list' %}">
+                        {% trans 'All projects' %}
+                    </a>
                     {% endif %}
+            {% if user_can_audit %}
+                    <a class="btn btn-default"
+                       href="{% url 'project_list' %}">
+                        {% trans 'All projects' %}
+                    </a>
+            {% endif %}
         </div>
 
         <div class="col-md-4">
