@@ -17,14 +17,15 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'Signed in as' %} {{user}} <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li>
                                 {% if user.is_superuser %}
+                            <li>
                                 <a href="/admin">Admin</a>
-                                {% endif %}
-                                {% if user_can_audit %}
-                                <a href="/projects">Projects</a>
-                                {% endif %}
                             </li>
+                            <li>
+                              <a href="{% url 'project_list' %}">
+                                {% trans 'All projects' %}</a>
+                            </li>
+                                {% endif %}
                             <li>
                                 <a href="{% url 'password_change' %}">{% trans 'Change password' %}</a>
                             </li>
