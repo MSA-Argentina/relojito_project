@@ -1,5 +1,5 @@
 from app.api_views import (ProjectViewSet, ResolutionViewSet, TaskTypeViewSet,
-                           TaskViewSet)
+                           TaskViewSet, TaskDayView)
 from app.views import (CreateProject, CreateTask, EditProfile, EditProject,
                        EditTask, GetToken, IndexView, login_user, logout_user,
                        ProjectDetail, ProjectList, reset_token, TaskAjaxDetail,
@@ -86,6 +86,10 @@ urlpatterns = patterns('',
                        url(r'^reset_token/$',
                            reset_token,
                            name="reset_token"),
+
+                       url(r'^api/tasks_day/(?P<date>[0-9-]+)/$',
+                           TaskDayView.as_view(),
+                           name='api_tasks_day'),
 
                        url(r'^api/', include(router.urls)),
                        )

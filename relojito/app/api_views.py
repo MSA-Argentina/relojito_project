@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from datetime import datetime
+from rest_framework import viewsets, generics
+from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
 from .models import Project, ResolutionType, Task, TaskType
@@ -17,7 +19,9 @@ class TaskViewSet(viewsets.ModelViewSet):
         return Task.objects.filter(owner=self.request.user)
 
     def list(self, request, *args, **kwargs):
-        instance = self.filter_queryset(self.get_queryset().order_by('-created_at')[:15])
+        qs = self.get_queryset().order_by('-created_at')[:15]
+        instance = self.filter_queryset(qs)
+
         page = self.paginate_queryset(instance)
 
         if page is not None:
@@ -26,6 +30,18 @@ class TaskViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(instance, many=True)
 
         return Response(serializer.data)
+
+
+class TaskDayView(generics.ListAPIView):
+    serializer_class = TaskSerializer
+    model = Task
+
+    def get_queryset(self):
+        try:
+            date = datetime.strptime(self.kwargs['date'], '%Y-%m-%d').date()
+        except ValueError:
+            raise ParseError("Invalid date")
+        return Task.objects.filter(owner=self.request.user, date=date)
 
 
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
