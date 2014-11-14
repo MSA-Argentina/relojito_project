@@ -21,7 +21,7 @@
                     <tr>
                       <td><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></td>
                       <td>{{ p.client }}</td>
-                        <td>{{ p.owner }}</td>
+                      <td><a href="{% url 'view_profile' pk=p.owner.id %}">{{ p.owner }}</a></td>
                         <td><span class="label" style="background-color: {{p.color}};color: #444">{{p.color}}</span></td>
                         <td>{{ p.is_active }}</td>
                         <td>{{ p.due_date|default_if_none:"-" }}</td>
