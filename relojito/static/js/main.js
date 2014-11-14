@@ -15,11 +15,13 @@ $(document).ready(function() {
             '/tasks/json/',
             '/total_tasks'
         ],
-      eventRender: function(event, element) {
-        var tooltip = event.title;
-        $(element).attr("data-original-title", tooltip)
-        $(element).tooltip({ container: "body"})
-      }
+        eventRender: function(event, element) {
+            var tooltip = event.title;
+            $(element).attr("data-original-title", tooltip)
+            $(element).tooltip({
+                container: "body"
+            })
+        }
     });
     $('#calendar-new-task').fullCalendar({
         defaultView: 'basicDay',
@@ -37,6 +39,17 @@ $(document).ready(function() {
     $('.table').dataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/a5734b29083/i18n/Spanish.json"
+        },
+        "iDisplayLength": 25,
+        "bStateSave": true,
+        "sDom": 'T<"clear">lfrtip',
+        "oTableTools": {
+            "aButtons": [
+                "print",
+                "csv",
+                "pdf"
+            ],
+            "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
         }
     });
 });
