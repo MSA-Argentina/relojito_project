@@ -1,4 +1,7 @@
+# -*- coding: utf-8 -*-
+
 import os
+from datetime import timedelta
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 SECRET_KEY = 'knwprg@^8+y&now&s03+#0r=f%pk2ltyj)acb!4slp&ny*cqvq'
@@ -99,10 +102,33 @@ BOOTSTRAP3 = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
     'PAGINATE_BY': None,
+}
+
+# Celery / Redis broker
+BROKER_URL = 'redis://127.0.0.1:6379/1'
+
+CELERY_ACCEPT_CONTENT = ['pickle', 'json']
+CELERY_USER = 'relojito'
+CELERY_GROUP = 'relojito'
+
+CELERYBEAT_SCHEDULE = {
+    'sincronizar_usuarios_redis': {
+        'task': 'operaciones.tasks.sincronizar_usuarios_redis',
+        'schedule': timedelta(minutes=25)
+    },
+    'sincronizar_sms_redis': {
+        'task': 'operaciones.tasks.sincronizar_sms_redis',
+        'schedule': timedelta(minutes=1)
+    },
+    'sincronizar_notificaciones': {
+        'task': 'operaciones.tasks.sincronizar_notificaciones',
+        'schedule': timedelta(minutes=25)
+    },
 }

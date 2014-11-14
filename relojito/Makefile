@@ -49,6 +49,14 @@ notebook:
 		@echo 'Starting shell_plus (IPython notebook)'
 		@python manage.py $(CONSOLE_PLUS) --notebook
 
+celery:
+		@echo 'Starting celery...'
+		@celery -A relojito worker -B -l info
+
+celery_shell:
+		@echo 'Starting celery shell...'
+		@celery shell -A relojito
+
 dbshell:
 		@echo 'Starting DB console'
 		@python manage.py $(DBSHELL)

@@ -39,7 +39,9 @@
     with_items:
       - "{{relojito_virtualenv_dir}}"
       - "{{relojito_log_dir}}"
+      - "{{relojito_log_dir}}/celery"
       - "{{relojito_log_dir}}/django"
+      - "{{relojito_log_dir}}/supervisor"
       - "{{relojito_log_dir}}/uwsgi"
 
   - name: relojito | Creating main directory
@@ -95,6 +97,14 @@
     when: relojito_environment == 'development'
     tags:
       - requirements
+
+  - name: relojito | Copying celery configuration template
+    template:
+      src=celery_config.py.j2
+      dest={{relojito_main_dir}}/relojito/relojito/celery.py
+      backup=no
+    tags:
+      - deploy
 
   - name: relojito | Copying development configuration template
     template:
@@ -154,6 +164,13 @@
       dest=/etc/uwsgi/apps_enabled/relojito_uwsgi.ini
       state=link
 
+  - name: relojito | Copying configuration for supervisor
+    template:
+      src=supervisord_relojito.conf.j2
+      dest=/etc/supervisor/conf.d/relojito_operaciones.conf
+    tags:
+      - deploy
+
   - name: relojito | Restarting uWSGI
     service:
       name=uwsgi
@@ -185,6 +202,13 @@
   - name: relojito | Restarting nginx
     service:
       name=nginx
+      state=restarted
+    tags:
+      - restart
+
+  - name: relojito | Restart supervisord
+    service:
+      name=supervisord
       state=restarted
     tags:
       - restart
