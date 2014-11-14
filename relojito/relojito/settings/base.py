@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
 SECRET_KEY = 'knwprg@^8+y&now&s03+#0r=f%pk2ltyj)acb!4slp&ny*cqvq'
@@ -118,17 +118,9 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 CELERY_USER = 'relojito'
 CELERY_GROUP = 'relojito'
 
-CELERYBEAT_SCHEDULE = {
-    'sincronizar_usuarios_redis': {
-        'task': 'operaciones.tasks.sincronizar_usuarios_redis',
-        'schedule': timedelta(minutes=25)
-    },
-    'sincronizar_sms_redis': {
-        'task': 'operaciones.tasks.sincronizar_sms_redis',
-        'schedule': timedelta(minutes=1)
-    },
-    'sincronizar_notificaciones': {
-        'task': 'operaciones.tasks.sincronizar_notificaciones',
-        'schedule': timedelta(minutes=25)
-    },
-}
+# CELERYBEAT_SCHEDULE = {
+#     'send-gently-reminder': {
+#         'task': 'app.tasks.gently_reminder',
+#         'schedule': timedelta(minutes=25)
+#     },
+# }

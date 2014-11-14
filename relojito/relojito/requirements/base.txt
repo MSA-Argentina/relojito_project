@@ -6,6 +6,7 @@ django-braces==1.4.0
 django-contrib-comments==1.5
 django-crispy-forms==1.4.0
 django-datatables-view==1.7
+django-mailgun==0.2.2
 djangorestframework==2.4.3
 psycopg2==2.5.4
 python-dateutil==2.2

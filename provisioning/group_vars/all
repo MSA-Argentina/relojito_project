@@ -44,3 +44,8 @@ postgresql_user_privileges:
   - name: "{{remote_user}}"
     db: relojito
     priv: "ALL"
+
+# Mailgun settings
+default_from_email: 'mail@example.com'
+mailgun_access_key: 'changeme'
+mailgun_server_name: 'mailgun_server.example.com'
