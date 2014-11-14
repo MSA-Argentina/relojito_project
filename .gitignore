@@ -53,3 +53,6 @@ target/
 *.ipynb
 /relojito/.ipynb_checkpoints/
 /relojito/relojito/settings/development.py
+
+relojito.env
+vars_local.yml
