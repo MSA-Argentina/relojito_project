@@ -332,6 +332,12 @@ msgstr "Todos los proyectos"
 msgid "Get Token"
 msgstr "Generar token"
 
+msgid "You are now a collaborator in %(project_name)s"
+msgstr "Ahora eres colaborador en %(project_name)s"
+
+msgid """Hi, you've been added as a collaborator in %(project_name)s.\n\n Check the details at %(project_url)s.\n\n Bye!"""
+msgstr """Hola, ahora sos colaborador/a en %(project_name)s.\n\n Comprobá los detalles en %(project_url)s.\n\n Adiós!"""
+
 #: templates/task_detail.html:34
 msgid "Delete task"
 msgstr "Eliminar tarea"

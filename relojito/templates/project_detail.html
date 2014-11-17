@@ -55,7 +55,6 @@
           {% else %}
           <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a></td>
           {% endif %}
-
           <td><a href="{% url 'view_profile' pk=t.owner.id %}">{{ t.owner }}</a></td>
           <td>{{ t.task_type }}</td>
           <td>{{ t.created_at }}</td>

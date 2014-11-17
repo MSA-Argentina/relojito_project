@@ -6,8 +6,12 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
+from .tasks import mail_alert_new_collaborator
 
 
 @python_2_unicode_compatible
@@ -47,6 +51,10 @@ class Project(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
+
+    @property
+    def get_absolute_url(self):
+        return "/project/%i/" % self.pk
 
     @property
     def total_hours(self):
@@ -149,3 +157,8 @@ class Task(models.Model):
         }
 
         return d
+
+
+@receiver(post_save, sender=ProjectCollaborator)
+def notify_new_collaborator(sender, instance, **kwargs):
+    mail_alert_new_collaborator.delay(instance)
