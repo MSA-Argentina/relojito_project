@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import os
+
+from celery.schedules import crontab
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 
@@ -114,13 +116,17 @@ REST_FRAMEWORK = {
 # Celery / Redis broker
 BROKER_URL = 'redis://127.0.0.1:6379/0'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 # CELERY_USER = 'relojito'
 # CELERY_GROUP = 'relojito'
 
-# CELERYBEAT_SCHEDULE = {
-#     'send-gently-reminder': {
-#         'task': 'app.tasks.gently_reminder',
-#         'schedule': timedelta(minutes=25)
-#     },
-# }
+CELERYBEAT_SCHEDULE = {
+    # Executes every day morning at 9:30 A.M
+    'nag-users-every-day': {
+        'task': 'app.tasks.mail_alert_no_created_task',
+        'schedule': crontab(hour=9, minute=30)
+    },
+}
