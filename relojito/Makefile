@@ -11,7 +11,7 @@ DBSHELL := dbshell --settings=$(LOCAL_SETTINGS)
 LOCALSERVER := runserver --settings=$(LOCAL_SETTINGS)
 LOCALSERVER_PLUS := runserver_plus --settings=$(LOCAL_SETTINGS)
 MAKEMIGRATION := makemigrations --settings=$(LOCAL_SETTINGS) --noinput
-MESSAGES := makemessages --all --settings=$(LOCAL_SETTINGS)
+MESSAGES := makemessages --all --settings=$(BASE_SETTINGS)
 MIGRATE := migrate --settings=$(LOCAL_SETTINGS) --noinput
 SUPERUSER := createsuperuser --settings=$(LOCAL_SETTINGS)
 
