@@ -130,3 +130,6 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(hour=9, minute=30)
     },
 }
+
+AXES_LOGIN_FAILURE_LIMIT = 10
+AXES_COOLOFF_TIME = 1
