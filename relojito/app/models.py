@@ -11,7 +11,19 @@ from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
-from .tasks import mail_alert_new_collaborator
+
+@python_2_unicode_compatible
+class Holiday(models.Model):
+    name = models.CharField(_('name'), max_length=200)
+    date = models.DateField(_('date'))
+    description = models.TextField(_('description'), null=True, blank=True)
+
+    class Meta:
+        verbose_name = _('Holiday')
+        verbose_name_plural = _('Holidays')
+
+    def __str__(self):
+        return "{}".format(self.name)
 
 
 @python_2_unicode_compatible
@@ -161,4 +173,6 @@ class Task(models.Model):
 
 @receiver(post_save, sender=ProjectCollaborator)
 def notify_new_collaborator(sender, instance, **kwargs):
+    from .tasks import mail_alert_new_collaborator
+
     mail_alert_new_collaborator.delay(instance)
