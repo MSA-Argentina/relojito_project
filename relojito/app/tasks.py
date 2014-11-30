@@ -21,7 +21,7 @@ def verify_yesterday_tasks(user):
     if Holiday.objects.filter(date=yesterday).exists() or \
        yesterday.weekday() in [5, 6]:
 
-        return False
+        return True
 
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
