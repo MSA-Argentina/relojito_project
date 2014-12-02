@@ -135,7 +135,7 @@ class EditTaskForm(ModelForm):
         self.helper = FormHelper(self)
 
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-2'
+        self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-8'
         self.helper.layout = Layout(
             Fieldset(
