@@ -13,13 +13,13 @@ class ClientAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('name', 'client', 'color', 'is_active')
-    list_filter = ('client', 'is_active')
+    list_display = ('name', 'owner', 'client', 'color', 'is_active')
+    list_filter = ('client', 'is_active', 'owner')
 
 
 class ProjectCollaboratorAdmin(admin.ModelAdmin):
     list_display = ('project', 'user')
-    list_filter = ('project',)
+    list_filter = ('project', 'user')
 
 
 class TaskAdmin(admin.ModelAdmin):
