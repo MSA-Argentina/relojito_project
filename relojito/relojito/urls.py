@@ -1,4 +1,4 @@
-from app.api_views import (ProjectViewSet, ResolutionViewSet, TaskTypeViewSet,
+from app.api_views import (ProjectViewSet, TaskTypeViewSet,
                            TaskViewSet, TaskDayView)
 from app.views import (CreateProject, CreateTask, EditProfile, EditProject,
                        EditTask, GetToken, IndexView, login_user, logout_user,
@@ -13,7 +13,6 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register(r'tasks', TaskViewSet)
 router.register(r'projects', ProjectViewSet)
-router.register(r'resolutions', ResolutionViewSet)
 router.register(r'task_types', TaskTypeViewSet)
 
 urlpatterns = patterns('',

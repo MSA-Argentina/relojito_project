@@ -11,6 +11,7 @@ from .models import Project, Task
 
 
 class CreateProjectForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         super(CreateProjectForm, self).__init__(*args, **kwargs)
 
@@ -45,6 +46,7 @@ class CreateProjectForm(ModelForm):
 
 
 class EditProjectForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         super(EditProjectForm, self).__init__(*args, **kwargs)
 
@@ -71,12 +73,12 @@ class EditProjectForm(ModelForm):
                 Submit('update', _('Update'), css_class='col-md-offset-2')
             ))
 
-
     class Meta:
         model = Project
 
 
 class CreateTaskForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(CreateTaskForm, self).__init__(*args, **kwargs)
@@ -88,7 +90,7 @@ class CreateTaskForm(ModelForm):
 
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
-        self.helper.label_class = 'col-md-2'
+        self.helper.label_class = 'col-md-3'
         self.helper.field_class = 'col-md-8'
         self.helper.layout = Layout(
             Fieldset(
@@ -100,7 +102,6 @@ class CreateTaskForm(ModelForm):
                       data_date_format="YYYY-MM-DD"),
                 Field('total_hours', min='0', step='0.5'),
                 Field('task_type'),
-                Field('resolved_as'),
                 Field('external_url')),
             FormActions(
                 Submit('save', _('Create'), css_class='col-md-offset-2'),
@@ -116,12 +117,12 @@ class CreateTaskForm(ModelForm):
                   'task_type',
                   'date',
                   'total_hours',
-                  'resolved_as',
                   'external_url'
-        ]
+                  ]
 
 
 class EditTaskForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(EditTaskForm, self).__init__(*args, **kwargs)
@@ -146,7 +147,6 @@ class EditTaskForm(ModelForm):
                 Field('date', css_class='dtpicker date',
                       data_date_format="YYYY-MM-DD"),
                 Field('total_hours', min='0', step='0.5'),
-                'resolved_as',
                 'external_url',
             ),
             FormActions(
@@ -161,9 +161,8 @@ class EditTaskForm(ModelForm):
                   'description',
                   'date',
                   'total_hours',
-                  'resolved_as',
                   'external_url'
-        ]
+                  ]
 
     def save(self):
         """
@@ -179,6 +178,7 @@ class EditTaskForm(ModelForm):
 
 
 class ProfileForm(ModelForm):
+
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
 

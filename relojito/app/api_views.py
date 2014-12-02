@@ -1,11 +1,11 @@
 from datetime import datetime
-from rest_framework import viewsets, generics
+
+from rest_framework import generics, viewsets
 from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
 
-from .models import Project, ResolutionType, Task, TaskType
-from .serializers import (ProjectSerializer, ResolutionSerializer,
-                          TaskSerializer, TaskTypeSerializer)
+from .models import Project, Task, TaskType
+from .serializers import ProjectSerializer, TaskSerializer, TaskTypeSerializer
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -51,12 +51,7 @@ class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         return Project.objects.filter(
             projectcollaborator__user=self.request.user,
-                                      is_active=True)
-
-
-class ResolutionViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = ResolutionSerializer
-    model = ResolutionType
+            is_active=True)
 
 
 class TaskTypeViewSet(viewsets.ReadOnlyModelViewSet):

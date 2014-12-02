@@ -25,7 +25,6 @@
           <th>{% trans 'Type' %}</th>
           <th>{% trans 'Project' %}</th>
           <th>{% trans 'Created' %}</th>
-          <th>{% trans 'Resolved as' %}</th>
           <th>{% trans 'Total hours' %}</th>
         </tr>
       </thead>
@@ -40,7 +39,6 @@
           <td>{{ t.task_type }}</td>
           <td><a href="{% url 'project_detail' pk=t.project.id %}">{{t.project.name}}</a></td>
           <td>{{ t.created_at }}</td>
-          <td>{{ t.resolved_as|default_if_none:"-" }}</td>
           <td>{{ t.total_hours }}</td>
         </tr>
         {% endfor %}

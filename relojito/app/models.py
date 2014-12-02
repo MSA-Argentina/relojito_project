@@ -109,19 +109,6 @@ class TaskType(models.Model):
 
 
 @python_2_unicode_compatible
-class ResolutionType(models.Model):
-    name = models.CharField(_('name'), max_length=200)
-    is_finished = models.BooleanField(_('is_finished'), default=False)
-
-    class Meta:
-        verbose_name = _('Type of resolution')
-        verbose_name_plural = _('Types of resolutions')
-
-    def __str__(self):
-        return "{}".format(self.name)
-
-
-@python_2_unicode_compatible
 class Task(models.Model):
     name = models.CharField(_('name'), max_length=200)
     project = models.ForeignKey(Project, verbose_name=_('project'))
@@ -134,8 +121,6 @@ class Task(models.Model):
         RegexValidator(r'^(\d(\.[05])?)$',
                        'Only .5 numbers'),
     ])
-    resolved_as = models.ForeignKey(ResolutionType, null=True, blank=True,
-                                    verbose_name=_('resolved_as'))
     external_url = models.URLField(_('external_url'), null=True, blank=True)
 
     owner = models.ForeignKey(User, null=True, verbose_name=_('owner'))
