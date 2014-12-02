@@ -255,7 +255,6 @@ class CreateTask(LoginRequiredMixin, StaticContextMixin, CreateView):
         task.project = form.cleaned_data['project']
         task.task_type = form.cleaned_data['task_type']
         task.total_hours = form.cleaned_data['total_hours']
-        task.resolved_as = form.cleaned_data['resolved_as']
         task.external_url = form.cleaned_data['external_url']
         task.owner = self.request.user
 
