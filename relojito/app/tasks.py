@@ -35,7 +35,7 @@ def mail_alert_no_created_task():
     users = User.objects.filter(is_active=True).all()
 
     for user in users:
-        if user.email:
+        if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
             if not verify_yesterday_tasks(user):
                 subject = _(u"You haven't created any tasks in Relojito yesterday")
                 project_url = settings.SITE_URL
