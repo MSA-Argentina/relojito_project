@@ -20,9 +20,3 @@ class TaskTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TaskType
-
-
-class TaskTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = TaskType
