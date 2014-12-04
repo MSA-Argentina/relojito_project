@@ -211,7 +211,7 @@ msgstr ""
 #: app/tasks.py:54
 #, python-format
 msgid "You are now a collaborator in %(project_name)s"
-msgstr "Ahora eres colaborador en %(project_name)s"
+msgstr "Ahora sos colaborador en %(project_name)s"
 
 #: app/tasks.py:55
 #, python-format
