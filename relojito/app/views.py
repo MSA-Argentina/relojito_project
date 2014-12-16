@@ -42,8 +42,9 @@ class IndexView(LoginRequiredMixin, TemplateView):
         ctx = super(IndexView, self).get_context_data(**kwargs)
         user = self.request.user
         owned_projects = Project.objects.filter(owner=user, is_active=True)
-        collaborator_in = Project.objects.filter(projectcollaborator__user=user,
-                                                 is_active=True)
+        collaborator_in = Project.objects.filter(
+            projectcollaborator__user=user,
+            is_active=True)
 
         # Returns latest 8 tasks
         ctx['tasks'] = Task.objects.filter(
@@ -301,7 +302,7 @@ class TaskDetail(LoginRequiredMixin, UserPassesTestMixin,
         audit group
         """
         object_owner = self.get_object().owner
-        if object_owner  == user \
+        if object_owner == user \
                 or user.groups.filter(name='audit').exists() \
                 or user.is_superuser:
             return True
