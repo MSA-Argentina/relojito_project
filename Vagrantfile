@@ -30,6 +30,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
      end
   end
 
+  config.push.define "production", strategy: "local-exec" do |push|
+    push.script = "deploy_production.sh"
+  end
+
+
   config.vm.define "relojito-development", autostart: true do |machine|
       machine.vm.box = "msabox"
       machine.vm.hostname = "relojito"
