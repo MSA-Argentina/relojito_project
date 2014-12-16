@@ -37,11 +37,15 @@
                 {% endif %}
             </ul>
             {% if user.is_superuser %}
-                    <a class="btn btn-default"
+                    <a class="btn btn-default btn-sm"
                        href="{% url 'create_project' %}">
                         {% trans 'Add project' %}
                     </a>
-                    <a class="btn btn-default"
+                    <a class="btn btn-default btn-sm"
+                       href="{% url 'create_projectcollaborator' %}">
+                        {% trans 'Add collaborator' %}
+                    </a>
+                    <a class="btn btn-default btn-sm"
                        href="{% url 'project_list' %}">
                         {% trans 'All projects' %}
                     </a>
@@ -62,7 +66,7 @@
                   <a href="{% url 'project_detail' pk=task.project.id %}"<span class="label" style="background-color: {{task.project.color}};color: #444">{{task.project.name}}</span></a></li>
                 {% endfor %}
             </ul>
-                    <a class="btn btn-default"
+                    <a class="btn btn-default btn-sm btn-block"
                        href="{% url 'create_task' %}">
                         {% trans 'Add task' %}
                     </a>

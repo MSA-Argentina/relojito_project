@@ -7,7 +7,7 @@ from crispy_forms.layout import Field, Fieldset, Layout, Reset, Submit
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
 
-from .models import Project, Task
+from .models import Project, ProjectCollaborator, Task
 
 
 class CreateProjectForm(ModelForm):
@@ -43,6 +43,32 @@ class CreateProjectForm(ModelForm):
                   'due_date',
                   'color',
                   'external_url']
+
+
+class CreateProjectCollaboratorForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CreateProjectCollaboratorForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper(self)
+        self.helper.form_class = 'form-horizontal'
+        self.helper.label_class = 'col-md-2'
+        self.helper.field_class = 'col-md-8'
+        self.helper.layout = Layout(
+            Fieldset(
+                _('Add a project collaborator'),
+                Field('project', required=True, autofocus=True),
+                Field('user', required=True)),
+            FormActions(
+                Submit('save', _('Create'), css_class='col-md-offset-2'),
+                Reset('reset', _('Clean'))
+            )
+        )
+
+    class Meta:
+        model = ProjectCollaborator
+        fields = ['project',
+                  'user']
 
 
 class EditProjectForm(ModelForm):

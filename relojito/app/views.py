@@ -14,9 +14,9 @@ from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
                                   TemplateView, UpdateView)
 from rest_framework.authtoken.models import Token
 
-from .forms import (CreateProjectForm, CreateTaskForm, EditProjectForm,
-                    EditTaskForm, ProfileForm)
-from .models import Project, Task
+from .forms import (CreateProjectCollaboratorForm, CreateProjectForm,
+                    CreateTaskForm, EditProjectForm, EditTaskForm, ProfileForm)
+from .models import Project, ProjectCollaborator, Task
 
 
 @login_required
@@ -219,6 +219,30 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
                                                project=self.object).\
                 order_by('-created_at')
         return ctx
+
+
+class CreateProjectCollaborator(LoginRequiredMixin,
+                                PermissionRequiredMixin,
+                                StaticContextMixin,
+                                CreateView):
+    form_class = CreateProjectCollaboratorForm
+    model = ProjectCollaborator
+    template_name = 'generic_form.html'
+    success_url = reverse_lazy('root')
+    static_context = {'title': _('Add a project collaborator')}
+
+    permission_required = "app.add_projectcollaborator"
+    raise_exception = True
+
+    def form_valid(self, form):
+        projectcollaborator = ProjectCollaborator()
+        projectcollaborator.project = form.cleaned_data['project']
+        projectcollaborator.user = form.cleaned_data['user']
+
+        projectcollaborator.save()
+        self.object = projectcollaborator
+
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ProjectList(LoginRequiredMixin, GroupRequiredMixin,
