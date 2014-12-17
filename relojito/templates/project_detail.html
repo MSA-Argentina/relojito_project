@@ -34,6 +34,27 @@
                         {% trans 'Edit project' %}
                     </a>
 
+      <h4>{% trans 'Collaborators' %}</h4>
+
+      <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>{% trans 'Name' %}</th>
+          <th>{% trans 'Username' %}</th>
+          <th>{% trans 'e-mail' %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in project.projectcollaborator_set.all %}
+        <tr>
+          <td><a href="{% url 'view_profile' pk=c.user.id %}">{{ c.user.get_full_name }}</a></td>
+          <td>{{ c.user.username }}</td>
+          <td>{{ c.user.email }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
       <h4>{% trans 'Tasks' %}</h4>
 
       <table class="table table-condensed">
