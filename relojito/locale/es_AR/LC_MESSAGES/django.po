@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-16 10:39-0300\n"
-"PO-Revision-Date: 2014-12-16 10:39-0300\n"
+"POT-Creation-Date: 2014-12-17 13:24-0300\n"
+"PO-Revision-Date: 2014-12-17 13:25-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
 "Language: Spanish\n"
@@ -160,12 +160,12 @@ msgid "total_hours"
 msgstr "horas totales"
 
 #: app/models.py:131 templates/profile.html:24
-#: templates/project_detail.html:42
+#: templates/project_detail.html:63
 msgid "Task"
 msgstr "Tarea"
 
 #: app/models.py:132 templates/profile.html:19
-#: templates/project_detail.html:37
+#: templates/project_detail.html:58
 msgid "Tasks"
 msgstr "Tareas"
 
@@ -284,7 +284,6 @@ msgid "Add project"
 msgstr "Agregar proyecto"
 
 #: templates/index.html:46
-#| msgid "Add a project collaborator"
 msgid "Add collaborator"
 msgstr "Agregar colaborador"
 
@@ -305,6 +304,7 @@ msgid "Enter"
 msgstr "Ingresar"
 
 #: templates/login.html:34 templates/profile.html:15
+#: templates/project_detail.html:43
 msgid "Username"
 msgstr "Nombre de usuario"
 
@@ -340,16 +340,16 @@ msgstr "Perfil"
 msgid "Email"
 msgstr "email"
 
-#: templates/profile.html:25 templates/project_detail.html:44
+#: templates/profile.html:25 templates/project_detail.html:65
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/profile.html:27 templates/project_detail.html:45
+#: templates/profile.html:27 templates/project_detail.html:66
 msgid "Created"
 msgstr "Creada"
 
 #: templates/profile.html:28 templates/project_detail.html:22
-#: templates/project_detail.html.py:46 templates/project_list.html:16
+#: templates/project_detail.html.py:67 templates/project_list.html:16
 #: templates/task_detail.html:20
 msgid "Total hours"
 msgstr "Horas totales"
@@ -358,7 +358,7 @@ msgstr "Horas totales"
 msgid "Project detail"
 msgstr "Detalle de proyecto"
 
-#: templates/project_detail.html:20 templates/project_detail.html.py:43
+#: templates/project_detail.html:20 templates/project_detail.html.py:64
 #: templates/project_list.html:11 templates/task_detail.html:25
 msgid "Owner"
 msgstr "Dueño"
@@ -378,6 +378,20 @@ msgstr "Fecha de finalización"
 #: templates/project_detail.html:28 templates/task_detail.html:23
 msgid "External url"
 msgstr "URL externo"
+
+#: templates/project_detail.html:37
+#| msgid "Add collaborator"
+msgid "Collaborators"
+msgstr "Colaboradores"
+
+#: templates/project_detail.html:42
+msgid "Name"
+msgstr "Nombre"
+
+#: templates/project_detail.html:44
+#| msgid "email"
+msgid "e-mail"
+msgstr "email"
 
 #: templates/project_list.html:1
 msgid "Project List"
@@ -428,6 +442,3 @@ msgstr "Eliminar tarea"
 
 #~ msgid "My Tasks"
 #~ msgstr "Mis tareas"
-
-#~ msgid "Name"
-#~ msgstr "Nombre"
