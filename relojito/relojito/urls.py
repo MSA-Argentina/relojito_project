@@ -1,10 +1,11 @@
 from app.api_views import (ProjectViewSet, TaskDayView, TaskTypeViewSet,
                            TaskViewSet)
-from app.views import (CreateProject, CreateProjectCollaborator, CreateTask,
-                       EditProfile, EditProject, EditTask, GetToken, IndexView,
-                       login_user, logout_user, ProjectDetail, ProjectList,
-                       reset_token, TaskAjaxDetail, TaskAjaxList, TaskDelete,
-                       TaskDetail, total_tasks, ViewProfile)
+from app.views import (ajax_stats, CreateProject, CreateProjectCollaborator,
+                       CreateTask, EditProfile, EditProject, EditTask,
+                       GetToken, IndexView, login_user, logout_user,
+                       PersonalStats, ProjectDetail, ProjectList, reset_token,
+                       TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
+                       total_tasks, ViewProfile)
 from axes.decorators import watch_login
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
@@ -35,6 +36,12 @@ urlpatterns = patterns('',
 
                        url(r'^total_tasks/$',
                            total_tasks, name='total_tasks'),
+
+                       url(r'^ajax_stats/$',
+                           ajax_stats, name='ajax_stats'),
+
+                       url(r'^personal_stats/$',
+                           PersonalStats.as_view(), name='personal_stats'),
 
                        url(r'^projects/$',
                            ProjectList.as_view(), name='project_list'),

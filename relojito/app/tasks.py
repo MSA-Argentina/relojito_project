@@ -2,6 +2,7 @@
 from datetime import date, timedelta
 
 from celery import task
+from django.db.models import Count, Sum
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -37,7 +38,8 @@ def mail_alert_no_created_task():
     for user in users:
         if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
             if not verify_yesterday_tasks(user):
-                subject = _(u"You haven't created any tasks in Relojito yesterday")
+                subject = _(
+                    u"You haven't created any tasks in Relojito yesterday")
                 project_url = settings.SITE_URL
                 body = _(u"""Hi %(username)s, this is a friendly reminder that you haven't created a task in Relojito yesterday.\n
                 Please go to %(project_url)s.\n\n  Bye!""") % {'project_url': project_url, 'username': user.first_name}
@@ -48,10 +50,41 @@ def mail_alert_no_created_task():
 
 
 @task()
+def mail_new_year_greeting():
+    """
+    Sends a happy new year greeting
+    """
+    users = User.objects.filter(is_active=True).all()
+
+    for user in users:
+        if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
+            if not verify_yesterday_tasks(user):
+                taskset = user.get_tasks()
+                projects = user.get_projects()
+
+                tx = taskset.aggregate(Sum('total_hours'))
+                total_hours = tx['total_hours__sum']
+
+                subject = _(u"Feliz año nuevo de parte de Relojito")
+                body = _(u"""Hola %(username)s, Relojito te cuenta que hasta ahora completaste %(total_tareas)s tareas,
+para un total de %(total_proyectos)s proyectos. En total, cargaste %(total_horas)s horas.\n
+Más allá de las estadísticas, Relojito te desea un excelente comienzo de año!""") % {'total_tareas': len(taskset),
+                                                                        'username': user.first_name,
+                                                                        'total_proyectos': len(projects),
+                                                                        'total_horas': total_hours
+                                                                        }
+                to_mail = []
+                to_mail.append(user.email)
+                print user.username, subject, body
+                send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, to_mail)
+
+
+@task()
 def mail_alert_new_collaborator(instance):
     project_name = instance.project.name
     project_url = settings.SITE_URL + instance.project.get_absolute_url
-    subject = _(u'You are now a collaborator in %(project_name)s') % {'project_name': project_name}
+    subject = _(u'You are now a collaborator in %(project_name)s') % {
+        'project_name': project_name}
     body = _(u"""Hi, you've been added as a colaborator in %(project_name)s.\n\n
     Check the details at %(project_url)s.\n\n  Bye!""") % {'project_name': project_name,
                                                            'project_url': project_url}

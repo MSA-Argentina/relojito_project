@@ -5,11 +5,90 @@ import datetime
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, RegexValidator
 from django.db import models
-from django.db.models import Sum
+from django.db.models import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
+
+
+def sort_by_value(x):
+    t = x.values()
+    return sorted(t, reverse=True)
+
+
+# monkey-patching the User class
+def get_tasks(self):
+    """
+    Returns a queryset with all the tasks belonging to the user
+    """
+    tasks = Task.objects.filter(owner=self)
+
+    return tasks
+
+
+def get_projects(self):
+    projects = Project.objects.filter(
+        task__owner=self).distinct()
+
+    return projects
+
+
+def get_owned_projects(self):
+    owned_projects = Project.objects.filter(owner=self,
+                                            is_active=True)
+
+    return owned_projects
+
+
+def get_collab_projects(self):
+    collab_projects = Project.objects.filter(projectcollaborator__user=self,
+                                             is_active=True)
+
+    return collab_projects
+
+
+def total_tasks_per_type(self):
+    taskset = self.get_tasks()
+    t = taskset.values('task_type__name').\
+        annotate(Count('task_type')).order_by()
+
+    px = [sort_by_value(x) for x in list(t)]
+    return px
+
+
+def total_hours_per_type(self):
+    taskset = self.get_tasks()
+    t = taskset.values('task_type__name').\
+        annotate(Sum('total_hours')).order_by()
+    px = map(lambda x: x.values(), list(t))
+    return px
+
+
+def total_tasks_per_project(self):
+    taskset = self.get_tasks()
+    t = taskset.values('project__name').\
+        annotate(Count('project'))
+    px = [sort_by_value(x) for x in list(t)]
+    return px
+
+
+def total_hours_per_project(self):
+    taskset = self.get_tasks()
+    t = taskset.values('project__name').\
+        annotate(Sum('total_hours')).order_by()
+
+    px = map(lambda x: x.values(), list(t))
+    return px
+
+User.add_to_class("get_tasks", get_tasks)
+User.add_to_class("get_projects", get_projects)
+User.add_to_class("get_owned_projects", get_owned_projects)
+User.add_to_class("get_collab_projects", get_collab_projects)
+User.add_to_class("total_tasks_per_type", total_tasks_per_type)
+User.add_to_class("total_tasks_per_project", total_tasks_per_project)
+User.add_to_class("total_hours_per_type", total_hours_per_type)
+User.add_to_class("total_hours_per_project", total_hours_per_project)
 
 
 @python_2_unicode_compatible

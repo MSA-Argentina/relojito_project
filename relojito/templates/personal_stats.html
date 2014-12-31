@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans 'Stats' %}{% endblock %}
+
+{% block extrahead %}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="{% static "js/stats.js" %}"></script>
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <h1>{% trans 'Your stats' %}</h1>
+          <h3>{% trans 'Total tasks' %}: <small id='total_tasks'></small></h3>
+          <h3>{% trans 'Total hours' %}: <small id='total_hours'></small></h3>
+    </div>
+    <div id="chart_div"></div>
+    </div>
+{% endblock %}

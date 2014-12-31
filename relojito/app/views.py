@@ -22,9 +22,9 @@ from .models import Project, ProjectCollaborator, Task
 @login_required
 def total_tasks(request):
     user = request.user
-    taskset = set([t.date for t in Task.objects.filter(owner=user)])
+    task_dates = set([t.date for t in user.get_tasks()])
     total = []
-    for t in taskset:
+    for t in task_dates:
         d = {}
         d['allDay'] = True
         d['start'] = t
@@ -33,6 +33,35 @@ def total_tasks(request):
         d['title'] = str(tx['total_hours__sum']) + ' hs'
         total.append(d)
     return JsonResponse(total, safe=False)
+
+
+@login_required
+def ajax_stats(request):
+    user = request.user
+    taskset = user.get_tasks()
+    projects = user.get_projects()
+
+    tx = taskset.aggregate(Sum('total_hours'))
+    total_days = len(set([f.date for f in taskset]))
+    total_hours = tx['total_hours__sum']
+
+    d = {}
+    d['total_tasks'] = taskset.count()
+    d['total_hours'] = total_hours
+    d['total_projects'] = projects.count()
+    d['total_days'] = total_days
+    d['total_hours_per_type'] = user.total_hours_per_type()
+    d['total_hours_per_project'] = user.total_hours_per_project()
+    d['total_tasks_per_project'] = user.total_tasks_per_project()
+    d['total_tasks_per_type'] = user.total_tasks_per_type()
+    if total_days != 0:
+        d['average_hours_per_day'] = round(total_hours/total_days, 2)
+
+    return JsonResponse(d, safe=False)
+
+
+class PersonalStats(LoginRequiredMixin, TemplateView):
+    template_name = 'personal_stats.html'
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
@@ -64,7 +93,7 @@ class TaskAjaxList(JSONResponseMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Task.objects.filter(owner=user)
+        return user.get_tasks()
 
     def get(self, request, *args, **kwargs):
         dictionaries = [obj.to_dict() for obj in self.get_queryset()]
@@ -78,7 +107,7 @@ class TaskTotalTimeList(JSONResponseMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Task.objects.filter(owner=user)
+        return user.get_tasks()
 
     def get(self, request, *args, **kwargs):
         dictionaries = [obj.to_dict() for obj in self.get_queryset()]
