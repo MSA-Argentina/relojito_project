@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-17 13:24-0300\n"
-"PO-Revision-Date: 2014-12-17 13:25-0300\n"
+"POT-Creation-Date: 2015-01-16 16:50-0300\n"
+"PO-Revision-Date: 2015-01-16 16:51-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
 "Language: Spanish\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: app/forms.py:24 app/views.py:161
+#: app/forms.py:24 app/views.py:194
 msgid "Create a project"
 msgstr "Crear un proyecto"
 
@@ -29,7 +29,7 @@ msgstr "Crear"
 msgid "Clean"
 msgstr "Limpiar"
 
-#: app/forms.py:59 app/views.py:232
+#: app/forms.py:59 app/views.py:265
 msgid "Add a project collaborator"
 msgstr "Agregar colaborador de proyecto"
 
@@ -41,7 +41,7 @@ msgstr "Editar proyecto"
 msgid "Update"
 msgstr "Actualizar"
 
-#: app/forms.py:123 app/views.py:268
+#: app/forms.py:123 app/views.py:301
 msgid "Create a task"
 msgstr "Crear una tarea"
 
@@ -49,131 +49,131 @@ msgstr "Crear una tarea"
 msgid "Edit Task"
 msgstr "Editar tarea"
 
-#: app/forms.py:218 templates/_navbar.html:37
+#: app/forms.py:218 templates/_navbar.html:40
 msgid "Edit profile"
 msgstr "Editar perfil"
 
-#: app/models.py:17 app/models.py:31 app/models.py:47 app/models.py:113
+#: app/models.py:113 app/models.py:127 app/models.py:143 app/models.py:209
 msgid "name"
 msgstr "nombre"
 
-#: app/models.py:18 app/models.py:118
+#: app/models.py:114 app/models.py:214
 msgid "date"
 msgstr "fecha"
 
-#: app/models.py:19 app/models.py:48 app/models.py:116
+#: app/models.py:115 app/models.py:144 app/models.py:212
 msgid "description"
 msgstr "descripción"
 
-#: app/models.py:22
+#: app/models.py:118
 msgid "Holiday"
 msgstr "Feriado"
 
-#: app/models.py:23
+#: app/models.py:119
 msgid "Holidays"
 msgstr "Feriados"
 
-#: app/models.py:33
+#: app/models.py:129
 msgid "contact_name"
 msgstr "nombre de contacto"
 
-#: app/models.py:34
+#: app/models.py:130
 msgid "email"
 msgstr "email"
 
-#: app/models.py:35
+#: app/models.py:131
 msgid "phone"
 msgstr "teléfono"
 
-#: app/models.py:38 templates/project_detail.html:19
+#: app/models.py:134 templates/project_detail.html:19
 #: templates/project_list.html:10
 msgid "Client"
 msgstr "Cliente"
 
-#: app/models.py:39
+#: app/models.py:135
 msgid "Clients"
 msgstr "Clientes"
 
-#: app/models.py:49
+#: app/models.py:145
 msgid "client"
 msgstr "cliente"
 
-#: app/models.py:50
+#: app/models.py:146
 msgid "color"
 msgstr "color"
 
-#: app/models.py:51 app/models.py:124
+#: app/models.py:147 app/models.py:220
 msgid "external_url"
 msgstr "url externo"
 
-#: app/models.py:53
+#: app/models.py:149
 msgid "is_active"
 msgstr "activo?"
 
-#: app/models.py:54 app/models.py:126
+#: app/models.py:150 app/models.py:222
 msgid "owner"
 msgstr "dueño"
 
-#: app/models.py:55
+#: app/models.py:151
 msgid "due_date"
 msgstr "Fecha de finalización"
 
-#: app/models.py:60 templates/profile.html:26 templates/project_list.html:9
+#: app/models.py:156 templates/profile.html:26 templates/project_list.html:9
 #: templates/task_detail.html:18
 msgid "Project"
 msgstr "Proyecto"
 
-#: app/models.py:61
+#: app/models.py:157
 msgid "Projects"
 msgstr "Proyectos"
 
-#: app/models.py:88 app/models.py:114
+#: app/models.py:184 app/models.py:210
 msgid "project"
 msgstr "proyecto"
 
-#: app/models.py:89
+#: app/models.py:185
 msgid "user"
 msgstr "usuario"
 
-#: app/models.py:92
+#: app/models.py:188
 msgid "Project collaborator"
 msgstr "Colaborador de proyecto"
 
-#: app/models.py:93
+#: app/models.py:189
 msgid "Project collaborators"
 msgstr "Colaboradores de proyecto"
 
-#: app/models.py:101 app/models.py:115
+#: app/models.py:197 app/models.py:211
 msgid "task_type"
 msgstr "tipo de tarea"
 
-#: app/models.py:104 templates/task_detail.html:21
+#: app/models.py:200 templates/task_detail.html:21
 msgid "Type of task"
 msgstr "Tipo de tarea"
 
-#: app/models.py:105
+#: app/models.py:201
 msgid "Types of tasks"
 msgstr "Tipos de tareas"
 
-#: app/models.py:119
+#: app/models.py:215
 msgid "total_hours"
 msgstr "horas totales"
 
-#: app/models.py:131 templates/profile.html:24
+#: app/models.py:227 templates/profile.html:24
 #: templates/project_detail.html:63
 msgid "Task"
 msgstr "Tarea"
 
-#: app/models.py:132 templates/profile.html:19
+#: app/models.py:228 templates/profile.html:19
 #: templates/project_detail.html:58
 msgid "Tasks"
 msgstr "Tareas"
 
-#: app/tasks.py:40
+#: app/tasks.py:42
 msgid "You haven't created any tasks in Relojito yesterday"
 msgstr "No creaste ninguna tarea en Relojito ayer"
 
-#: app/tasks.py:42
+#: app/tasks.py:44
 #, python-format
 msgid ""
 "Hi %(username)s, this is a friendly reminder that you haven't created a task "
@@ -189,12 +189,27 @@ msgstr ""
 "\n"
 "Adiós!"
 
-#: app/tasks.py:54
+#: app/tasks.py:68
+msgid "Feliz año nuevo de parte de Relojito"
+msgstr ""
+
+#: app/tasks.py:69
+#, python-format
+msgid ""
+"Hola %(username)s, Relojito te cuenta que hasta ahora completaste "
+"%(total_tareas)s tareas,\n"
+"para un total de %(total_proyectos)s proyectos. En total, cargaste "
+"%(total_horas)s horas.\n"
+"\n"
+"Más allá de las estadísticas, Relojito te desea un excelente comienzo de año!"
+msgstr ""
+
+#: app/tasks.py:86
 #, python-format
 msgid "You are now a collaborator in %(project_name)s"
 msgstr "Ahora sos colaborador en %(project_name)s"
 
-#: app/tasks.py:55
+#: app/tasks.py:88
 #, python-format
 msgid ""
 "Hi, you've been added as a colaborator in %(project_name)s.\n"
@@ -210,29 +225,29 @@ msgstr ""
 "\n"
 "Adiós!"
 
-#: app/views.py:132
+#: app/views.py:165
 msgid "Disabled user"
 msgstr "Usuario desactivado"
 
-#: app/views.py:134
+#: app/views.py:167
 msgid "Incorrect data"
 msgstr "Datos incorrectos"
 
-#: app/views.py:141
+#: app/views.py:174
 msgid "Login"
 msgstr "Login"
 
-#: app/views.py:187 templates/project_detail.html:34
+#: app/views.py:220 templates/project_detail.html:34
 msgid "Edit project"
 msgstr "Editar proyecto"
 
-#: app/views.py:297 templates/task_detail.html:30
+#: app/views.py:330 templates/task_detail.html:30
 msgid "Edit task"
 msgstr "Editar tarea"
 
 #: templates/_navbar.html:15
 msgid "Feedback"
-msgstr ""
+msgstr "Feedback"
 
 #: templates/_navbar.html:18
 msgid "Signed in as"
@@ -250,6 +265,10 @@ msgstr "Cambiar contraseña"
 #: templates/_navbar.html:33 templates/get_token.html:4
 msgid "Get Token"
 msgstr "Generar token"
+
+#: templates/_navbar.html:36
+msgid "Personal stats"
+msgstr "Estadísticas"
 
 #: templates/get_token.html:11
 msgid "My Token"
@@ -332,6 +351,25 @@ msgstr "Cambie su contraseña"
 msgid "Change my password"
 msgstr "Cambiar mi contraseña"
 
+#: templates/personal_stats.html:5 templates/stats.html:5
+msgid "Stats"
+msgstr "Estadísticas"
+
+#: templates/personal_stats.html:16
+msgid "Your stats"
+msgstr "Tus estadísticas"
+
+#: templates/personal_stats.html:17 templates/project_detail.html:21
+#: templates/project_list.html:15
+msgid "Total tasks"
+msgstr "Tareas totales"
+
+#: templates/personal_stats.html:18 templates/profile.html:28
+#: templates/project_detail.html:22 templates/project_detail.html.py:67
+#: templates/project_list.html:16 templates/task_detail.html:20
+msgid "Total hours"
+msgstr "Horas totales"
+
 #: templates/profile.html:5
 msgid "Profile"
 msgstr "Perfil"
@@ -348,12 +386,6 @@ msgstr "Tipo"
 msgid "Created"
 msgstr "Creada"
 
-#: templates/profile.html:28 templates/project_detail.html:22
-#: templates/project_detail.html.py:67 templates/project_list.html:16
-#: templates/task_detail.html:20
-msgid "Total hours"
-msgstr "Horas totales"
-
 #: templates/project_detail.html:5
 msgid "Project detail"
 msgstr "Detalle de proyecto"
@@ -362,10 +394,6 @@ msgstr "Detalle de proyecto"
 #: templates/project_list.html:11 templates/task_detail.html:25
 msgid "Owner"
 msgstr "Dueño"
-
-#: templates/project_detail.html:21 templates/project_list.html:15
-msgid "Total tasks"
-msgstr "Tareas totales"
 
 #: templates/project_detail.html:23 templates/project_list.html:13
 msgid "Is active?"
@@ -380,7 +408,6 @@ msgid "External url"
 msgstr "URL externo"
 
 #: templates/project_detail.html:37
-#| msgid "Add collaborator"
 msgid "Collaborators"
 msgstr "Colaboradores"
 
@@ -389,7 +416,6 @@ msgid "Name"
 msgstr "Nombre"
 
 #: templates/project_detail.html:44
-#| msgid "email"
 msgid "e-mail"
 msgstr "email"
 
@@ -400,6 +426,10 @@ msgstr "Lista de proyectos"
 #: templates/project_list.html:12
 msgid "Color"
 msgstr "Color"
+
+#: templates/stats.html:15
+msgid "Stats de Relojito"
+msgstr ""
 
 #: templates/task_confirm_delete.html:7
 msgid "Are you sure you want to delete"
