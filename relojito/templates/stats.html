@@ -14,7 +14,7 @@
 <div class="center-block">
     <h1>{% trans 'Stats de Relojito' %}</h1>
 
-    <p>Desde el principio de los tiempos has trabajado un total de <span id="total-time" class="stat"></span> horas y has cargado <span id="total-tasks" class="stat"></span> tareas.</p>
+    <p>Desde el principio de los tiempos has trabajado un total de <span id="total-time" class="stat"></span> horas y has cargado <span id="total-tasks" class="stat"></span> tareas. Comparadas con <a id="total-time-reference"></a> tenemos:</p>
     <div id="total-time-bars">
     </div>
 
@@ -39,7 +39,6 @@
 </div>
 </div>
 <script src="{% static "js/lib/d3.min.js" %}"></script>
-<script src="{% static "js/lib/d3.tip.js" %}"></script>
 <script src="{% static "js/lib/d3.layout.cloud.js" %}"></script>
 <script src="{% static "js/lib/lodash.min.js" %}"></script>
 <script src="{% static "js/stat-utils.js" %}"></script>

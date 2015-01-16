@@ -45,12 +45,17 @@ var TIMES = [
     },
     {
         time: 240,
-        longDesc: "ver Modern Times Forever",
+        longDesc: "ver la película más larga del mundo",
         shortDesc: "Modern Times Forever",
         source: 'http://en.wikipedia.org/wiki/Modern_Times_Forever_%28Stora_Enso_Building,_Helsinki%29'
     },
+    {
+        time: 17 * 24,
+        longDesc: "lo que duró el Estado de Singapur como Estado Soberano",
+        shortDesc: "Estado de Singapur",
+        source: 'http://en.wikipedia.org/wiki/History_of_Singapore#Full_internal_self-government'
+    },
 ];
-
 
 function svg_wrap(text, width) {
   text.each(function() {

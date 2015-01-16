@@ -22,18 +22,14 @@ function time_chart(id, user_hours){
     };
 
     var closest_time = _.min(TIMES, function(n){
-        return Math.abs(user_hours - n.time)
+        return Math.abs(user_d.time - n.time);
     });
 
     var data = [user_d, closest_time];
 
-    $('<span />')
-        .addClass('hour-info')
-        .text(['Comparadas con',
-               data[1].longDesc,
-               '(' + round(data[1].time) + 'hs)',
-               'tenemos:'].join(' '))
-        .appendTo(id);
+    $('#total-time-reference')
+        .attr('href', data[1].source)
+        .text(data[1].longDesc + ' (' + round(data[1].time) + 'hs)');
 
     var margin = {top: 30, right: 70, bottom: 0, left: 150};
     var width = 400;
