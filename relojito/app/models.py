@@ -11,6 +11,9 @@ from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 
+from collections import Counter
+import re
+
 
 def sort_by_value(x):
     t = x.values()
@@ -61,8 +64,7 @@ def total_hours_per_type(self):
     taskset = self.get_tasks()
     t = taskset.values('task_type__name').\
         annotate(Sum('total_hours')).order_by()
-    px = map(lambda x: x.values(), list(t))
-    return px
+    return list(t)
 
 
 def total_tasks_per_project(self):
@@ -75,11 +77,25 @@ def total_tasks_per_project(self):
 
 def total_hours_per_project(self):
     taskset = self.get_tasks()
-    t = taskset.values('project__name').\
+    t = taskset.values('project__color', 'project__name', 'project__id').\
         annotate(Sum('total_hours')).order_by()
 
-    px = map(lambda x: x.values(), list(t))
-    return px
+    return list(t)
+
+def word_frequencies(self):
+    taskset = self.get_tasks()
+    nonwords = set(['/', 'de', 'y', 'en', 'para',
+        'con', 'a', 'e', 'el', 'y', 'la', 'las', 'por', 'del'])
+    words = []
+    for t in taskset:
+        for w in re.split(r'[\s,.:]+', t.name.lower()):
+            if w not in nonwords:
+                words.append(w)
+    counts = Counter(words).most_common(100)
+    total = len(words)
+    frequencies = map(lambda (word, count):
+            {'text': word, 'size': count, 'frequency': count/float(total)}, counts)
+    return {'total': total, 'frequencies': frequencies}
 
 User.add_to_class("get_tasks", get_tasks)
 User.add_to_class("get_projects", get_projects)
@@ -89,6 +105,7 @@ User.add_to_class("total_tasks_per_type", total_tasks_per_type)
 User.add_to_class("total_tasks_per_project", total_tasks_per_project)
 User.add_to_class("total_hours_per_type", total_hours_per_type)
 User.add_to_class("total_hours_per_project", total_hours_per_project)
+User.add_to_class("word_frequencies", word_frequencies)
 
 
 @python_2_unicode_compatible

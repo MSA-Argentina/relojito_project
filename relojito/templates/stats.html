@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}{% trans 'Stats' %}{% endblock %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="{% static "css/stats.css" %}">
+<link rel="stylesheet" href="https://rawgit.com/mbostock/d3/master/lib/colorbrewer/colorbrewer.css">
+{% endblock %}
+
+{% block content %}
+<div class="container stats">
+<div class="center-block">
+    <h1>{% trans 'Stats de Relojito' %}</h1>
+
+    <p>Desde el principio de los tiempos has trabajado un total de <span id="total-time" class="stat"></span> horas y has cargado <span id="total-tasks" class="stat"></span> tareas.</p>
+    <div id="total-time-bars">
+    </div>
+
+    <hr/>
+
+    <p>Estas horas las distribuiste en <span id="project-count" class="stat"></span> proyectos a un promedio de <span id="project-mean" class="stat"></span> y una media de <span id="project-median" class="stat"></span> por proyecto:</p>
+    <div id="project-bars">
+    </div>
+
+    <hr/>
+
+    <p>De los <span id="total-types" class="stat"></span> tipos de tarea que tiene relojito has cargado <span id="user-types" class="stat"></span>, y al cruzarlos con los Proyectos vemos:</p>
+    <div id="type-project-chart">
+    </div>
+
+    <hr/>
+
+    <p>Además, tus tareas tienen un título, en los que hasta ahora usaste <span id="word-count" class="stat"></span> palabras distintas:</p>
+    <p id="word-cloud-info">&nbsp;</p>
+    <div id="word-cloud">
+    </div>
+</div>
+</div>
+<script src="{% static "js/lib/d3.min.js" %}"></script>
+<script src="{% static "js/lib/d3.tip.js" %}"></script>
+<script src="{% static "js/lib/d3.layout.cloud.js" %}"></script>
+<script src="{% static "js/lib/lodash.min.js" %}"></script>
+<script src="{% static "js/stat-utils.js" %}"></script>
+<script src="{% static "js/stats.js" %}"></script>
+{% endblock %}

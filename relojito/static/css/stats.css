@@ -1,0 +1,88 @@
+.stats .center-block {
+    max-width: 700px;
+    font-family: 'Helvetica';
+}
+
+.stats hr {
+    border-top-color: #D8D8D8;
+}
+
+.stats .stat {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.bar, .axis, .cell {
+    shape-rendering: crispEdges;
+}
+
+#total-time-bars .bar {
+    fill: steelblue;
+}
+
+#total-time-bars .bar:hover {
+    fill: brown;
+}
+
+#total-time-bars .label, .number {
+    font: 12px sans-serif;
+}
+
+#project-bars .project-table {
+    font: 12px sans-serif;
+    max-width: 325;
+    width: auto;
+}
+
+#project-bars .project-table th,
+#project-bars .project-table td {
+    text-align: right;
+    vertical-align: middle !important;
+}
+
+#project-bars .bar {
+    stroke: #222;
+    stroke-width: 1;
+}
+
+#project-bars .bar:hover {
+    opacity: 0.7;
+}
+
+#project-bars .axis line {
+    stroke: #555;
+}
+
+#project-bars .axis text {
+    display: none;
+}
+
+#type-project-chart .label {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+#type-project-chart .legend {
+    padding-left: 20px;
+}
+
+#type-project-chart .cell.zero {
+    fill: white;
+}
+
+#type-project-chart .cell {
+    stroke: #111;
+    stroke-width: 1px;
+}
+
+#word-cloud text {
+    cursor: pointer;
+}
+
+#word-cloud text:hover {
+    opacity: 0.7;
+}
+
+#word-cloud-info {
+    text-align: right;
+}

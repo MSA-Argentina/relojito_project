@@ -16,7 +16,7 @@ from rest_framework.authtoken.models import Token
 
 from .forms import (CreateProjectCollaboratorForm, CreateProjectForm,
                     CreateTaskForm, EditProjectForm, EditTaskForm, ProfileForm)
-from .models import Project, ProjectCollaborator, Task
+from .models import Project, ProjectCollaborator, Task, TaskType
 
 
 @login_required
@@ -48,12 +48,16 @@ def ajax_stats(request):
     d = {}
     d['total_tasks'] = taskset.count()
     d['total_hours'] = total_hours
-    d['total_projects'] = projects.count()
     d['total_days'] = total_days
     d['total_hours_per_type'] = user.total_hours_per_type()
     d['total_hours_per_project'] = user.total_hours_per_project()
     d['total_tasks_per_project'] = user.total_tasks_per_project()
     d['total_tasks_per_type'] = user.total_tasks_per_type()
+    d['word_frequencies'] = user.word_frequencies()
+    d['tasks'] = list(taskset.values('project_id', 'task_type_id', 'total_hours'))
+    d['all_task_types'] = list(TaskType.objects.values('name', 'pk'))
+    d['projects'] = list(projects.values('name', 'pk'))
+
     if total_days != 0:
         d['average_hours_per_day'] = round(total_hours/total_days, 2)
 
@@ -61,7 +65,7 @@ def ajax_stats(request):
 
 
 class PersonalStats(LoginRequiredMixin, TemplateView):
-    template_name = 'personal_stats.html'
+    template_name = 'stats.html'
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
