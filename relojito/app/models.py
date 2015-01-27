@@ -1,18 +1,18 @@
 from __future__ import unicode_literals
 
 import datetime
+import re
+from collections import Counter
 
 from django.contrib.auth.models import User
-from django.core.validators import MinValueValidator, RegexValidator
+from django.core.validators import (MaxValueValidator, MinValueValidator,
+                                    RegexValidator)
 from django.db import models
 from django.db.models import Count, Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
-
-from collections import Counter
-import re
 
 
 def sort_by_value(x):
@@ -214,7 +214,8 @@ class Task(models.Model):
     date = models.DateField(_('date'), default=datetime.date.today)
     total_hours = models.FloatField(_('total_hours'), validators=[
         MinValueValidator(0.5),
-        RegexValidator(r'^(\d(\.[05])?)$',
+        MaxValueValidator(24),
+        RegexValidator(r'^([0-9]{1,2}(\.[05])?)$',
                        'Only .5 numbers'),
     ])
     external_url = models.URLField(_('external_url'), null=True, blank=True)
