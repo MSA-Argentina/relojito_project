@@ -82,6 +82,7 @@ def total_hours_per_project(self):
 
     return list(t)
 
+
 def word_frequencies(self):
     taskset = self.get_tasks()
     nonwords = set(['/', 'de', 'y', 'en', 'para',
