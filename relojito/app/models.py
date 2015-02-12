@@ -200,6 +200,7 @@ class TaskType(models.Model):
     class Meta:
         verbose_name = _('Type of task')
         verbose_name_plural = _('Types of tasks')
+        ordering = ['name']
 
     def __str__(self):
         return "{}".format(self.name)
