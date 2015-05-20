@@ -244,7 +244,7 @@ class Task(models.Model):
     def to_dict(self):
         d = {
             "id": self.pk,
-            "title": self.task_title,
+            "title": self.task_title.lstrip(),
             "start": self.date,
             "url": self.get_absolute_url(),
             "allDay": True,
