@@ -1,8 +1,9 @@
-$(document).ready(function() {
+$(function(){
     Mousetrap.bind('a',
         function() {
             window.location.href = '/task/new/';
         }, 'keyup');
+
     $('#calendar').fullCalendar({
         defaultView: 'basicWeek',
         lang: 'es',
@@ -13,7 +14,7 @@ $(document).ready(function() {
         },
         eventSources: [
             '/tasks/json/',
-            '/total_tasks'
+            '/total_tasks/'
         ],
         eventRender: function(event, element) {
             var tooltip = event.title;
@@ -23,6 +24,7 @@ $(document).ready(function() {
             })
         }
     });
+
     $('#calendar-new-task').fullCalendar({
         defaultView: 'basicDay',
         lang: 'es',
@@ -33,9 +35,10 @@ $(document).ready(function() {
         },
         eventSources: [
             '/tasks/json/',
-            '/total_tasks'
+            '/total_tasks/'
         ]
     });
+
     $('.table').dataTable({
         "language": {
             "url": "//cdn.datatables.net/plug-ins/a5734b29083/i18n/Spanish.json"
@@ -52,9 +55,7 @@ $(document).ready(function() {
             "sSwfPath": "/static/swf/copy_csv_xls_pdf.swf"
         }
     });
-});
 
-$(function() {
     // time fields
     $('.dtpicker.date').datetimepicker({
         pickTime: false
