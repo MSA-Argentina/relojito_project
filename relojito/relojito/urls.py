@@ -1,12 +1,11 @@
 from app.api_views import (ProjectViewSet, TaskDayView, TaskTypeViewSet,
                            TaskViewSet)
-from app.views import (ajax_stats, CreateProject, CreateProjectCollaborator,
-                       CreateTask, EditProfile, EditProject, EditTask,
-                       GetToken, IndexView, login_user, logout_user,
-                       PersonalStats, ProjectDetail, ProjectList, reset_token,
+from app.views import (CreateProject, CreateProjectCollaborator, CreateTask,
+                       EditProfile, EditProject, EditTask, GetToken, IndexView,
+                       PersonalStats, ProjectDetail, ProjectList,
                        TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
-                       total_tasks, ViewProfile)
-from axes.decorators import watch_login
+                       ViewProfile, ajax_stats, login_user, logout_user,
+                       reset_token, total_tasks)
 from django.conf.urls import include, patterns, url
 from django.contrib import admin
 from rest_framework import routers
@@ -20,9 +19,11 @@ urlpatterns = patterns('',
                        url(r'^$', IndexView.as_view(), name='root'),
 
                        url(r'^login/$',
-                           watch_login(login_user), name='login'),
+                           login_user, name='login'),
                        url(r'^logout/$',
                            logout_user, name='logout'),
+
+                       url(r'^captcha/', include('captcha.urls')),
 
                        url(r'^change_password/$',
                            'django.contrib.auth.views.password_change',

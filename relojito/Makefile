@@ -3,7 +3,6 @@ LOCAL_SETTINGS := relojito.settings.development
 STAGING_SETTINGS := relojito.settings.staging
 PRODUCTION_SETTINGS := relojito.settings.production
 
-AXES_RESET := axes_reset --settings=$(LOCAL_SETTINGS)
 COMPILEMESSAGES := compilemessages --settings=$(LOCAL_SETTINGS)
 CONSOLE := shell --settings=$(LOCAL_SETTINGS)
 CONSOLE_PLUS := shell_plus --settings=$(LOCAL_SETTINGS)
@@ -60,10 +59,6 @@ celery_shell:
 dbshell:
 		@echo 'Starting DB console'
 		@python manage.py $(DBSHELL)
-
-axes_reset:
-		@echo 'Resetting lockouts...'
-		@python manage.py $(AXES_RESET)
 
 messages:
 		@echo 'Preparing strings to translate...'

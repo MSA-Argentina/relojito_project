@@ -27,7 +27,7 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'bootstrap3',
     'crispy_forms',
-    'axes',
+    'captcha',
     'rules.apps.AutodiscoverRulesConfig',
 
     'app'
@@ -38,7 +38,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'axes.middleware.FailedLoginMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -130,8 +129,5 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 #         'schedule': crontab(hour=9, minute=30)
 #     },
 # }
-
-AXES_LOGIN_FAILURE_LIMIT = 10
-AXES_COOLOFF_TIME = 1
 
 ALERT_USERS_BLACKLIST = []
