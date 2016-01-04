@@ -1,10 +1,13 @@
 [uwsgi]
 buffer-size=8192
 env=DJANGO_SETTINGS_MODULE=relojito.settings.{{relojito_environment}}
+{% if relojito_environment == 'development' %}
+py-autoreload=1
+{% endif %}
 harakiri-verbose=True
 harakiri=480
 logger=file:{{relojito_log_dir}}/uwsgi/relojito_uwsgi.log
-master=True
+master=True 
 max-requests=5000
 module=relojito.wsgi
 pidfile=/tmp/relojito-uwsgi.pid
