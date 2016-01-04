@@ -101,6 +101,7 @@ class EditProjectForm(ModelForm):
 
     class Meta:
         model = Project
+        fields = '__all__'
 
 
 class CreateTaskForm(ModelForm):

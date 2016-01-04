@@ -94,8 +94,10 @@ def word_frequencies(self):
                 words.append(w)
     counts = Counter(words).most_common(100)
     total = len(words)
-    frequencies = map(lambda (word, count):
-            {'text': word, 'size': count, 'frequency': count/float(total)}, counts)
+
+    frequencies = 0
+    # frequencies = map(lambda (word, count):
+    #         {'text': word, 'size': count, 'frequency': count/float(total)}, counts)
     return {'total': total, 'frequencies': frequencies}
 
 User.add_to_class("get_tasks", get_tasks)
