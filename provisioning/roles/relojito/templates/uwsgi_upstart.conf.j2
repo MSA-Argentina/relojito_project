@@ -1,0 +1,8 @@
+description "{{uwsgi_service_name}}"
+
+start on runlevel [2345]
+stop on runlevel [06]
+
+respawn
+
+exec {{relojito_virtualenv_dir}}/bin/uwsgi --die-on-term {{uwsgi_config_directory}}/{{uwsgi_config_file}}

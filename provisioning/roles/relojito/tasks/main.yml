@@ -83,6 +83,9 @@
       name=libjpeg-dev
       state=present
 
+  - name: relojito | Creating virtualenv with Python 3
+    command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}
+
   - name: relojito | Installing base requirements
     pip:
       requirements={{relojito_requirements}}
@@ -97,6 +100,16 @@
     when: relojito_environment == 'development'
     tags:
       - requirements
+
+  - name: relojito | Using uwsgi binary from virtualenv
+    template:
+      src=uwsgi_upstart.conf.j2
+      dest=/etc/init/{{uwsgi_service_name}}.conf
+      owner=root
+      mode=644
+      backup=yes
+    tags:
+      - deploy
 
   - name: relojito | Copying celery configuration template
     template:
