@@ -46,7 +46,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             ansible.playbook = "provisioning/relojito-development.yml"
             ansible.inventory_path = "provisioning/ansible_hosts"
             ansible.host_key_checking = false
-            # ansible.tags = "deploy"
+            ansible.tags = ["deploy", "requirements"]
       end
       # With this we avoid errors in uwsgi after loading the VM
       machine.vm.provision "shell",
