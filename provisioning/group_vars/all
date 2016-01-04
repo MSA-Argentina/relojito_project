@@ -4,9 +4,6 @@ bootstrap_ufw_state: enabled
 bootstrap_upgrade_system: false
 local_home: "{{ lookup('env','HOME') }}"
 local_user: "{{ lookup('env', 'USER') }}"
-monit_poll_start_delay: 30
-monit_port: 2812
-monit_protection: true
 nginx_client_max_body_size: 3M
 postgresql_admin_user: "postgres"
 postgresql_encoding: 'UTF-8'

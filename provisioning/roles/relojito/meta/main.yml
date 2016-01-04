@@ -1,6 +1,5 @@
 dependencies:
 - { role: server-bootstrap }
-- { role: monit }
 - { role: postgresql }
 - { role: uwsgi }
 - { role: redis }

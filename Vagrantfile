@@ -36,7 +36,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 
   config.vm.define "relojito-development", autostart: true do |machine|
-      machine.vm.box = "msabox"
+      machine.vm.box = "ubuntu/trusty64"
       machine.vm.hostname = "relojito"
       machine.vm.network "forwarded_port", guest: 80, host: 2134
       machine.vm.network "private_network", ip: "192.168.70.10"
