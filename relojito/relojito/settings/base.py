@@ -25,7 +25,6 @@ INSTALLED_APPS = (
     'bootstrap3',
     'crispy_forms',
     'captcha',
-    'rules.apps.AutodiscoverRulesConfig',
 
     'app'
 )
@@ -60,11 +59,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
-
-AUTHENTICATION_BACKENDS = (
-    'rules.permissions.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend'
 )
 
 ANONYMOUS_USER_ID = -1
