@@ -86,8 +86,8 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
-LOGIN_URL = '/login'
-LOGOUT_URL = '/logout'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 STATIC_URL = '/static/'
