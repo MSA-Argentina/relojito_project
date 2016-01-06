@@ -199,6 +199,15 @@
     tags:
       - deploy
 
+  - name: relojito | Collecting statics
+    django_manage:
+      command=collectstatic
+      virtualenv={{relojito_virtualenv_dir}}
+      settings=relojito.settings.{{relojito_environment}}
+      app_path={{relojito_main_dir}}/relojito
+    tags:
+      - deploy
+
   - name: relojito | Disabling default site in nginx
     file:
       path=/etc/nginx/sites-enabled/default
