@@ -53,14 +53,24 @@
       group={{relojito_default_group}}
     when: remote_vm
 
-  - name: relojito | Cloning and updating repository
-    git:
-      accept_hostkey=yes
-      repo={{git_repo}}
-      dest={{relojito_main_dir}}
-      version={{git_update}}
-    when: remote_vm
+  - name: relojito | Main directory rsync
+    synchronize:
+        dest=/opt
+        src={{relojito_main_dir}}
+        copy_links=yes
+        recursive=yes
+        delete=yes
+        rsync_opts=--no-motd,--include-from=roles/relojito/files/rsync_filter
     sudo: no
+    when: remote_vm
+    tags:
+        - deploy
+        - rsync
+
+  - name: sigel | Deleting pyc files
+    shell: "find . -name '*.pyc' -delete"
+    args:
+      chdir: "{{relojito_main_dir}}"
     tags:
       - deploy
 
