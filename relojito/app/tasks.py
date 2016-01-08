@@ -45,7 +45,7 @@ def mail_alert_no_created_task():
                 Please go to %(project_url)s.\n\n  Bye!""") % {'project_url': project_url, 'username': user.first_name}
                 to_mail = []
                 to_mail.append(user.email)
-                print user.username, subject, body
+                print(user.username, subject, body)
                 send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, to_mail)
 
 
