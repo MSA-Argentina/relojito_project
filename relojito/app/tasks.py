@@ -75,7 +75,7 @@ Más allá de las estadísticas, Relojito te desea un excelente comienzo de año
                                                                         }
                 to_mail = []
                 to_mail.append(user.email)
-                print user.username, subject, body
+                print(user.username, subject, body)
                 send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, to_mail)
 
 
