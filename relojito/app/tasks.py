@@ -1,14 +1,25 @@
 # -*- coding: utf-8 -*-
 from datetime import date, timedelta
+from subprocess import check_output
 
 from celery import task
-from django.db.models import Count, Sum
+from django.template.loader import render_to_string
+from django.db.models import Sum
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.utils.translation import ugettext as _
 
 from .models import Holiday, Task
+
+
+def get_fortune():
+    """
+    Get a random fortune from the system
+    """
+    fortune = check_output(['fortune'])
+
+    return fortune
 
 
 def verify_yesterday_tasks(user):
@@ -27,6 +38,30 @@ def verify_yesterday_tasks(user):
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
 
+@task
+def send_alert_to_user(user):
+    subject = "No creaste tareas en Relojito ayer"
+    project_url = settings.SITE_URL
+    last_task = user.get_last_task()
+    fortune = get_fortune()
+
+    data = {
+        "username": user.username,
+        "project_url": project_url,
+        "last_task": last_task,
+        "fortune": fortune
+    }
+
+    text_body = render_to_string(
+        'mails/no_tasks_yesterday.txt', data)
+
+    to_mail = []
+    to_mail.append(user.email)
+    print(text_body)
+    send_mail(
+        subject, text_body, settings.DEFAULT_FROM_EMAIL, to_mail)
+
+
 @task()
 def mail_alert_no_created_task():
     """
@@ -34,19 +69,10 @@ def mail_alert_no_created_task():
     day before
     """
     users = User.objects.filter(is_active=True).all()
-
     for user in users:
         if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
             if not verify_yesterday_tasks(user):
-                subject = _(
-                    u"You haven't created any tasks in Relojito yesterday")
-                project_url = settings.SITE_URL
-                body = _(u"""Hi %(username)s, this is a friendly reminder that you haven't created a task in Relojito yesterday.\n
-                Please go to %(project_url)s.\n\n  Bye!""") % {'project_url': project_url, 'username': user.first_name}
-                to_mail = []
-                to_mail.append(user.email)
-                print(user.username, subject, body)
-                send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, to_mail)
+                send_alert_to_user.delay(user)
 
 
 @task()
@@ -69,10 +95,10 @@ def mail_new_year_greeting():
                 body = _(u"""Hola %(username)s, Relojito te cuenta que hasta ahora completaste %(total_tareas)s tareas,
 para un total de %(total_proyectos)s proyectos. En total, cargaste %(total_horas)s horas.\n
 Más allá de las estadísticas, Relojito te desea un excelente comienzo de año!""") % {'total_tareas': len(taskset),
-                                                                        'username': user.first_name,
-                                                                        'total_proyectos': len(projects),
-                                                                        'total_horas': total_hours
-                                                                        }
+                                                                                     'username': user.first_name,
+                                                                                     'total_proyectos': len(projects),
+                                                                                     'total_horas': total_hours
+                                                                                     }
                 to_mail = []
                 to_mail.append(user.email)
                 print(user.username, subject, body)

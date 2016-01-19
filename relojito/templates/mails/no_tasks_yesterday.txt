@@ -1,0 +1,17 @@
+Hola {{username}}, éste es un recordatorio no amistoso de que no cargaste una tarea en Relojito ayer.
+
+Tu última tarea registrada fue "{{last_task.name}}" en la fecha {{last_task.date}}
+
+Podés entrar a Relojito en {{project_url}}
+
+Como Relojito no es rencoroso, te regala su sabiduría:
+
+{% autoescape off %}
+---
+
+{{fortune}}
+
+---
+{% endautoescape %}
+
+Adiós!

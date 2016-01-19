@@ -95,6 +95,7 @@
     with_items:
       - libjpeg-dev
       - gettext
+      - fortune
 
   - name: relojito | Creating virtualenv with Python 3
     command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}

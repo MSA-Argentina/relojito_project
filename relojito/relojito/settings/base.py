@@ -120,12 +120,12 @@ CELERY_ACCEPT_CONTENT = ['pickle', 'json']
 # CELERY_USER = 'relojito'
 # CELERY_GROUP = 'relojito'
 
-# CELERYBEAT_SCHEDULE = {
-#     # Executes every morning at 9:30 A.M
-#     'nag-users-every-day': {
-#         'task': 'app.tasks.mail_alert_no_created_task',
-#         'schedule': crontab(hour=9, minute=30)
-#     },
-# }
+CELERYBEAT_SCHEDULE = {
+    # Executes every morning at 9:30 A.M
+    'nag-users-every-day': {
+        'task': 'app.tasks.mail_alert_no_created_task',
+        'schedule': crontab(hour=9, minute=30)
+    },
+}
 
 ALERT_USERS_BLACKLIST = []
