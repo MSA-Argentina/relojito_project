@@ -72,7 +72,7 @@ def mail_alert_no_created_task():
     for user in users:
         if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
             if not verify_yesterday_tasks(user):
-                send_alert_to_user.delay(user)
+                send_alert_to_user(user)
 
 
 @task()

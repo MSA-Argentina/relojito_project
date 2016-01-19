@@ -111,7 +111,6 @@
     pip:
       requirements={{relojito_requirements_dev}}
       virtualenv={{relojito_virtualenv_dir}}
-    when: relojito_environment == 'development'
     tags:
       - requirements
 
