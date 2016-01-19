@@ -61,7 +61,7 @@
         recursive=yes
         delete=yes
         rsync_opts=--no-motd,--include-from=roles/relojito/files/rsync_filter
-    sudo: no
+    become: no
     when: remote_vm
     tags:
         - deploy
@@ -165,14 +165,14 @@
   - name: relojito | Removing existing DB
     shell:
       dropdb {{relojito_dbname}}
-    sudo: yes
-    sudo_user: postgres
+    become: yes
+    become_user: postgres
     when: recreate_db == 'yes' and relojito_environment == 'development'
 
   - name: relojito | Creating DB
     shell: createdb {{relojito_dbname}}
-    sudo: yes
-    sudo_user: postgres
+    become: yes
+    become_user: postgres
     when: recreate_db == 'yes' and relojito_environment == 'development'
 
   - name: relojito | Copying uwsgi configuration

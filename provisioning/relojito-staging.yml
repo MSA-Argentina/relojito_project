@@ -2,7 +2,7 @@
 - hosts: relojito-staging
   roles:
     - relojito
-  sudo: yes
+  become: yes
   gather_facts: yes
   remote_user: operador
   vars_files:

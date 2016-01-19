@@ -2,7 +2,7 @@
 - hosts: relojito-development
   roles:
     - relojito
-  sudo: yes
+  become: yes
   gather_facts: yes
   remote_user: vagrant
   vars_files:

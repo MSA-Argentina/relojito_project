@@ -12,5 +12,3 @@ relojito_dbuser: relojito
 
 relojito_django_debug: false
 relojito_environment: production
-
-remote_vm: true
