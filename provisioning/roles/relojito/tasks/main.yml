@@ -90,8 +90,11 @@
 
   - name: relojito | Installing apt packages
     apt:
-      name=libjpeg-dev
+      name={{item}}
       state=present
+    with_items:
+      - libjpeg-dev
+      - gettext
 
   - name: relojito | Creating virtualenv with Python 3
     command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}

@@ -30,6 +30,12 @@ def get_tasks(self):
     return tasks
 
 
+def get_last_task(self):
+    last_task = Task.objects.filter(owner=self).last()
+
+    return last_task
+
+
 def get_projects(self):
     projects = Project.objects.filter(
         task__owner=self).distinct()
@@ -86,7 +92,7 @@ def total_hours_per_project(self):
 def word_frequencies(self):
     taskset = self.get_tasks()
     nonwords = set(['/', 'de', 'y', 'en', 'para',
-        'con', 'a', 'e', 'el', 'y', 'la', 'las', 'por', 'del'])
+                    'con', 'a', 'e', 'el', 'y', 'la', 'las', 'por', 'del'])
     words = []
     for t in taskset:
         for w in re.split(r'[\s,.:]+', t.name.lower()):
@@ -101,6 +107,7 @@ def word_frequencies(self):
     return {'total': total, 'frequencies': frequencies}
 
 User.add_to_class("get_tasks", get_tasks)
+User.add_to_class("get_last_task", get_last_task)
 User.add_to_class("get_projects", get_projects)
 User.add_to_class("get_owned_projects", get_owned_projects)
 User.add_to_class("get_collab_projects", get_collab_projects)

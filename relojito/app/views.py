@@ -54,12 +54,13 @@ def ajax_stats(request):
     d['total_tasks_per_project'] = user.total_tasks_per_project()
     d['total_tasks_per_type'] = user.total_tasks_per_type()
     d['word_frequencies'] = user.word_frequencies()
-    d['tasks'] = list(taskset.values('project_id', 'task_type_id', 'total_hours'))
+    d['tasks'] = list(
+        taskset.values('project_id', 'task_type_id', 'total_hours'))
     d['all_task_types'] = list(TaskType.objects.values('name', 'pk'))
     d['projects'] = list(projects.values('name', 'pk'))
 
     if total_days != 0:
-        d['average_hours_per_day'] = round(total_hours/total_days, 2)
+        d['average_hours_per_day'] = round(total_hours / total_days, 2)
 
     return JsonResponse(d, safe=False)
 
@@ -87,6 +88,27 @@ class IndexView(LoginRequiredMixin, TemplateView):
         ctx['collab_projects'] = collaborator_in
         if user.groups.filter(name='audit').exists():
             ctx['user_can_audit'] = True
+
+        return ctx
+
+
+class Botoncito(LoginRequiredMixin, UserPassesTestMixin,
+                TemplateView):
+    template_name = 'botoncito.html'
+
+    def test_func(self, user):
+        """
+        Allows access if user is superuser or belongs to
+        audit group
+        """
+        if user.groups.filter(name='audit').exists() \
+                or user.is_superuser:
+            return True
+
+    def get_context_data(self, **kwargs):
+        ctx = super(Botoncito, self).get_context_data(**kwargs)
+        users = User.objects.filter(is_active=True).all()
+        ctx['active_users'] = users
 
         return ctx
 

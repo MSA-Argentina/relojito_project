@@ -1,11 +1,11 @@
 from app.api_views import (ProjectViewSet, TaskDayView, TaskTypeViewSet,
                            TaskViewSet)
-from app.views import (CreateProject, CreateProjectCollaborator, CreateTask,
-                       EditProfile, EditProject, EditTask, GetToken, IndexView,
-                       PersonalStats, ProjectDetail, ProjectList,
-                       TaskAjaxDetail, TaskAjaxList, TaskDelete, TaskDetail,
-                       ViewProfile, ajax_stats, login_user, logout_user,
-                       reset_token, total_tasks)
+from app.views import (Botoncito, CreateProject, CreateProjectCollaborator,
+                       CreateTask, EditProfile, EditProject, EditTask,
+                       GetToken, IndexView, PersonalStats, ProjectDetail,
+                       ProjectList, TaskAjaxDetail, TaskAjaxList, TaskDelete,
+                       TaskDetail, ViewProfile, ajax_stats, login_user,
+                       logout_user, reset_token, total_tasks)
 from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework import routers
@@ -42,6 +42,9 @@ urlpatterns = [
 
     url(r'^ajax_stats/$',
         ajax_stats, name='ajax_stats'),
+
+    url(r'^botoncito/$',
+        Botoncito.as_view(), name='botoncito'),
 
     url(r'^personal_stats/$',
         PersonalStats.as_view(), name='personal_stats'),

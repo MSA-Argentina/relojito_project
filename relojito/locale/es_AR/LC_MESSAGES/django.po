@@ -25,6 +25,12 @@ msgstr "Crear un proyecto"
 msgid "Create"
 msgstr "Crear"
 
+msgid "Last task"
+msgstr "Última tarea"
+
+msgid "Last input"
+msgstr "Última carga"
+
 #: app/forms.py:34 app/forms.py:64 app/forms.py:134
 msgid "Clean"
 msgstr "Limpiar"
