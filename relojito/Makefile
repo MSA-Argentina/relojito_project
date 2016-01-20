@@ -1,21 +1,18 @@
-BASE_SETTINGS := relojito.settings.base
-LOCAL_SETTINGS := relojito.settings.development
-STAGING_SETTINGS := relojito.settings.staging
-PRODUCTION_SETTINGS := relojito.settings.production
+SETTINGS := relojito.settings.$(RELOJITO_ENVIRONMENT)
 
-COLLECTSTATIC := collectstatic --noinput --settings=$(LOCAL_SETTINGS)
-COMPILEMESSAGES := compilemessages --settings=$(LOCAL_SETTINGS)
-CONSOLE := shell --settings=$(LOCAL_SETTINGS)
-CONSOLE_PLUS := shell_plus --settings=$(LOCAL_SETTINGS)
-DBSHELL := dbshell --settings=$(LOCAL_SETTINGS)
-LOCALSERVER := runserver --settings=$(LOCAL_SETTINGS)
-LOCALSERVER_PLUS := runserver_plus --settings=$(LOCAL_SETTINGS)
-MAKEMIGRATION := makemigrations --settings=$(LOCAL_SETTINGS) --noinput
-MESSAGES := makemessages --all --settings=$(BASE_SETTINGS)
-MIGRATE := migrate --settings=$(LOCAL_SETTINGS) --noinput
-SUPERUSER := createsuperuser --settings=$(LOCAL_SETTINGS)
+COLLECTSTATIC := collectstatic --noinput --settings=$(SETTINGS)
+COMPILEMESSAGES := compilemessages --settings=$(SETTINGS)
+CONSOLE := shell --settings=$(SETTINGS)
+CONSOLE_PLUS := shell_plus --settings=$(SETTINGS)
+DBSHELL := dbshell --settings=$(SETTINGS)
+LOCALSERVER := runserver --settings=$(SETTINGS)
+LOCALSERVER_PLUS := runserver_plus --settings=$(SETTINGS)
+MAKEMIGRATION := makemigrations --settings=$(SETTINGS) --noinput
+MESSAGES := makemessages --all --settings=$(SETTINGS)
+MIGRATE := migrate --settings=$(SETTINGS) --noinput
+SUPERUSER := createsuperuser --settings=$(SETTINGS)
 
-.PHONY: run syncdb createsuperuser shell shell_plus
+.PHONY: run createsuperuser shell shell_plus
 
 run:
 		@echo 'Running development server...'

@@ -16,6 +16,8 @@
       src=relojito_vars.sh.j2
       dest=/etc/profile.d/relojito_vars.sh
       backup=no
+    tags:
+        - deploy
 
   - name: relojito | Adding remote user to default group
     user:
