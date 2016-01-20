@@ -60,7 +60,7 @@
         copy_links=yes
         recursive=yes
         delete=yes
-        rsync_opts=--no-motd,--include-from=roles/relojito/files/rsync_filter
+        rsync_opts=--no-motd,--include-from=/opt/relojito_project/provisioning/roles/relojito/files/rsync_filter
     become: no
     when: remote_vm
     tags:

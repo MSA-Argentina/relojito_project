@@ -17,7 +17,7 @@ def get_fortune():
     """
     Get a random fortune from the system
     """
-    fortune = check_output(['fortune'])
+    fortune = check_output(['/usr/games/fortune'])
 
     return fortune
 
