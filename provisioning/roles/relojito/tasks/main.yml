@@ -1,17 +1,17 @@
 ---
-  - name: relojito | Creating default group
+  - name: Creating default group
     group:
       name={{relojito_default_group}}
       state=present
 
-  - name: relojito | Creating default user
+  - name: Creating default user
     user:
       name={{relojito_default_user}}
       groups={{relojito_default_group}}
       state=present
       createhome=no
 
-  - name: relojito | Copying env vars
+  - name: Copying env vars
     template:
       src=relojito_vars.sh.j2
       dest=/etc/profile.d/relojito_vars.sh
@@ -19,19 +19,19 @@
     tags:
         - deploy
 
-  - name: relojito | Adding remote user to default group
+  - name: Adding remote user to default group
     user:
       name={{remote_user}}
       groups={{relojito_default_group}}
       append=yes
 
-  - name: relojito | Adding nginx user to default group
+  - name: Adding nginx user to default group
     user:
       name=www-data
       groups={{relojito_default_group}}
       append=yes
 
-  - name: relojito | Adding additional dirs
+  - name: Adding additional dirs
     file:
       path={{item}}
       state=directory
@@ -46,7 +46,7 @@
       - "{{relojito_log_dir}}/supervisor"
       - "{{relojito_log_dir}}/uwsgi"
 
-  - name: relojito | Creating main directory
+  - name: Creating main directory
     file:
       path={{relojito_main_dir}}
       state=directory
@@ -55,7 +55,7 @@
       group={{relojito_default_group}}
     when: remote_vm
 
-  - name: relojito | Main directory rsync
+  - name: Main directory rsync
     synchronize:
         dest=/opt
         src={{relojito_main_dir}}
@@ -76,7 +76,7 @@
     tags:
       - deploy
 
-  - name: relojito | Creating Django log file
+  - name: Creating Django log file
     file:
       path={{relojito_log_file}}
       state=touch
@@ -84,13 +84,13 @@
       group={{relojito_default_group}}
       mode=664
 
-  - name: relojito | Adding venv symlink to home
+  - name: Adding venv symlink to home
     file:
       dest=/home/{{remote_user}}/Envs/{{relojito_virtualenv_name}}
       src={{relojito_virtualenv_dir}}
       state=link
 
-  - name: relojito | Installing apt packages
+  - name: Installing apt packages
     apt:
       name={{item}}
       state=present
@@ -99,24 +99,24 @@
       - gettext
       - fortune
 
-  - name: relojito | Creating virtualenv with Python 3
+  - name: Creating virtualenv with Python 3
     command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}
 
-  - name: relojito | Installing base requirements
+  - name: Installing base requirements
     pip:
       requirements={{relojito_requirements}}
       virtualenv={{relojito_virtualenv_dir}}
     tags:
       - requirements
 
-  - name: relojito | Installing development requirements
+  - name: Installing development requirements
     pip:
       requirements={{relojito_requirements_dev}}
       virtualenv={{relojito_virtualenv_dir}}
     tags:
       - requirements
 
-  - name: relojito | Using uwsgi binary from virtualenv
+  - name: Using uwsgi binary from virtualenv
     template:
       src=uwsgi_upstart.conf.j2
       dest=/etc/init/{{uwsgi_service_name}}.conf
@@ -126,7 +126,7 @@
     tags:
       - deploy
 
-  - name: relojito | Copying celery configuration template
+  - name: Copying celery configuration template
     template:
       src=celery_config.py.j2
       dest={{relojito_main_dir}}/relojito/relojito/celery.py
@@ -134,7 +134,7 @@
     tags:
       - deploy
 
-  - name: relojito | Copying development configuration template
+  - name: Copying development configuration template
     template:
       src=settings_development.j2
       dest={{relojito_main_dir}}/relojito/relojito/settings/development.py
@@ -143,7 +143,7 @@
     tags:
       - deploy
 
-  - name: relojito | Copying staging configuration template
+  - name: Copying staging configuration template
     template:
       src=settings_staging.j2
       dest={{relojito_main_dir}}/relojito/relojito/settings/staging.py
@@ -152,7 +152,7 @@
     tags:
       - deploy
 
-  - name: relojito | Copying production configuration template
+  - name: Copying production configuration template
     template:
       src=settings_production.j2
       dest={{relojito_main_dir}}/relojito/relojito/settings/production.py
@@ -161,52 +161,52 @@
     tags:
       - deploy
 
-  - name: relojito | Restarting PostgreSQL to kill connections
+  - name: Restarting PostgreSQL to kill connections
     service:
       name=postgresql
       state=restarted
     when: recreate_db == 'yes' and relojito_environment == 'development'
 
-  - name: relojito | Removing existing DB
+  - name: Removing existing DB
     shell:
       dropdb {{relojito_dbname}}
     become: yes
     become_user: postgres
     when: recreate_db == 'yes' and relojito_environment == 'development'
 
-  - name: relojito | Creating DB
+  - name: Creating DB
     shell: createdb {{relojito_dbname}}
     become: yes
     become_user: postgres
     when: recreate_db == 'yes' and relojito_environment == 'development'
 
-  - name: relojito | Copying uwsgi configuration
+  - name: Copying uwsgi configuration
     template:
       src=relojito_uwsgi.ini.j2
       dest=/etc/uwsgi/apps_available/relojito_uwsgi.ini
       backup=yes
 
-  - name: relojito | Activating app in uWSGI emperor
+  - name: Activating app in uWSGI emperor
     file:
       src=/etc/uwsgi/apps_available/relojito_uwsgi.ini
       dest=/etc/uwsgi/apps_enabled/relojito_uwsgi.ini
       state=link
 
-  - name: relojito | Copying configuration for supervisor
+  - name: Copying configuration for supervisor
     template:
       src=supervisord_relojito.conf.j2
       dest=/etc/supervisor/conf.d/relojito_operaciones.conf
     tags:
       - deploy
 
-  - name: relojito | Restarting uWSGI
+  - name: Restarting uWSGI
     service:
       name=uwsgi
       state=restarted
     tags:
       - restart
 
-  - name: relojito | Copying configuration for nginx
+  - name: Copying configuration for nginx
     template:
       src=relojito_nginx.j2
       dest=/etc/nginx/sites-available/relojito_nginx
@@ -214,7 +214,7 @@
     tags:
       - deploy
 
-  - name: relojito | Collecting statics
+  - name: Collecting statics
     django_manage:
       command=collectstatic
       virtualenv={{relojito_virtualenv_dir}}
@@ -223,12 +223,12 @@
     tags:
       - deploy
 
-  - name: relojito | Disabling default site in nginx
+  - name: Disabling default site in nginx
     file:
       path=/etc/nginx/sites-enabled/default
       state=absent
 
-  - name: relojito | Activating site in nginx
+  - name: Activating site in nginx
     file:
       src=/etc/nginx/sites-available/relojito_nginx
       dest=/etc/nginx/sites-enabled/relojito_nginx
@@ -236,14 +236,14 @@
     notify:
       - restart nginx
 
-  - name: relojito | Restarting nginx
+  - name: Restarting nginx
     service:
       name=nginx
       state=restarted
     tags:
       - restart
 
-  - name: relojito | Restart supervisord
+  - name: Restart supervisord
     service:
       name=supervisord
       state=restarted
