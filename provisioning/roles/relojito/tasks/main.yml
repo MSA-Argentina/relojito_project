@@ -106,6 +106,7 @@
     pip:
       requirements={{relojito_requirements}}
       virtualenv={{relojito_virtualenv_dir}}
+    become_user: "{{relojito_default_user}}"
     tags:
       - requirements
 
@@ -113,8 +114,21 @@
     pip:
       requirements={{relojito_requirements_dev}}
       virtualenv={{relojito_virtualenv_dir}}
+    become_user: "{{relojito_default_user}}"
     tags:
       - requirements
+
+  - name: Altering venv directory permissions
+    file:
+      mode="g=rwX"
+      state=directory
+      recurse=yes
+      path={{relojito_virtualenv_dir}}
+      owner={{relojito_default_user}}
+      group={{relojito_default_group}}
+    tags:
+      - deploy
+
 
   - name: Using uwsgi binary from virtualenv
     template:
