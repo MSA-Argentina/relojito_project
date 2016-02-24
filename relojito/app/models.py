@@ -231,7 +231,7 @@ class Task(models.Model):
     ])
     external_url = models.URLField(_('external_url'), null=True, blank=True)
 
-    owner = models.ForeignKey(User, null=True, verbose_name=_('owner'))
+    owner = models.ForeignKey(User, verbose_name=_('owner'))
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
