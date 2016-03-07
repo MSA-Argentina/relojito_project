@@ -1,4 +1,4 @@
-Django==1.9.3
+Django==1.9.4
 celery==3.1.19
 django-bootstrap3==6.2.2
 django-braces==1.8.1
