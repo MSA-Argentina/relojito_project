@@ -63,7 +63,7 @@
           <th>{% trans 'Task' %}</th>
           <th>{% trans 'Owner' %}</th>
           <th>{% trans 'Type' %}</th>
-          <th>{% trans 'Created' %}</th>
+          <th>{% trans 'Date' %}</th>
           <th>{% trans 'Total hours' %}</th>
         </tr>
       </thead>
@@ -77,7 +77,7 @@
           {% endif %}
           <td><a href="{% url 'view_profile' pk=t.owner.id %}">{{ t.owner }}</a></td>
           <td>{{ t.task_type }}</td>
-          <td>{{ t.created_at }}</td>
+          <td>{{ t.date|date:"Y-m-d" }}</td>
           <td>{{ t.total_hours }}</td>
         </tr>
         {% endfor %}

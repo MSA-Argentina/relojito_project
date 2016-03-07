@@ -13,7 +13,7 @@
         <title>{% block title %}{% endblock %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="{% static "js/lib/jquery-2.2.1.min.js" %}"></script>
 
         <!-- {% bootstrap_css %}
         {% bootstrap_javascript %} -->
@@ -48,6 +48,7 @@
 
         <link rel="stylesheet" href="{% static "css/jquery.dataTables.min.css" %}">
         <script src="{% static "js/lib/jquery.dataTables.min.js" %}"></script>
+        <script src="{% static "js/lib/datetime-moment.js" %}"></script>
         <script src="{% static "js/lib/dataTables.tableTools.js" %}"></script>
 
         {% block extrahead %}{% endblock %}
