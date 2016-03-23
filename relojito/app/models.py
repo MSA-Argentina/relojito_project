@@ -198,6 +198,7 @@ class ProjectCollaborator(models.Model):
         verbose_name = _('Project collaborator')
         verbose_name_plural = _('Project collaborators')
         ordering = ['project', 'user']
+        unique_together = ('project', 'user')
 
     def __str__(self):
         return "{} - {}".format(self.project.name, self.user.username)
