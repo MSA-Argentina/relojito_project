@@ -165,7 +165,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = _('Project')
         verbose_name_plural = _('Projects')
-        ordering = ['due_date']
+        ordering = ['name', '-due_date']
 
     def __str__(self):
         return "{}".format(self.name)
