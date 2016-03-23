@@ -49,7 +49,7 @@ class CreateProjectCollaboratorForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(CreateProjectCollaboratorForm, self).__init__(*args, **kwargs)
-
+        self.fields['user'].queryset = User.objects.order_by('username')
         self.helper = FormHelper(self)
         self.helper.form_class = 'form-horizontal'
         self.helper.label_class = 'col-md-2'

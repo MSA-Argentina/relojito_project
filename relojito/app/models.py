@@ -197,6 +197,7 @@ class ProjectCollaborator(models.Model):
     class Meta:
         verbose_name = _('Project collaborator')
         verbose_name_plural = _('Project collaborators')
+        ordering = ['project', 'user']
 
     def __str__(self):
         return "{} - {}".format(self.project.name, self.user.username)
