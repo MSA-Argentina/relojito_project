@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 15:41-0300\n"
+"POT-Creation-Date: 2016-04-11 16:02-0300\n"
 "PO-Revision-Date: 2015-01-16 16:51-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
@@ -119,7 +119,7 @@ msgid "due_date"
 msgstr "Fecha de finalización"
 
 #: app/models.py:208 templates/botoncito.html.py:25 templates/profile.html:37
-#: templates/project_list.html.py:9 templates/task_detail.html:18
+#: templates/project_list.html.py:9 templates/task_detail.html:20
 msgid "Project"
 msgstr "Proyecto"
 
@@ -147,7 +147,7 @@ msgstr "Colaboradores de proyecto"
 msgid "task_type"
 msgstr "tipo de tarea"
 
-#: app/models.py:254 templates/task_detail.html.py:21
+#: app/models.py:254 templates/task_detail.html.py:32
 msgid "Type of task"
 msgstr "Tipo de tarea"
 
@@ -221,7 +221,7 @@ msgstr "Login"
 msgid "Edit project"
 msgstr "Editar proyecto"
 
-#: app/views.py:352 templates/task_detail.html.py:30
+#: app/views.py:352 templates/task_detail.html.py:48
 msgid "Edit task"
 msgstr "Editar tarea"
 
@@ -269,7 +269,7 @@ msgstr "Última tarea"
 #: templates/botoncito.html:26 templates/personal_stats.html.py:18
 #: templates/profile.html:39 templates/project_detail.html.py:22
 #: templates/project_detail.html:67 templates/project_list.html.py:16
-#: templates/task_detail.html:20
+#: templates/task_detail.html:29
 msgid "Total hours"
 msgstr "Horas totales"
 
@@ -392,7 +392,7 @@ msgid "Type"
 msgstr "Tipo"
 
 #: templates/profile.html:38 templates/project_detail.html.py:66
-#: templates/task_detail.html:19
+#: templates/task_detail.html:23
 msgid "Date"
 msgstr "Fecha"
 
@@ -401,7 +401,7 @@ msgid "Project detail"
 msgstr "Detalle de proyecto"
 
 #: templates/project_detail.html:20 templates/project_detail.html.py:64
-#: templates/project_list.html:11 templates/task_detail.html.py:25
+#: templates/project_list.html:11 templates/task_detail.html.py:39
 msgid "Owner"
 msgstr "Dueño"
 
@@ -413,7 +413,7 @@ msgstr "Activo?"
 msgid "Due date"
 msgstr "Fecha de finalización"
 
-#: templates/project_detail.html:28 templates/task_detail.html.py:23
+#: templates/project_detail.html:28 templates/task_detail.html.py:36
 msgid "External url"
 msgstr "URL externo"
 
@@ -457,7 +457,11 @@ msgstr "Detalle de tarea"
 msgid "Task: "
 msgstr "Tarea:"
 
-#: templates/task_detail.html:34
+#: templates/task_detail.html:26
+msgid "Created"
+msgstr "Creada"
+
+#: templates/task_detail.html:52
 msgid "Delete task"
 msgstr "Eliminar tarea"
 
@@ -477,9 +481,6 @@ msgstr "Eliminar tarea"
 #~ "Podés hacerlo en %(project_url)s.\n"
 #~ "\n"
 #~ "Adiós!"
-
-#~ msgid "Created"
-#~ msgstr "Creada"
 
 #~ msgid "is_finished"
 #~ msgstr "finalizada"

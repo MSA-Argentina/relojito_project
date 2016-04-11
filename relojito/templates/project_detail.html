@@ -7,82 +7,99 @@
 {% block content %}
 <div class="container">
     <div class="row">
-      <div class="panel panel-default">
-        <div class="panel-heading" style="background-color: {{project.color}}">
-          <h4>{{project.name}}</h4>
-          </div>
-        <div class="panel-body">
-          {% if project.description %}
-            <p>{{project.description}}</p>
-            <hr>
-            {% endif %}
-          <p>{% trans 'Client' %}: {{project.client}}</p>
-          <p>{% trans 'Owner' %}: <a href="{% url 'view_profile' pk=project.owner.id %}">{{ project.owner }}</a></p>
-          <p>{% trans 'Total tasks' %}: {{project.total_tasks|default_if_none:0}}</p>
-          <p>{% trans 'Total hours' %}: {{project.total_hours|default_if_none:0}}</p>
-          <p>{% trans 'Is active?' %}: {{project.is_active}}</p>
-          {% if project.due_date %}
-            <p>{% trans 'Due date' %}: {{project.due_date}}</p>
-            {% endif %}
-          {% if project.external_url %}
-          <p>{% trans 'External url' %}: {{project.external_url|urlize}}</p>
-          {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading" style="background-color: {{project.color}}">
+                <h4>{{project.name}}</h4>
+            </div>
+            <div class="panel-body">
+                {% if project.description %}
+                <p>{{project.description}}</p>
+                <hr>
+                {% endif %}
+
+                <dl class="dl-horizontal">
+                    <dt>{% trans 'Client' %}</dt>
+                    <dd>{{project.client}}</dd>
+
+                    <dt>{% trans 'Owner' %}</dt>
+                    <dd><a href="{% url 'view_profile' pk=project.owner.id %}">{{ project.owner }}</a></dd>
+
+                    <dt>{% trans 'Total tasks' %}</dt>
+                    <dd>{{project.total_tasks|default_if_none:0}}</dd>
+
+                    <dt>{% trans 'Total hours' %}</dt>
+                    <dd>{{project.total_hours|default_if_none:0}}</dd>
+
+                    <dt>{% trans 'Is active?' %}</dt>
+                    <dd>{{project.is_active}}</dd>
+
+                    {% if project.due_date %}
+                    <dt>{% trans 'Due date' %}</dt>
+                    <dd>{{project.due_date}}</dd>
+                    {% endif %}
+
+                    {% if project.external_url %}
+                    <dt>{% trans 'External url' %}</dt>
+                    <dd>{{project.external_url|urlize}}</dd>
+                    {% endif %}
+
+                </dl>
+            </div>
         </div>
-      </div>
-                    <a class="btn btn-default"
-                       href="{% url 'edit_project' pk=project.id %}">
-                        {% trans 'Edit project' %}
-                    </a>
+        <a class="btn btn-default"
+           href="{% url 'edit_project' pk=project.id %}">
+            {% trans 'Edit project' %}
+        </a>
 
-      <h4>{% trans 'Collaborators' %}</h4>
+        <h4>{% trans 'Collaborators' %}</h4>
 
-      <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>{% trans 'Name' %}</th>
-          <th>{% trans 'Username' %}</th>
-          <th>{% trans 'e-mail' %}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for c in project.projectcollaborator_set.all %}
-        <tr>
-          <td><a href="{% url 'view_profile' pk=c.user.id %}">{{ c.user.get_full_name }}</a></td>
-          <td>{{ c.user.username }}</td>
-          <td>{{ c.user.email }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Username' %}</th>
+                    <th>{% trans 'e-mail' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in project.projectcollaborator_set.all %}
+                <tr>
+                    <td><a href="{% url 'view_profile' pk=c.user.id %}">{{ c.user.get_full_name }}</a></td>
+                    <td>{{ c.user.username }}</td>
+                    <td>{{ c.user.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-      <h4>{% trans 'Tasks' %}</h4>
+        <h4>{% trans 'Tasks' %}</h4>
 
-      <table class="table table-condensed">
-      <thead>
-        <tr>
-          <th>{% trans 'Task' %}</th>
-          <th>{% trans 'Owner' %}</th>
-          <th>{% trans 'Type' %}</th>
-          <th>{% trans 'Date' %}</th>
-          <th>{% trans 'Total hours' %}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for t in tasks %}
-        <tr>
-          {% if t.description %}
-          <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}} - {{t.description}}</a></td>
-          {% else %}
-          <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a></td>
-          {% endif %}
-          <td><a href="{% url 'view_profile' pk=t.owner.id %}">{{ t.owner }}</a></td>
-          <td>{{ t.task_type }}</td>
-          <td>{{ t.date|date:"Y-m-d" }}</td>
-          <td>{{ t.total_hours }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>{% trans 'Task' %}</th>
+                    <th>{% trans 'Owner' %}</th>
+                    <th>{% trans 'Type' %}</th>
+                    <th>{% trans 'Date' %}</th>
+                    <th>{% trans 'Total hours' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in tasks %}
+                <tr>
+                    {% if t.description %}
+                    <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}} - {{t.description}}</a></td>
+                    {% else %}
+                    <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a></td>
+                    {% endif %}
+                    <td><a href="{% url 'view_profile' pk=t.owner.id %}">{{ t.owner }}</a></td>
+                    <td>{{ t.task_type }}</td>
+                    <td>{{ t.date|date:"Y-m-d" }}</td>
+                    <td>{{ t.total_hours }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

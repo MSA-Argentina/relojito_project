@@ -12,8 +12,19 @@
           <h4>{{profile.first_name}} {{profile.last_name}}</h4>
           </div>
         <div class="panel-body">
-          <p>{% trans 'Username' %}: {{profile.username}}</p>
-          <p>{% trans 'Email' %}: {{profile.email|urlize}}</p>
+            <dl class="dl-horizontal">
+                <dt>{% trans 'Username' %}<dt>
+                <dd>{{profile.username}}</dd>
+                <dt>{% trans 'Email' %}<dt>
+                <dd>{{profile.email|urlize}}</dd>
+                <dt>{% trans 'Weekly hours' %}<dt>
+                <dd>{{profile.total_hours_last_week}}</dd>
+                <dt>{% trans 'Average hours' %}</dt>
+                <dd>{{profile.avg_hours_last_week}}</dd>
+                <dt>{% trans 'Last input' %}</dt>
+                <dd>{{profile.get_last_task.date}} / {{profile.get_last_task}}</dd>
+            </dl>
+
         </div>
       </div>
       <h4>{% trans 'Tasks' %}</h4>
