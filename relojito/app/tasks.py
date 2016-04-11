@@ -42,9 +42,9 @@ def weekly_summary_user(user):
 
     if wt:
         last_task = user.get_last_task()
-        week_days = len(set([x.date for x in wt]))
-        total_hours = sum([x.total_hours for x in wt])
-        avg_hours = total_hours / week_days
+        week_days = user.total_days_last_week()
+        total_hours = user.total_hours_last_week()
+        avg_hours = user.avg_hours_last_week()
 
         data = {
             "username": user.username,
