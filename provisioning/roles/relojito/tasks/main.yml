@@ -102,6 +102,17 @@
   - name: Creating virtualenv with Python 3
     command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}
 
+  - name: Altering venv directory permissions
+    file:
+      mode="g=rwX"
+      state=directory
+      recurse=yes
+      path={{relojito_virtualenv_dir}}
+      owner={{relojito_default_user}}
+      group={{relojito_default_group}}
+    tags:
+      - deploy
+
   - name: Installing base requirements
     pip:
       requirements={{relojito_requirements}}
@@ -117,18 +128,6 @@
     become_user: "{{relojito_default_user}}"
     tags:
       - requirements
-
-  - name: Altering venv directory permissions
-    file:
-      mode="g=rwX"
-      state=directory
-      recurse=yes
-      path={{relojito_virtualenv_dir}}
-      owner={{relojito_default_user}}
-      group={{relojito_default_group}}
-    tags:
-      - deploy
-
 
   - name: Using uwsgi binary from virtualenv
     template:

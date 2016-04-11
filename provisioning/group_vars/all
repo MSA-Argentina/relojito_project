@@ -11,12 +11,7 @@ postgresql_ext_install_contrib: yes
 postgresql_ext_install_dev_headers: yes
 postgresql_ext_install_postgis: yes
 postgresql_locale: 'en_US.UTF-8'
-postgresql_version: 9.4
-
-# git
-git_url: https://github.com/MSA-Argentina
-git_repo: "{{git_url}}/relojito_project.git"
-git_update: master
+postgresql_version: 9.5
 
 # Databases
 postgresql_databases:
