@@ -38,6 +38,25 @@ def verify_yesterday_tasks(user):
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
 
+def weekly_summary(user):
+    wt = user.last_week_tasks()
+
+    if wt:
+        week_days = len(set([x.date for x in wt]))
+        total_hours = sum([x.total_hours for x in wt])
+        avg_hours = total_hours / week_days
+
+        data = {
+            "week_days": week_days,
+            "total_hours": total_hours,
+            "avg_hours": avg_hours
+        }
+    else:
+        data = None
+
+    return data
+
+
 @task
 def send_alert_to_user(user):
     subject = "No creaste tareas en Relojito ayer"

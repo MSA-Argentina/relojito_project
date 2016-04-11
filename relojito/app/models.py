@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 
 import datetime
+from datetime import date, timedelta
 import re
 from collections import Counter
 
@@ -89,6 +90,41 @@ def total_hours_per_project(self):
     return list(t)
 
 
+def total_days_last_week(self):
+    wt = self.last_week_tasks()
+    if wt:
+        week_days = len(set([x.date for x in wt]))
+        return week_days
+    else:
+        return 0
+
+
+def total_hours_last_week(self):
+    wt = self.last_week_tasks()
+    if wt:
+        total_hours = sum([x.total_hours for x in wt])
+        return total_hours
+    else:
+        return 0
+
+
+def last_week_tasks(self):
+    a_week_ago = date.today() - timedelta(days=7)
+    taskset = self.get_tasks()
+    ts = taskset.filter(date__gte=a_week_ago).all()
+
+    return list(ts)
+
+
+def avg_hours_last_week(self):
+    wt = self.last_week_tasks()
+    if wt:
+        avg_hours = self.total_hours_last_week() / self.total_days_last_week()
+        return round(avg_hours, 2)
+    else:
+        return 0
+
+
 def word_frequencies(self):
     taskset = self.get_tasks()
     nonwords = set(['/', 'de', 'y', 'en', 'para',
@@ -103,7 +139,9 @@ def word_frequencies(self):
 
     frequencies = 0
     # frequencies = map(lambda (word, count):
-    #         {'text': word, 'size': count, 'frequency': count/float(total)}, counts)
+    #                   {'text': word,
+    #                    'size': count, 'frequency': count / float(total)},
+    #                   counts)
     return {'total': total, 'frequencies': frequencies}
 
 User.add_to_class("get_tasks", get_tasks)
@@ -116,6 +154,10 @@ User.add_to_class("total_tasks_per_project", total_tasks_per_project)
 User.add_to_class("total_hours_per_type", total_hours_per_type)
 User.add_to_class("total_hours_per_project", total_hours_per_project)
 User.add_to_class("word_frequencies", word_frequencies)
+User.add_to_class("last_week_tasks", last_week_tasks)
+User.add_to_class("total_days_last_week", total_days_last_week)
+User.add_to_class("total_hours_last_week", total_hours_last_week)
+User.add_to_class("avg_hours_last_week", avg_hours_last_week)
 
 
 @python_2_unicode_compatible
