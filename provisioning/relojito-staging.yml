@@ -1,9 +1,0 @@
----
-- hosts: relojito-staging
-  roles:
-    - relojito
-  become: yes
-  gather_facts: yes
-  remote_user: operador
-  vars_files:
-    - vars_local.yml

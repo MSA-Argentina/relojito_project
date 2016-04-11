@@ -1,0 +1,15 @@
+Éste es un resumen de los usuarios que no cumplieron correctamente con la carga de horas la semana pasada:
+
+* Usuarios que no cargaron horas todos los días:
+
+{% for t in users_few_days %}
+ - {{ t.username }} / Días cargados: {{ t.total_days_last_week}}
+{% endfor %}
+
+* Usuarios que cargaron un promedio bajo de horas por día:
+
+{% for t in users_few_hours %}
+ - {{ t.username }} / Horas promedio: {{ t.avg_hours_last_week}}
+{% endfor %}
+
+Adiós!

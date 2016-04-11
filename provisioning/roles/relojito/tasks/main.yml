@@ -156,15 +156,6 @@
     tags:
       - deploy
 
-  - name: Copying staging configuration template
-    template:
-      src=settings_staging.j2
-      dest={{relojito_main_dir}}/relojito/relojito/settings/staging.py
-      backup=no
-    when: relojito_environment == 'staging'
-    tags:
-      - deploy
-
   - name: Copying production configuration template
     template:
       src=settings_production.j2

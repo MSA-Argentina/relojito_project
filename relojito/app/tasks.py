@@ -34,6 +34,36 @@ def verify_yesterday_tasks(user):
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
 
+def weekly_irregular_users():
+    """Sends a weekly hall of shame email to admin users."""
+
+    subject = "Weekly hall of shame"
+    # active users, not in blacklist
+    active_users = User.objects.filter(is_active=True).all()
+    users = list(filter(lambda x: x.username not in
+                        settings.ALERT_USERS_BLACKLIST,
+                        active_users))
+
+    users_few_days = list(filter(lambda x: x.total_days_last_week() < 5,
+                                 users))
+    users_few_hours = list(filter(lambda x: x.avg_hours_last_week() < 7,
+                                  users))
+
+    data = {
+        "users_few_days": users_few_days,
+        "users_few_hours": users_few_hours
+    }
+
+    text_body = render_to_string(
+        'mails/weekly_shame_mail.txt', data)
+
+    to_mail = []
+    to_mail.append(settings.ADMIN_USERS_EMAIL)
+    print(text_body)
+    send_mail(
+        subject, text_body, settings.DEFAULT_FROM_EMAIL, to_mail)
+
+
 @task()
 def weekly_summary_user(user):
     """Sends a weekly summary."""

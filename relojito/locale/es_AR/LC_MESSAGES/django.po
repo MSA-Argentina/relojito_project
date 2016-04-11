@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 12:13-0300\n"
+"POT-Creation-Date: 2016-04-11 15:41-0300\n"
 "PO-Revision-Date: 2015-01-16 16:51-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
@@ -49,7 +49,7 @@ msgstr "Crear una tarea"
 msgid "Edit Task"
 msgstr "Editar tarea"
 
-#: app/forms.py:220 templates/_navbar.html.py:43
+#: app/forms.py:220 templates/_navbar.html.py:46
 msgid "Edit profile"
 msgstr "Editar perfil"
 
@@ -118,7 +118,7 @@ msgstr "dueño"
 msgid "due_date"
 msgstr "Fecha de finalización"
 
-#: app/models.py:208 templates/botoncito.html.py:25 templates/profile.html:26
+#: app/models.py:208 templates/botoncito.html.py:25 templates/profile.html:37
 #: templates/project_list.html.py:9 templates/task_detail.html:18
 msgid "Project"
 msgstr "Proyecto"
@@ -159,21 +159,21 @@ msgstr "Tipos de tareas"
 msgid "total_hours"
 msgstr "horas totales"
 
-#: app/models.py:283 templates/profile.html.py:24
+#: app/models.py:283 templates/profile.html.py:35
 #: templates/project_detail.html:63
 msgid "Task"
 msgstr "Tarea"
 
-#: app/models.py:284 templates/profile.html.py:19
+#: app/models.py:284 templates/profile.html.py:30
 #: templates/project_detail.html:58
 msgid "Tasks"
 msgstr "Tareas"
 
-#: app/tasks.py:113
+#: app/tasks.py:155
 msgid "Feliz año nuevo de parte de Relojito"
 msgstr ""
 
-#: app/tasks.py:114
+#: app/tasks.py:156
 #, python-format
 msgid ""
 "Hola %(username)s, Relojito te cuenta que hasta ahora completaste "
@@ -184,12 +184,12 @@ msgid ""
 "Más allá de las estadísticas, Relojito te desea un excelente comienzo de año!"
 msgstr ""
 
-#: app/tasks.py:131
+#: app/tasks.py:173
 #, python-format
 msgid "You are now a collaborator in %(project_name)s"
 msgstr "Ahora sos colaborador en %(project_name)s"
 
-#: app/tasks.py:133
+#: app/tasks.py:175
 #, python-format
 msgid ""
 "Hi, you've been added as a colaborator in %(project_name)s.\n"
@@ -250,6 +250,10 @@ msgstr "Generar token"
 msgid "Personal stats"
 msgstr "Estadísticas"
 
+#: templates/_navbar.html:42
+msgid "View profile"
+msgstr "Ver perfil"
+
 #: templates/botoncito.html:1
 msgid "Botoncito"
 msgstr ""
@@ -263,7 +267,7 @@ msgid "Last task"
 msgstr "Última tarea"
 
 #: templates/botoncito.html:26 templates/personal_stats.html.py:18
-#: templates/profile.html:28 templates/project_detail.html.py:22
+#: templates/profile.html:39 templates/project_detail.html.py:22
 #: templates/project_detail.html:67 templates/project_list.html.py:16
 #: templates/task_detail.html:20
 msgid "Total hours"
@@ -273,15 +277,15 @@ msgstr "Horas totales"
 msgid "Days with hours"
 msgstr "Días cargados"
 
-#: templates/botoncito.html:28
+#: templates/botoncito.html:28 templates/profile.html.py:20
 msgid "Weekly hours"
 msgstr "Horas semanales"
 
-#: templates/botoncito.html:29
+#: templates/botoncito.html:29 templates/profile.html.py:22
 msgid "Average hours"
 msgstr "Horas promedio"
 
-#: templates/botoncito.html:30
+#: templates/botoncito.html:30 templates/profile.html.py:24
 msgid "Last input"
 msgstr "Última carga"
 
@@ -333,7 +337,7 @@ msgstr "Calendario"
 msgid "Enter"
 msgstr "Ingresar"
 
-#: templates/login.html:34 templates/profile.html.py:15
+#: templates/login.html:34 templates/profile.html.py:16
 #: templates/project_detail.html:43
 msgid "Username"
 msgstr "Nombre de usuario"
@@ -379,15 +383,15 @@ msgstr "Tareas totales"
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/profile.html:16
+#: templates/profile.html:18
 msgid "Email"
 msgstr "email"
 
-#: templates/profile.html:25 templates/project_detail.html.py:65
+#: templates/profile.html:36 templates/project_detail.html.py:65
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/profile.html:27 templates/project_detail.html.py:66
+#: templates/profile.html:38 templates/project_detail.html.py:66
 #: templates/task_detail.html:19
 msgid "Date"
 msgstr "Fecha"

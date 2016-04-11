@@ -132,6 +132,11 @@ CELERYBEAT_SCHEDULE = {
         'task': 'app.tasks.mail_weekly_summary',
         'schedule': crontab(hour=9, minute=45, day_of_week='mon')
     },
+    # Executes every monday, 10:00 AM
+    'weekly_shame': {
+        'task': 'app.tasks.weekly_irregular_users',
+        'schedule': crontab(hour=10, minute=00, day_of_week='mon')
+    },
 }
 
 ALERT_USERS_BLACKLIST = []
