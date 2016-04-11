@@ -15,12 +15,23 @@
             <dl class="dl-horizontal">
                 <dt>{% trans 'Username' %}<dt>
                 <dd>{{profile.username}}</dd>
+
+                <dt>{% trans 'Is active?' %}</dt>
+                {% if profile.is_active %}
+                    <dd><span class="glyphicon glyphicon-ok"></span></dd>
+                {% else %}
+                    <dd><span class="glyphicon glyphicon-remove"></span></dd>
+                {% endif %}
+
                 <dt>{% trans 'Email' %}<dt>
                 <dd>{{profile.email|urlize}}</dd>
+
                 <dt>{% trans 'Weekly hours' %}<dt>
                 <dd>{{profile.total_hours_last_week}}</dd>
+
                 <dt>{% trans 'Average hours' %}</dt>
                 <dd>{{profile.avg_hours_last_week}}</dd>
+
                 <dt>{% trans 'Last input' %}</dt>
                 <dd>{{profile.get_last_task.date}} / {{profile.get_last_task}}</dd>
             </dl>

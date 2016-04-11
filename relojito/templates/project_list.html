@@ -19,11 +19,17 @@
                 <tbody>
                     {% for p in projects %}
                     <tr>
-                      <td><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></td>
-                      <td>{{ p.client }}</td>
-                      <td><a href="{% url 'view_profile' pk=p.owner.id %}">{{ p.owner }}</a></td>
+                        <td><a href="{% url 'project_detail' pk=p.id %}">{{p.name}}</a></td>
+                        <td>{{ p.client }}</td>
+                        <td><a href="{% url 'view_profile' pk=p.owner.id %}">{{ p.owner }}</a></td>
                         <td><span class="label" style="background-color: {{p.color}};color: #444">{{p.color}}</span></td>
-                        <td>{{ p.is_active }}</td>
+
+                        {% if p.is_active %}
+                        <td><span class="glyphicon glyphicon-ok"></span></td>
+                        {% else %}
+                        <td><span class="glyphicon glyphicon-remove"></span></td>
+                        {% endif %}
+
                         <td>{{ p.due_date|default_if_none:"-" }}</td>
                         <td>{{ p.total_tasks|default_if_none:0 }}</td>
                         <td>{{ p.total_hours|default_if_none:0 }}</td>

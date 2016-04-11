@@ -31,7 +31,11 @@
                     <dd>{{project.total_hours|default_if_none:0}}</dd>
 
                     <dt>{% trans 'Is active?' %}</dt>
-                    <dd>{{project.is_active}}</dd>
+                    {% if project.is_active %}
+                        <dd><span class="glyphicon glyphicon-ok"></span></dd>
+                    {% else %}
+                        <dd><span class="glyphicon glyphicon-remove"></span></dd>
+                    {% endif %}
 
                     {% if project.due_date %}
                     <dt>{% trans 'Due date' %}</dt>
