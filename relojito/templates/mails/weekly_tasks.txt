@@ -1,0 +1,15 @@
+Hola {{username}}, éste es un resumen de tus tareas de la semana anterior:
+
+Tu última tarea registrada fue "{{last_task.name}}" en la fecha {{last_task.date}}
+
+La semana anterior cargaste un total de {{total_hours}} horas, distribuidas en {{week_days}} días.
+
+Tu promedio diario de horas cargadas fue {{avg_hours}}.
+
+Éste es el detalle de tus tareas:
+
+{% for t in weekly_tasks %}
+* {{ t.name }} / {{ t.date }} / {{t.total_hours}} hora(s)
+{% endfor %}
+
+Adiós!

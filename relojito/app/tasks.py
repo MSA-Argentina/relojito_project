@@ -14,20 +14,16 @@ from .models import Holiday, Task
 
 
 def get_fortune():
-    """
-    Get a random fortune from the system
-    """
+    """Gets a random fortune from the system."""
     fortune = check_output(['/usr/games/fortune'])
 
     return fortune
 
 
 def verify_yesterday_tasks(user):
-    """
-    Returns True if a user created at least one task
+    """Returns True if a user created at least one task
     yesterday. Checks if 'yesterday' was on weekend or was
-    a holiday.
-    """
+    a holiday."""
     yesterday = date.today() - timedelta(days=1)
 
     if Holiday.objects.filter(date=yesterday).exists() or \
@@ -38,26 +34,37 @@ def verify_yesterday_tasks(user):
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
 
-def weekly_summary(user):
+@task()
+def weekly_summary_user(user):
+    """Sends a weekly summary."""
+    subject = "Resumen semanal de tareas"
     wt = user.last_week_tasks()
 
     if wt:
+        last_task = user.get_last_task()
         week_days = len(set([x.date for x in wt]))
         total_hours = sum([x.total_hours for x in wt])
         avg_hours = total_hours / week_days
 
         data = {
+            "username": user.username,
             "week_days": week_days,
             "total_hours": total_hours,
-            "avg_hours": avg_hours
+            "avg_hours": avg_hours,
+            "last_task": last_task,
+            "weekly_tasks": wt
         }
-    else:
-        data = None
+        text_body = render_to_string(
+            'mails/weekly_tasks.txt', data)
 
-    return data
+        to_mail = []
+        to_mail.append(user.email)
+        print(text_body)
+        send_mail(
+            subject, text_body, settings.DEFAULT_FROM_EMAIL, to_mail)
 
 
-@task
+@task()
 def send_alert_to_user(user):
     subject = "No creaste tareas en Relojito ayer"
     project_url = settings.SITE_URL
@@ -83,10 +90,8 @@ def send_alert_to_user(user):
 
 @task()
 def mail_alert_no_created_task():
-    """
-    Sends an alert if a user didn't create any tasks the
-    day before
-    """
+    """Sends an alert if a user didn't create any tasks the
+    day before."""
     users = User.objects.filter(is_active=True).all()
     for user in users:
         if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
@@ -95,10 +100,17 @@ def mail_alert_no_created_task():
 
 
 @task()
+def mail_weekly_summary():
+    """Sends a weekly summary to all users."""
+    users = User.objects.filter(is_active=True).all()
+    for user in users:
+        if user.email and user.username not in settings.ALERT_USERS_BLACKLIST:
+            weekly_summary_user(user)
+
+
+@task()
 def mail_new_year_greeting():
-    """
-    Sends a happy new year greeting
-    """
+    """Sends a happy new year greeting."""
     users = User.objects.filter(is_active=True).all()
 
     for user in users:

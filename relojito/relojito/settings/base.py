@@ -127,6 +127,11 @@ CELERYBEAT_SCHEDULE = {
         'task': 'app.tasks.mail_alert_no_created_task',
         'schedule': crontab(hour=9, minute=30)
     },
+    # Executes every monday, 9:45 AM
+    'weekly_summary': {
+        'task': 'app.tasks.mail_weekly_summary',
+        'schedule': crontab(hour=9, minute=45, day_of_week='mon')
+    },
 }
 
 ALERT_USERS_BLACKLIST = []
