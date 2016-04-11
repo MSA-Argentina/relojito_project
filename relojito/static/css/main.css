@@ -8,14 +8,6 @@ a {
     color: #444;
 }
 
-.navbar-inverse .navbar-nav li a {
-    color: #fbfbfb;
-}
-
-.navbar-inverse .navbar-brand {
-    color: #fbfbfb;
-}
-
 .form-signin {
     max-width: 330px;
     padding: 15px;
