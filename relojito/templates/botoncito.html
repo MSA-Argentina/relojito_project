@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% load i18n %} {% load staticfiles %}{% block title %}{% trans 'Botoncito' %}{% endblock %} {% block content %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load l10n %}
+{% load staticfiles %}
+{% block title %} {% trans 'Botoncito' %} {% endblock %}
+
+{% block content %}
 <div class="container">
 
     <div class="row">
@@ -17,7 +23,7 @@
       <hr/>
 
         <div class="col-md-12">
-            <table class="table table-condensed">
+            <table id="botoncito" class="table table-condensed">
                 <thead>
                     <tr>
                         <th>{% trans 'User' %}</th>
@@ -47,7 +53,7 @@
                         {% endif %}
                         <td>{{ u.total_hours_last_week }}</td>
                         <td>{{ u.avg_hours_last_week }}</td>
-                        <td>{{ t.updated_at|timesince }}</td>
+                        <td data-sort="{{ t.updated_at|unlocalize }}" id="updated_at">{{ t.updated_at|timesince }}</td>
                     </tr>
                     {% endwith %}
                     {% endfor %}
