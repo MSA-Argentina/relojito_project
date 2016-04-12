@@ -30,7 +30,7 @@ def total_tasks(request):
         d['start'] = t
         tx = Task.objects.filter(date=t, owner=user).aggregate(
             Sum('total_hours'))
-        d['title'] = ' ' + str(tx['total_hours__sum']) + ' hs'
+        d['title'] = ' ' + str(tx['total_hours__sum']) + ' h'
         total.append(d)
     return JsonResponse(total, safe=False)
 

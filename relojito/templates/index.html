@@ -62,7 +62,7 @@
             <h3>{% trans 'Latest Tasks' %}</h3>
             <ul class="list-group">
                 {% for task in tasks %}
-                <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} </a><span class="label label-default">{{task.total_hours}} hours</span>
+                <li class="list-group-item"><a href="{% url 'task_detail' pk=task.id %}">{{task.name}} </a><span class="label label-default">{{task.total_hours}} h</span>
                   <a href="{% url 'project_detail' pk=task.project.id %}"<span class="label" style="background-color: {{task.project.color}};color: #444">{{task.project.name}}</span></a></li>
                 {% endfor %}
             </ul>

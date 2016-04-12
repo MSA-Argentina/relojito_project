@@ -292,7 +292,7 @@ class Task(models.Model):
 
     @property
     def task_title(self):
-        return self.name + ' (' + str(self.total_hours) + ' hs)'
+        return self.name + ' (' + str(self.total_hours) + ' h)'
 
     def to_dict(self):
         d = {
