@@ -50,7 +50,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             ansible.playbook = "provisioning/relojito-development.yml"
             ansible.inventory_path = "provisioning/ansible_hosts"
             ansible.host_key_checking = false
-            ansible.tags = ["deploy", "requirements"]
+            ansible.tags = ["deploy", "restart", "requirements"]
       end
   end
 end
