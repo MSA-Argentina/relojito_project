@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-13 11:27-0300\n"
+"POT-Creation-Date: 2016-04-13 12:18-0300\n"
 "PO-Revision-Date: 2015-01-16 16:51-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
@@ -118,7 +118,7 @@ msgstr "dueño"
 msgid "due_date"
 msgstr "Fecha de finalización"
 
-#: app/models.py:208 templates/botoncito.html.py:31 templates/profile.html:55
+#: app/models.py:208 templates/botoncito.html.py:31 templates/profile.html:63
 #: templates/project_list.html.py:12 templates/task_detail.html:20
 msgid "Project"
 msgstr "Proyecto"
@@ -159,12 +159,12 @@ msgstr "Tipos de tareas"
 msgid "total_hours"
 msgstr "horas totales"
 
-#: app/models.py:283 templates/profile.html.py:53
+#: app/models.py:283 templates/profile.html.py:61
 #: templates/project_detail.html:84
 msgid "Task"
 msgstr "Tarea"
 
-#: app/models.py:284 templates/profile.html.py:48
+#: app/models.py:284 templates/profile.html.py:56
 #: templates/project_detail.html:79
 msgid "Tasks"
 msgstr "Tareas"
@@ -233,8 +233,8 @@ msgstr "Feedback"
 msgid "Signed in as"
 msgstr "Logueado como"
 
-#: templates/_navbar.html:29 templates/index.html.py:50
-#: templates/index.html:56
+#: templates/_navbar.html:29 templates/index.html.py:47
+#: templates/index.html:53
 msgid "All projects"
 msgstr "Todos los proyectos"
 
@@ -262,12 +262,12 @@ msgstr ""
 msgid "User"
 msgstr "Nombre de usuario"
 
-#: templates/botoncito.html:30
+#: templates/botoncito.html:30 templates/profile.html.py:41
 msgid "Last task"
 msgstr "Última tarea"
 
 #: templates/botoncito.html:32 templates/personal_stats.html.py:18
-#: templates/profile.html:57 templates/project_detail.html.py:30
+#: templates/profile.html:65 templates/project_detail.html.py:30
 #: templates/project_detail.html:88 templates/project_list.html.py:19
 #: templates/task_detail.html:29
 msgid "Total hours"
@@ -285,9 +285,9 @@ msgstr "Horas semanales"
 msgid "Average hours"
 msgstr "Horas promedio"
 
-#: templates/botoncito.html:36 templates/profile.html.py:37
+#: templates/botoncito.html:36 templates/profile.html.py:38
 msgid "Last input"
-msgstr "Última carga"
+msgstr "Última tarea cargada"
 
 #: templates/get_token.html:11
 msgid "My Token"
@@ -301,35 +301,35 @@ msgstr "Token"
 msgid "Reset Token"
 msgstr "Resetear token"
 
-#: templates/index.html:11
+#: templates/index.html:12
 msgid "Projects (Owner)"
 msgstr "Proyectos (Dueño)"
 
-#: templates/index.html:22 templates/index.html.py:36
-msgid "No projects"
-msgstr "Sin proyectos"
-
-#: templates/index.html:25
+#: templates/index.html:22
 msgid "Projects (Collaborator)"
 msgstr "Proyectos (Colaborador)"
 
-#: templates/index.html:42
+#: templates/index.html:33
+msgid "No projects"
+msgstr "Sin proyectos"
+
+#: templates/index.html:39
 msgid "Add project"
 msgstr "Agregar proyecto"
 
-#: templates/index.html:46
+#: templates/index.html:43
 msgid "Add collaborator"
 msgstr "Agregar colaborador"
 
-#: templates/index.html:62
+#: templates/index.html:59
 msgid "Latest Tasks"
 msgstr "Últimas tareas"
 
-#: templates/index.html:71
+#: templates/index.html:68
 msgid "Add task"
 msgstr "Agregar tarea"
 
-#: templates/index.html:76
+#: templates/index.html:73
 msgid "Calendar"
 msgstr "Calendario"
 
@@ -392,15 +392,19 @@ msgstr "Activo?"
 msgid "Email"
 msgstr "email"
 
-#: templates/profile.html:45
+#: templates/profile.html:39
+msgid "Inserted on:"
+msgstr "Cargada en"
+
+#: templates/profile.html:50
 msgid "Calendar of"
 msgstr "Calendario de"
 
-#: templates/profile.html:54 templates/project_detail.html.py:86
+#: templates/profile.html:62 templates/project_detail.html.py:86
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/profile.html:56 templates/project_detail.html.py:87
+#: templates/profile.html:64 templates/project_detail.html.py:87
 #: templates/task_detail.html:23
 msgid "Date"
 msgstr "Fecha"

@@ -31,8 +31,16 @@ def get_tasks(self):
     return tasks
 
 
+def get_last_inserted_task(self):
+    last_task = Task.objects.filter(owner=self).\
+                order_by('-created_at').first()
+
+    return last_task
+
+
 def get_last_task(self):
-    last_task = Task.objects.filter(owner=self).last()
+    last_task = Task.objects.filter(owner=self).\
+                order_by('-date', '-name').first()
 
     return last_task
 
@@ -146,6 +154,7 @@ def word_frequencies(self):
 
 User.add_to_class("get_tasks", get_tasks)
 User.add_to_class("get_last_task", get_last_task)
+User.add_to_class("get_last_inserted_task", get_last_inserted_task)
 User.add_to_class("get_projects", get_projects)
 User.add_to_class("get_owned_projects", get_owned_projects)
 User.add_to_class("get_collab_projects", get_collab_projects)

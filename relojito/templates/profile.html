@@ -34,7 +34,12 @@
                 <dt>{% trans 'Average hours' %}</dt>
                 <dd>{{profile.avg_hours_last_week}}</dd>
 
+                {% with t=profile.get_last_inserted_task %}
                 <dt>{% trans 'Last input' %}</dt>
+                <dd>{{t.date}} / {{t}} - {% trans 'Inserted on:' %} {{ t.created_at }}</dd>
+                {% endwith %}
+
+                <dt>{% trans 'Last task' %}</dt>
                 <dd>{{profile.get_last_task.date}} / {{profile.get_last_task}}</dd>
             </dl>
 
