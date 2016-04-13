@@ -12,54 +12,58 @@
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                  <img class="media-object" src="{% static "img/police.png" %}" alt="...">
+                    <img class="media-object" src="{% static "img/police.png" %}" alt="...">
                 </a>
             </div>
             <div class="media-body">
                 <h2 class="media-heading">The Police Dashboard</h2>
             </div>
         </div>
-      </div>
-      <hr/>
-
-        <div class="col-md-12">
-            <table id="botoncito" class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>{% trans 'User' %}</th>
-                        <th>{% trans 'Last task' %}</th>
-                        <th>{% trans 'Project' %}</th>
-                        <th>{% trans 'Total hours' %}</th>
-                        <th>{% trans 'Days with hours' %}</th>
-                        <th>{% trans 'Weekly hours' %}</th>
-                        <th>{% trans 'Average hours' %}</th>
-                        <th>{% trans 'Last input' %}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for u in active_users %}
-                    {% with t=u.get_last_task %}
-                    <tr>
-                      <td><a href="{% url 'view_profile' pk=u.id %}">{{ u }}</a></td>
-                        <td>{{ t.name|default_if_none:"Nothing" }}</td>
-                        <td><span class="label" style="background-color: {{t.project.color}};color: #444">{{t.project}}</span></td>
-                        <td>{{ t.total_hours|default_if_none:0 }}</td>
-                        {% if u.total_days_last_week >= 5 %}
-                        <td><span class="label label-success">
-                            {{ u.total_days_last_week }}</span></td>
-                        {% else %}
-                        <td><span class="label label-danger">
-                            {{ u.total_days_last_week }}</span></td>
-                        {% endif %}
-                        <td>{{ u.total_hours_last_week }}</td>
-                        <td>{{ u.avg_hours_last_week }}</td>
-                        <td data-sort="{{ t.updated_at|unlocalize }}" id="updated_at">{{ t.updated_at|timesince }}</td>
-                    </tr>
-                    {% endwith %}
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
     </div>
+    <hr/>
 
-    {% endblock %}
+    <div class="col-md-12">
+        <table id="botoncito" class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>{% trans 'User' %}</th>
+                    <th>{% trans 'Last task' %}</th>
+                    <th>{% trans 'Project' %}</th>
+                    <th>{% trans 'Total hours' %}</th>
+                    <th>{% trans 'Days with hours' %}</th>
+                    <th>{% trans 'Weekly hours' %}</th>
+                    <th>{% trans 'Average hours' %}</th>
+                    <th>{% trans 'Last input' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in active_users %}
+                {% with t=u.get_last_task %}
+                <tr>
+                    <td><a href="{% url 'view_profile' pk=u.id %}">{{ u }}</a></td>
+                    {% if t %}
+                    <td><a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a></td>
+                    {% else %}
+                    <td>-</td>
+                    {% endif %}
+                    <td><span class="label" style="background-color: {{t.project.color}};color: #444">{{t.project}}</span></td>
+                    <td>{{ t.total_hours|default_if_none:0 }}</td>
+                    {% if u.total_days_last_week >= 5 %}
+                    <td><span class="label label-success">
+                        {{ u.total_days_last_week }}</span></td>
+                    {% else %}
+                    <td><span class="label label-danger">
+                        {{ u.total_days_last_week }}</span></td>
+                    {% endif %}
+                    <td>{{ u.total_hours_last_week }}</td>
+                    <td>{{ u.avg_hours_last_week }}</td>
+                    <td data-sort="{{ t.updated_at|unlocalize }}" id="updated_at">{{ t.updated_at|timesince }}</td>
+                </tr>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
