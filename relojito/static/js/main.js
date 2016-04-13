@@ -4,6 +4,30 @@ $(function(){
             window.location.href = '/task/new/';
         }, 'keyup');
 
+    if ($('#profile-calendar').length > 0) {
+        $('#profile-calendar').fullCalendar({
+            defaultView: 'basicWeek',
+            height: 250,
+            lang: 'es',
+            header: {
+                left: 'prev, next today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            eventSources: [
+                '/tasks/json/' + user_id,
+                '/total_tasks/' + user_id
+            ],
+            eventRender: function(event, element) {
+                var tooltip = event.title;
+                $(element).attr("data-original-title", tooltip)
+                $(element).tooltip({
+                    container: "body"
+                })
+            }
+        });
+    }
+
     $('#calendar').fullCalendar({
         defaultView: 'basicWeek',
         lang: 'es',
@@ -43,7 +67,7 @@ $(function(){
         "language": {
             "url": "//cdn.datatables.net/plug-ins/a5734b29083/i18n/Spanish.json"
         },
-        "iDisplayLength": 25,
+        "iDisplayLength": 10,
         "bStateSave": true,
         "sDom": 'T<"clear">lfrtip',
         "oTableTools": {

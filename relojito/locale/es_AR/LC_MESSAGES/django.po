@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Relojito Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-11 16:02-0300\n"
+"POT-Creation-Date: 2016-04-13 11:27-0300\n"
 "PO-Revision-Date: 2015-01-16 16:51-0300\n"
 "Last-Translator: Franco Mariluis <fmariluis@msa.com.ar>\n"
 "Language-Team: Grupo MSA <li@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: app/forms.py:24 app/views.py:216
+#: app/forms.py:24 app/views.py:224
 msgid "Create a project"
 msgstr "Crear un proyecto"
 
@@ -29,7 +29,7 @@ msgstr "Crear"
 msgid "Clean"
 msgstr "Limpiar"
 
-#: app/forms.py:60 app/views.py:287
+#: app/forms.py:60 app/views.py:295
 msgid "Add a project collaborator"
 msgstr "Agregar colaborador de proyecto"
 
@@ -41,7 +41,7 @@ msgstr "Editar proyecto"
 msgid "Update"
 msgstr "Actualizar"
 
-#: app/forms.py:125 app/views.py:323
+#: app/forms.py:125 app/views.py:331
 msgid "Create a task"
 msgstr "Crear una tarea"
 
@@ -85,8 +85,8 @@ msgstr "email"
 msgid "phone"
 msgstr "teléfono"
 
-#: app/models.py:186 templates/project_detail.html.py:19
-#: templates/project_list.html:10
+#: app/models.py:186 templates/project_detail.html.py:21
+#: templates/project_list.html:13
 msgid "Client"
 msgstr "Cliente"
 
@@ -118,8 +118,8 @@ msgstr "dueño"
 msgid "due_date"
 msgstr "Fecha de finalización"
 
-#: app/models.py:208 templates/botoncito.html.py:25 templates/profile.html:37
-#: templates/project_list.html.py:9 templates/task_detail.html:20
+#: app/models.py:208 templates/botoncito.html.py:31 templates/profile.html:55
+#: templates/project_list.html.py:12 templates/task_detail.html:20
 msgid "Project"
 msgstr "Proyecto"
 
@@ -159,13 +159,13 @@ msgstr "Tipos de tareas"
 msgid "total_hours"
 msgstr "horas totales"
 
-#: app/models.py:283 templates/profile.html.py:35
-#: templates/project_detail.html:63
+#: app/models.py:283 templates/profile.html.py:53
+#: templates/project_detail.html:84
 msgid "Task"
 msgstr "Tarea"
 
-#: app/models.py:284 templates/profile.html.py:30
-#: templates/project_detail.html:58
+#: app/models.py:284 templates/profile.html.py:48
+#: templates/project_detail.html:79
 msgid "Tasks"
 msgstr "Tareas"
 
@@ -205,23 +205,23 @@ msgstr ""
 "\n"
 "Adiós!"
 
-#: app/views.py:187
+#: app/views.py:195
 msgid "Disabled user"
 msgstr "Usuario desactivado"
 
-#: app/views.py:189
+#: app/views.py:197
 msgid "Incorrect data"
 msgstr "Datos incorrectos"
 
-#: app/views.py:196
+#: app/views.py:204
 msgid "Login"
 msgstr "Login"
 
-#: app/views.py:242 templates/project_detail.html.py:34
+#: app/views.py:250 templates/project_detail.html.py:55
 msgid "Edit project"
 msgstr "Editar proyecto"
 
-#: app/views.py:352 templates/task_detail.html.py:48
+#: app/views.py:360 templates/task_detail.html.py:48
 msgid "Edit task"
 msgstr "Editar tarea"
 
@@ -254,38 +254,38 @@ msgstr "Estadísticas"
 msgid "View profile"
 msgstr "Ver perfil"
 
-#: templates/botoncito.html:1
+#: templates/botoncito.html:5
 msgid "Botoncito"
 msgstr ""
 
-#: templates/botoncito.html:23 templates/get_token.html.py:14
+#: templates/botoncito.html:29 templates/get_token.html.py:14
 msgid "User"
 msgstr "Nombre de usuario"
 
-#: templates/botoncito.html:24
+#: templates/botoncito.html:30
 msgid "Last task"
 msgstr "Última tarea"
 
-#: templates/botoncito.html:26 templates/personal_stats.html.py:18
-#: templates/profile.html:39 templates/project_detail.html.py:22
-#: templates/project_detail.html:67 templates/project_list.html.py:16
+#: templates/botoncito.html:32 templates/personal_stats.html.py:18
+#: templates/profile.html:57 templates/project_detail.html.py:30
+#: templates/project_detail.html:88 templates/project_list.html.py:19
 #: templates/task_detail.html:29
 msgid "Total hours"
 msgstr "Horas totales"
 
-#: templates/botoncito.html:27
+#: templates/botoncito.html:33
 msgid "Days with hours"
 msgstr "Días cargados"
 
-#: templates/botoncito.html:28 templates/profile.html.py:20
+#: templates/botoncito.html:34 templates/profile.html.py:31
 msgid "Weekly hours"
 msgstr "Horas semanales"
 
-#: templates/botoncito.html:29 templates/profile.html.py:22
+#: templates/botoncito.html:35 templates/profile.html.py:34
 msgid "Average hours"
 msgstr "Horas promedio"
 
-#: templates/botoncito.html:30 templates/profile.html.py:24
+#: templates/botoncito.html:36 templates/profile.html.py:37
 msgid "Last input"
 msgstr "Última carga"
 
@@ -337,8 +337,8 @@ msgstr "Calendario"
 msgid "Enter"
 msgstr "Ingresar"
 
-#: templates/login.html:34 templates/profile.html.py:16
-#: templates/project_detail.html:43
+#: templates/login.html:34 templates/profile.html.py:18
+#: templates/project_detail.html:64
 msgid "Username"
 msgstr "Nombre de usuario"
 
@@ -374,8 +374,8 @@ msgstr "Estadísticas"
 msgid "Your stats"
 msgstr "Tus estadísticas"
 
-#: templates/personal_stats.html:17 templates/project_detail.html.py:21
-#: templates/project_list.html:15
+#: templates/personal_stats.html:17 templates/project_detail.html.py:27
+#: templates/project_list.html:18
 msgid "Total tasks"
 msgstr "Tareas totales"
 
@@ -383,15 +383,24 @@ msgstr "Tareas totales"
 msgid "Profile"
 msgstr "Perfil"
 
-#: templates/profile.html:18
+#: templates/profile.html:21 templates/project_detail.html.py:33
+#: templates/project_list.html:16
+msgid "Is active?"
+msgstr "Activo?"
+
+#: templates/profile.html:28
 msgid "Email"
 msgstr "email"
 
-#: templates/profile.html:36 templates/project_detail.html.py:65
+#: templates/profile.html:45
+msgid "Calendar of"
+msgstr "Calendario de"
+
+#: templates/profile.html:54 templates/project_detail.html.py:86
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/profile.html:38 templates/project_detail.html.py:66
+#: templates/profile.html:56 templates/project_detail.html.py:87
 #: templates/task_detail.html:23
 msgid "Date"
 msgstr "Fecha"
@@ -400,40 +409,36 @@ msgstr "Fecha"
 msgid "Project detail"
 msgstr "Detalle de proyecto"
 
-#: templates/project_detail.html:20 templates/project_detail.html.py:64
-#: templates/project_list.html:11 templates/task_detail.html.py:39
+#: templates/project_detail.html:24 templates/project_detail.html.py:85
+#: templates/project_list.html:14 templates/task_detail.html.py:39
 msgid "Owner"
 msgstr "Dueño"
 
-#: templates/project_detail.html:23 templates/project_list.html.py:13
-msgid "Is active?"
-msgstr "Activo?"
-
-#: templates/project_detail.html:25 templates/project_list.html.py:14
+#: templates/project_detail.html:41 templates/project_list.html.py:17
 msgid "Due date"
 msgstr "Fecha de finalización"
 
-#: templates/project_detail.html:28 templates/task_detail.html.py:36
+#: templates/project_detail.html:46 templates/task_detail.html.py:36
 msgid "External url"
 msgstr "URL externo"
 
-#: templates/project_detail.html:37
+#: templates/project_detail.html:58
 msgid "Collaborators"
 msgstr "Colaboradores"
 
-#: templates/project_detail.html:42
+#: templates/project_detail.html:63
 msgid "Name"
 msgstr "Nombre"
 
-#: templates/project_detail.html:44
+#: templates/project_detail.html:65
 msgid "e-mail"
 msgstr "email"
 
-#: templates/project_list.html:1
+#: templates/project_list.html:3
 msgid "Project List"
 msgstr "Lista de proyectos"
 
-#: templates/project_list.html:12
+#: templates/project_list.html:15
 msgid "Color"
 msgstr "Color"
 

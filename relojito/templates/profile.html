@@ -4,8 +4,10 @@
 
 {% block title %}{% trans 'Profile' %}{% endblock %}
 
+
 {% block content %}
 <div class="container">
+<script>var user_id = {{profile.id}};</script>
     <div class="row">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -38,7 +40,15 @@
 
         </div>
       </div>
-      <h4>{% trans 'Tasks' %}</h4>
+
+
+    <h3>{% trans 'Calendar of' %} {{ profile.first_name }} {{profile.last_name}}</h3>
+    <div class="row">
+    <div id='profile-calendar'></div>
+    </div>
+
+    <hr/>
+      <h3>{% trans 'Tasks' %}</h3>
 
       <table class="table table-condensed">
       <thead>

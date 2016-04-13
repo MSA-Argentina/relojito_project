@@ -20,8 +20,12 @@ from .models import Project, ProjectCollaborator, Task, TaskType
 
 
 @login_required
-def total_tasks(request):
-    user = request.user
+def total_tasks(request, user_id=None):
+    if user_id:
+        user = User.objects.get(pk=user_id)
+    else:
+        user = request.user
+
     task_dates = set([t.date for t in user.get_tasks()])
     total = []
     for t in task_dates:
@@ -118,7 +122,11 @@ class TaskAjaxList(JSONResponseMixin, ListView):
     json_dumps_kwargs = {u"indent": 2}
 
     def get_queryset(self):
-        user = self.request.user
+        if self.kwargs:
+            if self.kwargs['user_id']:
+                user = User.objects.get(pk=self.kwargs['user_id'])
+        else:
+            user = self.request.user
         return user.get_tasks()
 
     def get(self, request, *args, **kwargs):
@@ -430,6 +438,6 @@ class ViewProfile(LoginRequiredMixin, UserPassesTestMixin,
         user = User.objects.get(id=self.kwargs['pk'])
         ctx['profile'] = user
         ctx['tasks'] = Task.objects.filter(
-            owner=user).order_by('-created_at')
+            owner=user).order_by('date').all()
 
         return ctx

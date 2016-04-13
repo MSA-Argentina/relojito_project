@@ -40,6 +40,9 @@ urlpatterns = [
     url(r'^total_tasks/$',
         total_tasks, name='total_tasks'),
 
+    url(r'^total_tasks/(?P<user_id>\d+)/$',
+        total_tasks, name='total_tasks'),
+
     url(r'^ajax_stats/$',
         ajax_stats, name='ajax_stats'),
 
@@ -82,11 +85,15 @@ urlpatterns = [
         EditTask.as_view(),
         name='edit_task'),
 
-    url(r'^task/json/(?P<pk>\d+)/$',
+    url(r'^tasks/json/$',
+        TaskAjaxList.as_view(),
+        name='edit_task'),
+
+    url(r'^task/json/(?P<user_id>\d+)/$',
         TaskAjaxDetail.as_view(),
         name='ajax_task_detail'),
 
-    url(r'^tasks/json/$',
+    url(r'^tasks/json/(?P<user_id>\d+)/$',
         TaskAjaxList.as_view(),
         name='edit_task'),
 
