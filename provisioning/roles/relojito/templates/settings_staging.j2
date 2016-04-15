@@ -1,0 +1,71 @@
+# coding: utf-8
+
+from .base import *
+
+SECRET_KEY = 'p^ht)d9&!ij(@!6+s4b=!fz(&6yiw@aln2i#5%&31*9=b-7%l0'
+
+DEBUG = {{relojito_django_debug}}
+
+DJANGO_SETTINGS_MODULE = 'relojito.settings.{{relojito_environment}}'
+
+ALLOWED_HOSTS = '{{relojito_allowed_hosts}}'
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '{{relojito_dbname}}',
+        'USER': '{{relojito_dbuser}}',
+        'PASSWORD': '{{relojito_dbpassword}}',
+        'HOST': '{{relojito_db_host}}',
+        'PORT': '{{relojito_db_port}}',
+        'CONN_MAX_AGE': 60,  # mantiene abiertas las conexiones a la db
+    }
+}
+
+CACHE_TIMEOUT = 1 * 1
+
+INTERNAL_IPS = ('127.0.0.1', '192.168.50.1')
+
+LOG_LEVEL = {{relojito_log_level}}
+LOG_FILE = "{{relojito_log_file}}"
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': LOG_LEVEL,
+            'class': 'logging.FileHandler',
+            'filename': LOG_FILE,
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+            'level': LOG_LEVEL,
+        },
+        'RELOJITO_PROJECT': {
+            'handlers': ['file'],
+            'level': LOG_LEVEL,
+        },
+    }
+}
+
+EMAIL_BACKEND = 'django_mailgun.MailgunBackend'
+DEFAULT_FROM_EMAIL = "{{default_from_email}}"
+MAILGUN_ACCESS_KEY = "{{mailgun_access_key}}"
+MAILGUN_SERVER_NAME = "{{mailgun_server_name}}"
+SITE_URL = "{{site_url}}"
+ALERT_USERS_BLACKLIST = {{alert_users_blacklist}}
+ADMIN_USERS_EMAIL = "{{admin_users_email}}"
