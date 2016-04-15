@@ -99,9 +99,6 @@
       - gettext
       - fortune
 
-  - name: Creating virtualenv with Python 3
-    command: virtualenv --python=/usr/bin/python3 {{relojito_virtualenv_dir}}
-
   - name: Altering venv directory permissions
     file:
       mode="g=rwX"
@@ -117,6 +114,7 @@
     pip:
       requirements={{relojito_requirements}}
       virtualenv={{relojito_virtualenv_dir}}
+      virtualenv_python=python3
     become_user: "{{relojito_default_user}}"
     tags:
       - requirements
@@ -128,16 +126,6 @@
     become_user: "{{relojito_default_user}}"
     tags:
       - requirements
-
-  - name: Using uwsgi binary from virtualenv
-    template:
-      src=uwsgi_upstart.conf.j2
-      dest=/etc/init/{{uwsgi_service_name}}.conf
-      owner=root
-      mode=644
-      backup=yes
-    tags:
-      - deploy
 
   - name: Copying celery configuration template
     template:
@@ -153,6 +141,15 @@
       dest={{relojito_main_dir}}/relojito/relojito/settings/development.py
       backup=no
     when: relojito_environment == 'development'
+    tags:
+      - deploy
+
+  - name: Copying staging configuration template
+    template:
+      src=settings_staging.j2
+      dest={{relojito_main_dir}}/relojito/relojito/settings/staging.py
+      backup=no
+    when: relojito_environment == 'staging'
     tags:
       - deploy
 
@@ -196,10 +193,31 @@
       dest=/etc/uwsgi/apps_enabled/relojito_uwsgi.ini
       state=link
 
-  - name: Copying configuration for supervisor
+  - name: Copying systemd celery unit template
     template:
-      src=supervisord_relojito.conf.j2
-      dest=/etc/supervisor/conf.d/relojito_operaciones.conf
+      src=celery_relojito.service.j2
+      dest=/etc/systemd/system/celery_relojito.service
+    tags:
+      - deploy
+
+  - name: Enabling systemd celery service
+    service:
+      name=celery_relojito.service
+      enabled=yes
+    tags:
+      - deploy
+
+  - name: Copying systemd uwsgi unit template
+    template:
+      src=uwsgi.service.j2
+      dest=/etc/systemd/system/uwsgi.service
+    tags:
+      - deploy
+
+  - name: Enabling systemd uwsgi service
+    service:
+      name=uwsgi.service
+      enabled=yes
     tags:
       - deploy
 
@@ -218,7 +236,7 @@
     tags:
       - deploy
 
-  - name: Collecting statics
+  - name: Collecting static files
     django_manage:
       command=collectstatic
       virtualenv={{relojito_virtualenv_dir}}
@@ -243,13 +261,6 @@
   - name: Restarting nginx
     service:
       name=nginx
-      state=restarted
-    tags:
-      - restart
-
-  - name: Restart supervisord
-    service:
-      name=supervisord
       state=restarted
     tags:
       - restart

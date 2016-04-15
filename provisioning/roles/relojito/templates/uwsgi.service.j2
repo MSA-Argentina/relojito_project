@@ -1,0 +1,8 @@
+[Unit]
+Description=uWSGI for Relojito
+
+[Service]
+ExecStart={{relojito_virtualenv_dir}}/bin/uwsgi --die-on-term {{uwsgi_config_directory}}/{{uwsgi_config_file}}
+
+[Install]
+WantedBy=multi-user.target

@@ -3,5 +3,4 @@ dependencies:
 - { role: postgresql }
 - { role: uwsgi }
 - { role: redis }
-- { role: supervisor }
 - { role: nginx }

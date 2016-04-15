@@ -1,0 +1,10 @@
+[Unit]
+Description=Celery for Relojito Project
+
+[Service]
+ExecStart={{relojito_virtualenv_dir}}/bin/celery -A relojito worker -B --loglevel=info --schedule=/tmp/beat_relojito.db
+WorkingDirectory={{relojito_main_dir}}/relojito
+User={{relojito_default_user}}
+
+[Install]
+WantedBy=multi-user.target
