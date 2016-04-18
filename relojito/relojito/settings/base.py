@@ -137,6 +137,11 @@ CELERYBEAT_SCHEDULE = {
         'task': 'app.tasks.weekly_irregular_users',
         'schedule': crontab(hour=10, minute=00, day_of_week='mon')
     },
+    # Disable all overdue projects
+    'weekly_overdue_cleaning': {
+        'task': 'app.tasks.disable_overdue_projects',
+        'schedule': crontab(hour=8, minute=00, day_of_week='mon')
+    },
 }
 
 ALERT_USERS_BLACKLIST = []

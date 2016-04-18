@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.utils.translation import ugettext as _
 
-from .models import Holiday, Task
+from .models import Holiday, Project, Task
 
 
 def get_fortune():
@@ -34,6 +34,18 @@ def verify_yesterday_tasks(user):
     return Task.objects.filter(date=yesterday, owner=user).exists()
 
 
+@task()
+def disable_overdue_projects():
+    """Disable all projects with an overdue date"""
+    today = date.today()
+    overdue_projects = Project.objects.filter(is_active=True,
+                                              due_date__lt=today).all()
+    for op in overdue_projects:
+        op.is_active = False
+        op.save()
+
+
+@task()
 def weekly_irregular_users():
     """Sends a weekly hall of shame email to admin users."""
 
