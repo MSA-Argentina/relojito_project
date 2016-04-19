@@ -292,6 +292,7 @@ class Task(models.Model):
         verbose_name = _('Task')
         verbose_name_plural = _('Tasks')
         get_latest_by = "created_at"
+        ordering = ['-date']
 
     def __str__(self):
         return "{}".format(self.name)

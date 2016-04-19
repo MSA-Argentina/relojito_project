@@ -276,11 +276,11 @@ class ProjectDetail(LoginRequiredMixin, DetailView):
         if user.is_superuser or self.object.owner == user \
            or user.groups.filter(name='audit').exists():
             ctx['tasks'] = Task.objects.filter(
-                project=self.object).order_by('created_at')
+                project=self.object).all()
         else:
             ctx['tasks'] = Task.objects.filter(owner=user,
                                                project=self.object).\
-                order_by('-created_at')
+                                               all()
         return ctx
 
 
