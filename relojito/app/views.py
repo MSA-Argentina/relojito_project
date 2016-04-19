@@ -438,6 +438,6 @@ class ViewProfile(LoginRequiredMixin, UserPassesTestMixin,
         user = User.objects.get(id=self.kwargs['pk'])
         ctx['profile'] = user
         ctx['tasks'] = Task.objects.filter(
-            owner=user).order_by('date').all()
+            owner=user).order_by('-date').all()
 
         return ctx

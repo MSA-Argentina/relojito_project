@@ -65,9 +65,11 @@ $(function(){
 
     $('.table').dataTable({
         "language": {
-            "url": "//cdn.datatables.net/plug-ins/a5734b29083/i18n/Spanish.json"
+            "url": "/static/js/lib/datatables-spanish.json"
         },
         "iDisplayLength": 10,
+        /* Disable initial sort */
+        "aaSorting": [],
         "bStateSave": true,
         "sDom": 'T<"clear">lfrtip',
         "oTableTools": {
