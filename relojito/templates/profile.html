@@ -36,11 +36,18 @@
 
                 {% with t=profile.get_last_inserted_task %}
                 <dt>{% trans 'Last input' %}</dt>
-                <dd>{{t.date}} / {{t}} - {% trans 'Inserted on:' %} {{ t.created_at }}</dd>
+
+
+
+                <dd>{{t.date}} / <a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a> - {% trans 'Inserted on:' %} {{ t.created_at }}</dd>
+
+                {% endwith %}
+                <dt>{% trans 'Last task' %}</dt>
+
+                {% with t=profile.get_last_task %}
+                <dd>{{t.date}} / <a href="{% url 'task_detail' pk=t.id %}">{{t.name}}</a></dd>
                 {% endwith %}
 
-                <dt>{% trans 'Last task' %}</dt>
-                <dd>{{profile.get_last_task.date}} / {{profile.get_last_task}}</dd>
             </dl>
 
         </div>
